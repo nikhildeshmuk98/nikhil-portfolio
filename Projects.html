@@ -1,0 +1,648 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Projects | Nikhil Dandolu</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary-dark: #0a1929;
+            --primary-green: #0d3b2e;
+            --accent-green: #2e8b57;
+            --light-green: #4caf50;
+            --text-light: #e0e0e0;
+            --text-white: #ffffff;
+            --glass-bg: rgba(13, 59, 46, 0.25);
+            --glass-border: rgba(76, 175, 80, 0.2);
+            --glow-color: rgba(46, 139, 87, 0.6);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            background: linear-gradient(135deg, var(--primary-dark) 0%, var(--primary-green) 100%);
+            color: var(--text-light);
+            overflow-x: hidden;
+            min-height: 100vh;
+        }
+
+        /* Navigation */
+        .nav-container {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            padding: 1.2rem 5%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: var(--glass-bg);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            border-bottom: 1px solid var(--glass-border);
+            z-index: 1000;
+            transition: all 0.3s ease;
+        }
+
+        .back-btn {
+            background: transparent;
+            border: none;
+            color: var(--text-light);
+            font-size: 1.5rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .back-btn:hover {
+            color: var(--accent-green);
+            transform: translateX(-5px);
+        }
+
+        .nav-title {
+            font-weight: 600;
+            color: var(--text-white);
+            font-size: 1.4rem;
+        }
+
+        /* Main Container */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 8rem 2rem 4rem;
+        }
+
+        /* Profile Section */
+        .profile-section {
+            text-align: center;
+            margin-bottom: 3rem;
+            opacity: 0;
+            transform: translateY(30px);
+            transition: opacity 1s ease, transform 1s ease;
+        }
+
+        .profile-section.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .profile-img {
+            width: 220px;
+            height: 220px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 5px solid var(--accent-green);
+            box-shadow: 0 0 30px var(--glow-color);
+            margin-bottom: 2rem;
+            transition: all 0.5s ease;
+        }
+
+        .profile-img:hover {
+            transform: scale(1.05);
+            box-shadow: 0 0 40px var(--glow-color);
+        }
+
+        /* Social Media Icons */
+        .social-icons {
+            display: flex;
+            justify-content: center;
+            gap: 1.5rem;
+            margin-bottom: 2rem;
+        }
+
+        .social-icon {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: var(--glass-bg);
+            backdrop-filter: blur(10px);
+            border: 1px solid var(--glass-border);
+            color: var(--text-light);
+            font-size: 1.5rem;
+            transition: all 0.3s ease;
+            text-decoration: none;
+        }
+
+        .social-icon:hover {
+            background: var(--accent-green);
+            transform: translateY(-5px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+        }
+
+        .github:hover { background: #333; }
+        .linkedin:hover { background: #0077b5; }
+        .whatsapp:hover { background: #25d366; }
+        .instagram:hover { 
+            background: radial-gradient(circle at 30% 107%, #fdf497 0%, #fdf497 5%, #fd5949 45%, #d6249f 60%, #285AEB 90%);
+        }
+
+        /* Explore Text */
+        .explore-text {
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: var(--text-white);
+            margin-bottom: 3rem;
+            text-align: center;
+            position: relative;
+            display: inline-block;
+            opacity: 0;
+            transform: translateY(20px);
+            transition: all 0.8s ease 0.3s;
+        }
+
+        .profile-section.visible .explore-text {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .explore-text::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 100px;
+            height: 3px;
+            background: var(--accent-green);
+            border-radius: 2px;
+        }
+
+        /* Projects Section */
+        .projects-section {
+            opacity: 0;
+            transform: translateY(50px);
+            transition: opacity 1s ease, transform 1s ease;
+        }
+
+        .projects-section.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .projects-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(500px, 1fr));
+            gap: 3rem;
+            margin-top: 2rem;
+        }
+
+        /* Glass Cards */
+        .glass-card {
+            background: var(--glass-bg);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            border: 1px solid var(--glass-border);
+            border-radius: 20px;
+            padding: 2rem;
+            transition: all 0.5s ease;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+            position: relative;
+            overflow: hidden;
+            opacity: 0;
+            transform: translateY(30px);
+        }
+
+        .projects-section.visible .glass-card {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .glass-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.1), transparent);
+            transition: all 0.6s ease;
+        }
+
+        .glass-card:hover::before {
+            left: 100%;
+        }
+
+        .glass-card:hover {
+            transform: translateY(-15px);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.2);
+            border-color: var(--accent-green);
+            background: rgba(13, 59, 46, 0.4);
+        }
+
+        .project-img {
+            width: 100%;
+            height: 250px;
+            object-fit: cover;
+            border-radius: 15px;
+            margin-bottom: 1.5rem;
+            border: 1px solid var(--glass-border);
+            transition: all 0.5s ease;
+        }
+
+        .glass-card:hover .project-img {
+            transform: scale(1.03);
+        }
+
+        .project-title {
+            font-size: 1.8rem;
+            margin-bottom: 1rem;
+            color: var(--text-white);
+            font-weight: 600;
+        }
+
+        .project-description {
+            font-size: 1.1rem;
+            line-height: 1.6;
+            margin-bottom: 2rem;
+            color: var(--text-light);
+        }
+
+        .project-tech {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.7rem;
+            margin-bottom: 2rem;
+        }
+
+        .tech-tag {
+            background: rgba(46, 139, 87, 0.2);
+            color: var(--light-green);
+            padding: 0.4rem 1rem;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            border: 1px solid rgba(76, 175, 80, 0.3);
+        }
+
+        .project-buttons {
+            display: flex;
+            gap: 1rem;
+        }
+
+        .project-btn {
+            flex: 1;
+            padding: 0.9rem 1.5rem;
+            border-radius: 30px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            text-align: center;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+        }
+
+        .github-btn {
+            background: transparent;
+            color: var(--text-light);
+            border: 2px solid var(--glass-border);
+        }
+
+        .github-btn:hover {
+            background: rgba(255, 255, 255, 0.1);
+            border-color: var(--accent-green);
+            transform: translateY(-5px);
+        }
+
+        .demo-btn {
+            background: var(--accent-green);
+            color: var(--text-white);
+            border: 2px solid var(--accent-green);
+        }
+
+        .demo-btn:hover {
+            background: var(--light-green);
+            transform: translateY(-5px);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
+        }
+
+        /* Floating Animation */
+        @keyframes float {
+            0% { transform: translateY(0px); }
+            50% { transform: translateY(-10px); }
+            100% { transform: translateY(0px); }
+        }
+
+        .floating {
+            animation: float 5s ease-in-out infinite;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 992px) {
+            .projects-container {
+                grid-template-columns: 1fr;
+            }
+            
+            .profile-img {
+                width: 200px;
+                height: 200px;
+            }
+            
+            .explore-text {
+                font-size: 2.2rem;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                padding: 7rem 1.5rem 3rem;
+            }
+            
+            .profile-img {
+                width: 180px;
+                height: 180px;
+            }
+            
+            .explore-text {
+                font-size: 2rem;
+            }
+            
+            .projects-container {
+                grid-template-columns: 1fr;
+            }
+            
+            .project-buttons {
+                flex-direction: column;
+            }
+            
+            .glass-card {
+                padding: 1.5rem;
+            }
+        }
+
+        @media (max-width: 576px) {
+            .container {
+                padding: 6rem 1rem 2rem;
+            }
+            
+            .profile-img {
+                width: 160px;
+                height: 160px;
+            }
+            
+            .explore-text {
+                font-size: 1.8rem;
+            }
+            
+            .social-icon {
+                width: 45px;
+                height: 45px;
+                font-size: 1.3rem;
+            }
+            
+            .projects-container {
+                grid-template-columns: 1fr;
+            }
+            
+            .glass-card {
+                padding: 1.5rem;
+            }
+            
+            .project-title {
+                font-size: 1.6rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <div class="nav-container">
+        <button class="back-btn" onclick="window.location.href='index.html'">
+            <i class="fas fa-arrow-left"></i>
+        </button>
+        <h1 class="nav-title">My Projects</h1>
+        <div></div> <!-- Empty div for spacing -->
+    </div>
+
+    <!-- Main Container -->
+    <div class="container">
+        <!-- Profile Section -->
+        <section class="profile-section">
+            <img src="images/nikhildeshmuk.png" alt="Nikhil Dandolu" class="profile-img floating">
+            
+            <!-- Social Media Icons -->
+            <div class="social-icons">
+                <a href="https://github.com/nikhildeshmuk98" class="social-icon github" target="_blank" rel="noopener noreferrer">
+                    <i class="fab fa-github"></i>
+                </a>
+                <a href="https://in.linkedin.com/in/nikhil-dandolu-a9122b33b" target="_blank" class="social-icon linkedin">
+                    <i class="fab fa-linkedin"></i>
+                </a>
+                <a href="https://wa.me/916309872249" class="social-icon whatsapp" target="_blank">
+                    <i class="fab fa-whatsapp"></i>
+                </a>
+                <a href="https://www.instagram.com/nikhil_deshmuk_14" target="_blank" class="social-icon instagram">
+                    <i class="fab fa-instagram"></i>
+                </a>
+            </div>
+            
+            <h2 class="explore-text">Explore My Projects</h2>
+        </section>
+
+        <!-- Projects Section -->
+        <section class="projects-section" id="projectsSection">
+            <div class="projects-container">
+                <!-- Project 1: E-commerce Website -->
+                <div class="glass-card" style="transition-delay: 0.1s">
+                    <img src="images/freshmart grocery.png" 
+                         alt="Fresh Mart Grocery Store" class="project-img">
+                    <h3 class="project-title">Fresh Mart - Grocery Store</h3>
+                    <p class="project-description">
+                        A fully responsive e-commerce website for a grocery store with product catalog, shopping cart, 
+                        user authentication, and payment integration. Built with modern web technologies for a seamless shopping experience.
+                    </p>
+                    <div class="project-tech">
+                        <span class="tech-tag">HTML5</span>
+                        <span class="tech-tag">CSS3</span>
+                        <span class="tech-tag">JavaScript</span>
+                       
+                    </div>
+                    <div class="project-buttons">
+                        <a href="https://github.com/nikhildeshmuk98" class="project-btn github-btn" target="_blank">
+                            <i class="fab fa-github"></i> GitHub
+                        </a>
+                        <a href="https://fresh-mart-nikhil.vercel.app/" class="project-btn demo-btn" target="_blank">
+                            <i class="fas fa-external-link-alt"></i> Live Demo
+                        </a>
+                    </div>
+                </div>
+                
+                <!-- Project 2: Portfolio Website -->
+                <div class="glass-card" style="transition-delay: 0.3s">
+                    <img src="images/nikhil portifolio.png" 
+                         alt="Portfolio Website" class="project-img">
+                    <h3 class="project-title">Portfolio Website</h3>
+                    <p class="project-description">
+                        A modern, responsive portfolio website showcasing home,about,skills, projects, and certificationsand contact. 
+                        Features smooth animations, dark green and black theme glassmorphism background, and optimized performance for all devices.
+                    </p>
+                    <div class="project-tech">
+                        <span class="tech-tag">HTML5</span>
+                        <span class="tech-tag">CSS3</span>
+                        <span class="tech-tag">JavaScript</span>
+                       
+                    </div>
+                    <div class="project-buttons">
+                        <a href="https://github.com/nikhildeshmuk98" class="project-btn github-btn" target="_blank">
+                            <i class="fab fa-github"></i> GitHub
+                        </a>
+                        <a href="jayampu-guru-kiyara-gallery.vercel.app" class="project-btn demo-btn" target="_blank">
+                            <i class="fas fa-external-link-alt"></i> Live Demo
+                        </a>
+                    </div>
+                </div>
+                <!-- Project 2: Gluco Care - Diabetes web app -->
+                <div class="glass-card" style="transition-delay: 0.3s">
+                    <img src="images/gluco care.png" 
+                         alt="Gluco Care - Diabetes web app" class="project-img">
+                    <h3 class="project-title">Gluco Care - Diabetes Web app</h3>
+                    <p class="project-description">
+                       A responsive diabetes monitoring web application that helps users understand fasting and post-meal glucose levels and identify normal, prediabetes, or high-risk conditions. The app provides clear health guidance, diet awareness, and precautionary insights through a user-friendly and medically themed interface.
+                    </p>
+                    <div class="project-tech">
+                        <span class="tech-tag">HTML5</span>
+                        <span class="tech-tag">CSS3</span>
+                        <span class="tech-tag">JavaScript</span>
+                       
+                    </div>
+                    <div class="project-buttons">
+                        <a href="https://github.com/nikhildeshmuk98" class="project-btn github-btn" target="_blank">
+                            <i class="fab fa-github"></i> GitHub
+                        </a>
+                        <a href="https://gluco-care-diabetes.vercel.app/" class="project-btn demo-btn" target="_blank">
+                            <i class="fas fa-external-link-alt"></i> Live Demo
+                        </a>
+                    </div>
+                </div>
+                 <!-- Project 2: health & hygenic -->
+                <div class="glass-card" style="transition-delay: 0.3s">
+                    <img src="images/healthhygenic.png" 
+                         alt="Health & Hyhenic" class="project-img">
+                    <h3 class="project-title">Health & Hygenic</h3>
+                   <p class="project-description">
+    A community service project focused on promoting health and hygiene awareness among rural villagers. 
+    The initiative included interactive sessions, demonstrations on proper handwashing techniques, and discussions on sanitation and healthy living practices. 
+    Emphasizes teamwork, social responsibility, and real-world community engagement for a positive social impact.
+</p>
+
+                    <div class="project-tech">
+                        <span class="tech-tag">HTML5</span>
+                        <span class="tech-tag">CSS3</span>
+                        <span class="tech-tag">JavaScript</span>
+                       
+                    </div>
+                    <div class="project-buttons">
+                        <a href="https://github.com/nikhildeshmuk98" class="project-btn github-btn" target="_blank">
+                            <i class="fab fa-github"></i> GitHub
+                        </a>
+                        <a href="https://health-hygenic-nikhildeshmuk.vercel.app/" class="project-btn demo-btn" target="_blank">
+                            <i class="fas fa-external-link-alt"></i> Live Demo
+                        </a>
+                    </div>
+                </div>
+ <!-- Project 4: kiayar's Gallery -->
+                <div class="glass-card" style="transition-delay: 0.3s">
+                    <img src="images/kiaras gallery.png" 
+                         alt="kiayar's Gallery" class="project-img">
+                    <h3 class="project-title">memories of my cutiepie</h3>
+                   <p class="project-description">
+   Kiara’s Gallery is a charming personal website showcasing the magical world and memories of Princess Kiayara, inviting visitors to explore an enchanting digital gallery filled with love and joy. It’s crafted as a whimsical online space celebrating special moments and treasured experiences.
+</p>
+
+                    <div class="project-tech">
+                        <span class="tech-tag">HTML5</span>
+                        <span class="tech-tag">CSS3</span>
+                        <span class="tech-tag">JavaScript</span>
+                       
+                    </div>
+                    <div class="project-buttons">
+                        <a href="https://github.com/nikhildeshmuk98" class="project-btn github-btn" target="_blank">
+                            <i class="fab fa-github"></i> GitHub
+                        </a>
+                        <a href="https://jayampu-guru-kiyara-gallery.vercel.app/" class="project-btn demo-btn" target="_blank">
+                            <i class="fas fa-external-link-alt"></i> Live Demo
+                        </a>
+                    </div>
+                </div>
+                <!-- Project 5: morning bites bill generating web app -->
+                <div class="glass-card" style="transition-delay: 0.3s">
+                    <img src="images/billing.png" 
+                         alt="Morning Bites billing web app" class="project-img">
+                    <h3 class="project-title">Morning Bites billing web app </h3>
+                   <p class="project-description">
+A responsive Restaurant Billing Web App built using HTML, CSS, and JavaScript that helps generate bills, manage menu items, and calculate GST automatically. Designed with a clean dashboard and smooth navigation for fast and easy hotel billing operations.</p>
+
+                    <div class="project-tech">
+                        <span class="tech-tag">HTML5</span>
+                        <span class="tech-tag">CSS3</span>
+                        <span class="tech-tag">JavaScript</span>
+                       
+                    </div>
+                    <div class="project-buttons">
+                        <a href="https://github.com/nikhildeshmuk98" class="project-btn github-btn" target="_blank">
+                            <i class="fab fa-github"></i> GitHub
+                        </a>
+                        <a href= "https://morning-bite-billing-webapp.vercel.app/" class="project-btn demo-btn" target="_blank">
+                            <i class="fas fa-external-link-alt"></i> Live Demo
+                        </a>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+    </div>
+
+    <script>
+        // Magical Scroll Transitions
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+        
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                    
+                    // Add staggered animation for project cards
+                    if (entry.target.classList.contains('projects-section')) {
+                        const projectCards = entry.target.querySelectorAll('.glass-card');
+                        
+                        projectCards.forEach((card, index) => {
+                            setTimeout(() => {
+                                card.style.transitionDelay = `${index * 200}ms`;
+                                card.classList.add('visible');
+                            }, 300);
+                        });
+                    }
+                }
+            });
+        }, observerOptions);
+        
+        // Observe profile section and projects section
+        observer.observe(document.querySelector('.profile-section'));
+        observer.observe(document.querySelector('.projects-section'));
+        
+        // Make profile section visible immediately
+        document.querySelector('.profile-section').classList.add('visible');
+    </script>
+</body>
+</html>

@@ -1,0 +1,1218 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Skills | Nikhil Dandolu</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary-dark: #0a1929;
+            --primary-green: #0d3b2e;
+            --accent-green: #2e8b57;
+            --light-green: #4caf50;
+            --text-light: #e0e0e0;
+            --text-white: #ffffff;
+            --glass-bg: rgba(13, 59, 46, 0.25);
+            --glass-border: rgba(76, 175, 80, 0.2);
+            --glow-color: rgba(46, 139, 87, 0.6);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            background: linear-gradient(135deg, var(--primary-dark) 0%, var(--primary-green) 100%);
+            color: var(--text-light);
+            overflow-x: hidden;
+            min-height: 100vh;
+        }
+
+        /* Navigation */
+        .nav-container {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            padding: 1.2rem 5%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: var(--glass-bg);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            border-bottom: 1px solid var(--glass-border);
+            z-index: 1000;
+            transition: all 0.3s ease;
+        }
+
+        .back-btn {
+            background: transparent;
+            border: none;
+            color: var(--text-light);
+            font-size: 1.5rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .back-btn:hover {
+            color: var(--accent-green);
+            transform: translateX(-5px);
+        }
+
+        .nav-title {
+            font-weight: 600;
+            color: var(--text-white);
+            font-size: 1.4rem;
+        }
+
+        /* Main Container */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 8rem 2rem 4rem;
+        }
+
+        /* Profile Section */
+        .profile-section {
+            text-align: center;
+            margin-bottom: 3rem;
+            opacity: 0;
+            transform: translateY(30px);
+            transition: opacity 1s ease, transform 1s ease;
+        }
+
+        .profile-section.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .profile-img {
+            width: 220px;
+            height: 220px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 5px solid var(--accent-green);
+            box-shadow: 0 0 30px var(--glow-color);
+            margin-bottom: 2rem;
+            transition: all 0.5s ease;
+        }
+
+        .profile-img:hover {
+            transform: scale(1.05);
+            box-shadow: 0 0 40px var(--glow-color);
+        }
+
+        .explore-text {
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: var(--text-white);
+            margin-bottom: 3rem;
+            text-align: center;
+            position: relative;
+            display: inline-block;
+            opacity: 0;
+            transform: translateY(20px);
+            transition: all 0.8s ease 0.3s;
+        }
+
+        .profile-section.visible .explore-text {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .explore-text::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 100px;
+            height: 3px;
+            background: var(--accent-green);
+            border-radius: 2px;
+        }
+
+        /* Social Media Icons */
+        .social-links {
+            display: flex;
+            justify-content: center;
+            gap: 25px;
+            margin-top: 15px;
+            margin-bottom: 2rem;
+        }
+
+        .social-icon {
+            width: 55px;
+            height: 55px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: var(--glass-bg);
+            backdrop-filter: blur(10px);
+            border: 1px solid var(--glass-border);
+            font-size: 1.5rem;
+            transition: all 0.3s ease;
+            text-decoration: none;
+        }
+
+        .social-icon:hover {
+            transform: translateY(-5px) scale(1.1);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+        }
+
+        .social-icon.github {
+            color: #fff;
+        }
+        .social-icon.github:hover {
+            background: #333;
+        }
+        .social-icon.linkedin {
+            color: #fff;
+        }
+        .social-icon.linkedin:hover {
+            background: #0077b5;
+        }
+        .social-icon.whatsapp {
+            color: #fff;
+        }
+        .social-icon.whatsapp:hover {
+            background: #25d366;
+        }
+        .social-icon.instagram {
+            color: #fff;
+        }
+        .social-icon.instagram:hover {
+            background: radial-gradient(circle at 30% 107%, #fdf497 0%, #fdf497 5%, #fd5949 45%, #d6249f 60%, #285AEB 90%);
+        }
+
+        /* Skills Section */
+        .skills-section {
+            opacity: 0;
+            transform: translateY(50px);
+            transition: opacity 1s ease, transform 1s ease;
+        }
+
+        .skills-section.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .skills-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(500px, 1fr));
+            gap: 3rem;
+            margin-top: 2rem;
+        }
+
+        /* Glass Cards */
+        .glass-card {
+            background: var(--glass-bg);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            border: 1px solid var(--glass-border);
+            border-radius: 20px;
+            padding: 1.5rem;
+            transition: all 0.5s ease;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .glass-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.1), transparent);
+            transition: all 0.8s ease;
+        }
+
+        .glass-card:hover::before {
+            left: 100%;
+        }
+
+        .glass-card:hover {
+            transform: translateY(-15px);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+            border-color: var(--accent-green);
+            background: rgba(13, 59, 46, 0.4);
+        }
+
+        .skills-card {
+            padding: 2rem;
+        }
+
+        .skills-card h3 {
+            font-size: 1.8rem;
+            margin-bottom: 1.5rem;
+            color: var(--text-white);
+            text-align: center;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 1rem;
+        }
+
+        .skill-category {
+            margin-bottom: 2rem;
+            opacity: 0;
+            transform: translateY(20px);
+            transition: all 0.5s ease;
+        }
+
+        .skills-section.visible .skill-category {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .skill-category h4 {
+            font-size: 1.3rem;
+            margin-bottom: 1rem;
+            color: var(--accent-green);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            padding-bottom: 0.5rem;
+            display: flex;
+            align-items: center;
+            gap: 0.7rem;
+        }
+
+        .skill-items {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+            gap: 1rem;
+        }
+
+        .skill-item {
+            text-align: center;
+            padding: 1.2rem;
+            background: rgba(0, 0, 0, 0.2);
+            border-radius: 12px;
+            transition: all 0.4s ease;
+            cursor: pointer;
+            opacity: 0;
+            transform: translateY(20px);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .skill-item::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(45deg, transparent, rgba(255, 255, 255, 0.05), transparent);
+            transform: translateX(-100%);
+            transition: transform 0.6s ease;
+        }
+
+        .skill-item:hover::before {
+            transform: translateX(100%);
+        }
+
+        .skills-section.visible .skill-item {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .skill-item:hover {
+            background: rgba(46, 139, 87, 0.2);
+            transform: translateY(-8px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+        }
+
+        .skill-icon {
+            font-size: 2.8rem;
+            margin-bottom: 0.8rem;
+            transition: all 0.3s ease;
+        }
+
+        .skill-item:hover .skill-icon {
+            transform: scale(1.2);
+        }
+
+        .html { color: #e34f26; }
+        .css { color: #1572b6; }
+        .js { color: #f7df1e; }
+        .react { color: #61dafb; }
+        .python { color: #3776ab; }
+        .django { color: #092e20; }
+        .git { color: #f05032; }
+        .github { color: #181717; }
+        .vscode { color: #007acc; }
+        .excel { color: #217346; }
+        .powerbi { color: #f2c811; }
+        .mysql { color: #4479a1; }
+
+        .soft-skills {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 1rem;
+        }
+
+        .soft-skill {
+            background: rgba(0, 0, 0, 0.2);
+            padding: 1.5rem 1rem;
+            border-radius: 12px;
+            transition: all 0.4s ease;
+            text-align: center;
+            cursor: pointer;
+            opacity: 0;
+            transform: translateY(20px);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .soft-skill::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(45deg, transparent, rgba(255, 255, 255, 0.05), transparent);
+            transform: translateX(-100%);
+            transition: transform 0.6s ease;
+        }
+
+        .soft-skill:hover::before {
+            transform: translateX(100%);
+        }
+
+        .skills-section.visible .soft-skill {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .soft-skill:hover {
+            background: rgba(46, 139, 87, 0.2);
+            transform: translateY(-8px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+        }
+
+        .soft-skill-icon {
+            font-size: 2.5rem;
+            margin-bottom: 0.8rem;
+            color: var(--light-green);
+            transition: all 0.3s ease;
+        }
+
+        .soft-skill:hover .soft-skill-icon {
+            transform: scale(1.2);
+        }
+
+        /* Skill Detail Modal */
+        .modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.9);
+            backdrop-filter: blur(5px);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 2000;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s ease;
+        }
+
+        .modal-overlay.active {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .modal-content {
+            background: var(--glass-bg);
+            backdrop-filter: blur(15px);
+            -webkit-backdrop-filter: blur(15px);
+            border: 1px solid var(--glass-border);
+            border-radius: 25px;
+            padding: 2.5rem;
+            max-width: 700px;
+            width: 90%;
+            max-height: 90vh;
+            overflow-y: auto;
+            position: relative;
+            transform: scale(0.8);
+            transition: all 0.3s ease;
+            box-shadow: 0 0 50px var(--glow-color);
+        }
+
+        .modal-overlay.active .modal-content {
+            transform: scale(1);
+        }
+
+        .close-modal {
+            position: absolute;
+            top: 1.5rem;
+            right: 1.5rem;
+            background: transparent;
+            border: none;
+            color: var(--text-light);
+            font-size: 1.8rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            width: 45px;
+            height: 45px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .close-modal:hover {
+            background: rgba(255, 255, 255, 0.1);
+            color: var(--accent-green);
+            transform: rotate(90deg);
+        }
+
+        .modal-header {
+            display: flex;
+            align-items: center;
+            gap: 1.5rem;
+            margin-bottom: 2rem;
+        }
+
+        .modal-icon {
+            font-size: 4rem;
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: rgba(0, 0, 0, 0.2);
+        }
+
+        .modal-info h3 {
+            font-size: 2.2rem;
+            margin-bottom: 0.5rem;
+            color: var(--text-white);
+        }
+
+        .modal-info p {
+            color: var(--light-green);
+            font-size: 1.3rem;
+        }
+
+        .modal-details {
+            margin-top: 2rem;
+        }
+
+        .modal-details p {
+            line-height: 1.8;
+            margin-bottom: 1.5rem;
+            font-size: 1.1rem;
+        }
+
+        .skill-level {
+            margin-top: 1.5rem;
+        }
+
+        .skill-level h4 {
+            font-size: 1.2rem;
+            margin-bottom: 0.8rem;
+            color: var(--accent-green);
+        }
+
+        .level-bar {
+            height: 10px;
+            background: rgba(0, 0, 0, 0.2);
+            border-radius: 5px;
+            overflow: hidden;
+        }
+
+        .level-progress {
+            height: 100%;
+            background: var(--accent-green);
+            border-radius: 5px;
+            transition: width 1s ease;
+            position: relative;
+        }
+
+        .level-progress::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+            animation: shimmer 2s infinite;
+        }
+
+        @keyframes shimmer {
+            0% { transform: translateX(-100%); }
+            100% { transform: translateX(100%); }
+        }
+
+        /* Floating Animation */
+        @keyframes float {
+            0% { transform: translateY(0px); }
+            50% { transform: translateY(-15px); }
+            100% { transform: translateY(0px); }
+        }
+
+        .floating {
+            animation: float 6s ease-in-out infinite;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 992px) {
+            .skills-container {
+                grid-template-columns: 1fr;
+            }
+            
+            .profile-img {
+                width: 200px;
+                height: 200px;
+            }
+            
+            .explore-text {
+                font-size: 2.2rem;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                padding: 7rem 1.5rem 3rem;
+            }
+            
+            .profile-img {
+                width: 180px;
+                height: 180px;
+            }
+            
+            .explore-text {
+                font-size: 2rem;
+            }
+            
+            .skills-container {
+                grid-template-columns: 1fr;
+            }
+            
+            .skill-items {
+                grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
+            }
+            
+            .soft-skills {
+                grid-template-columns: repeat(auto-fit, minmax(130px, 1fr));
+            }
+            
+            .modal-header {
+                flex-direction: column;
+                text-align: center;
+            }
+            
+            .modal-icon {
+                font-size: 3.5rem;
+                width: 80px;
+                height: 80px;
+            }
+        }
+
+        @media (max-width: 576px) {
+            .container {
+                padding: 6rem 1rem 2rem;
+            }
+            
+            .profile-img {
+                width: 160px;
+                height: 160px;
+            }
+            
+            .explore-text {
+                font-size: 1.8rem;
+            }
+            
+            .social-icon {
+                width: 50px;
+                height: 50px;
+                font-size: 1.3rem;
+            }
+            
+            .skill-items {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            
+            .soft-skills {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            
+            .modal-content {
+                padding: 1.5rem;
+            }
+            
+            .modal-info h3 {
+                font-size: 1.8rem;
+            }
+            
+            .modal-info p {
+                font-size: 1.1rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <div class="nav-container">
+        <button class="back-btn" onclick="window.location.href='index.html'">
+            <i class="fas fa-arrow-left"></i>
+        </button>
+        <h1 class="nav-title">My Skills</h1>
+        <div></div> <!-- Empty div for spacing -->
+    </div>
+
+    <!-- Main Container -->
+    <div class="container">
+        <!-- Profile Section -->
+        <section class="profile-section">
+            <img src="images/nikhildeshmuk.png" alt="Nikhil Dandolu" class="profile-img floating">
+            
+            <h2 class="explore-text">Explore My Skills</h2>
+            
+            <!-- Social Media Icons -->
+            <div class="social-links">
+                <a href="https://github.com/nikhildeshmuk98" target="_blank" class="social-icon github">
+                    <i class="fab fa-github"></i>
+                </a>
+       <a href="https://in.linkedin.com/in/nikhil-dandolu-a9122b33b" 
+   target="_blank" 
+   rel="noopener noreferrer" 
+   class="social-icon linkedin">
+  <i class="fab fa-linkedin"></i>
+</a>
+
+                <a href="https://wa.me/916309872249" target="_blank" class="social-icon whatsapp">
+                    <i class="fab fa-whatsapp"></i>
+                </a>
+              <a href="https://www.instagram.com/nikhil_deshmuk_14/" 
+   target="_blank" 
+   rel="noopener noreferrer" 
+   class="social-icon instagram">
+  <i class="fab fa-instagram"></i>
+</a>
+
+            </div>
+        </section>
+
+        <!-- Skills Section -->
+        <section class="skills-section" id="skillsSection">
+            <div class="skills-container">
+                <!-- Technical Skills Card -->
+                <div class="glass-card skills-card">
+                    <h3><i class="fas fa-code"></i> Technical Skills</h3>
+                    
+                    <div class="skill-category">
+                        <h4><i class="fas fa-desktop"></i> Frontend Skills</h4>
+                        <div class="skill-items">
+                            <div class="skill-item" data-skill="html">
+                                <i class="fab fa-html5 skill-icon html"></i>
+                                <p>HTML5</p>
+                            </div>
+                            <div class="skill-item" data-skill="css">
+                                <i class="fab fa-css3-alt skill-icon css"></i>
+                                <p>CSS3</p>
+                            </div>
+                            <div class="skill-item" data-skill="javascript">
+                                <i class="fab fa-js skill-icon js"></i>
+                                <p>JavaScript</p>
+                            </div>
+                            <div class="skill-item" data-skill="react">
+                                <i class="fab fa-react skill-icon react"></i>
+                                <p>React</p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="skill-category">
+                        <h4><i class="fas fa-server"></i> Backend Skills</h4>
+                        <div class="skill-items">
+                            <div class="skill-item" data-skill="python">
+                                <i class="fab fa-python skill-icon python"></i>
+                                <p>Python</p>
+                            </div>
+                            <div class="skill-item" data-skill="django">
+                                <i class="fas fa-code skill-icon django"></i>
+                                <p>Django</p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="skill-category">
+                        <h4><i class="fas fa-tools"></i> Tools & Databases</h4>
+                        <div class="skill-items">
+                            <div class="skill-item" data-skill="git">
+                                <i class="fab fa-git skill-icon git"></i>
+                                <p>Git</p>
+                            </div>
+                            <div class="skill-item" data-skill="github">
+                                <i class="fab fa-github skill-icon github"></i>
+                                <p>GitHub</p>
+                            </div>
+                            <div class="skill-item" data-skill="vscode">
+                                <i class="fas fa-code skill-icon vscode"></i>
+                                <p>VS Code</p>
+                            </div>
+                            <div class="skill-item" data-skill="excel">
+                                <i class="fas fa-file-excel skill-icon excel"></i>
+                                <p>Excel</p>
+                            </div>
+                            <div class="skill-item" data-skill="powerbi">
+                                <i class="fas fa-chart-bar skill-icon powerbi"></i>
+                                <p>Power BI</p>
+                            </div>
+                            <div class="skill-item" data-skill="mysql">
+                                <i class="fas fa-database skill-icon mysql"></i>
+                                <p>MySQL</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Soft Skills Card -->
+                <div class="glass-card skills-card">
+                    <h3><i class="fas fa-users"></i> Soft Skills</h3>
+                    <div class="soft-skills">
+                        <div class="soft-skill" data-skill="problem-solving">
+                            <i class="fas fa-puzzle-piece soft-skill-icon"></i>
+                            <p>Problem Solving</p>
+                        </div>
+                        <div class="soft-skill" data-skill="communication">
+                            <i class="fas fa-comments soft-skill-icon"></i>
+                            <p>Communication</p>
+                        </div>
+                        <div class="soft-skill" data-skill="teamwork">
+                            <i class="fas fa-people-carry soft-skill-icon"></i>
+                            <p>Teamwork</p>
+                        </div>
+                        <div class="soft-skill" data-skill="adaptability">
+                            <i class="fas fa-sync-alt soft-skill-icon"></i>
+                            <p>Adaptability</p>
+                        </div>
+                        <div class="soft-skill" data-skill="time-management">
+                            <i class="fas fa-clock soft-skill-icon"></i>
+                            <p>Time Management</p>
+                        </div>
+                        <div class="soft-skill" data-skill="creativity">
+                            <i class="fas fa-lightbulb soft-skill-icon"></i>
+                            <p>Creativity</p>
+                        </div>
+                        <div class="soft-skill" data-skill="leadership">
+                            <i class="fas fa-flag soft-skill-icon"></i>
+                            <p>Leadership</p>
+                        </div>
+                        <div class="soft-skill" data-skill="critical-thinking">
+                            <i class="fas fa-brain soft-skill-icon"></i>
+                            <p>Critical Thinking</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <!-- Skill Detail Modal -->
+    <div class="modal-overlay" id="skillModal">
+        <div class="modal-content">
+            <button class="close-modal" id="closeModal">
+                <i class="fas fa-times"></i>
+            </button>
+            <div class="modal-header">
+                <div class="modal-icon" id="modalIcon">
+                    <!-- Icon will be inserted here by JavaScript -->
+                </div>
+                <div class="modal-info">
+                    <h3 id="modalTitle"></h3>
+                    <p id="modalSubtitle"></p>
+                </div>
+            </div>
+            <div class="modal-details" id="modalDetails">
+                <!-- Details will be inserted here by JavaScript -->
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Magical Scroll Transitions
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+        
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                    
+                    // Add staggered animation for skill items
+                    if (entry.target.classList.contains('skills-section')) {
+                        const skillItems = entry.target.querySelectorAll('.skill-item, .soft-skill');
+                        const skillCategories = entry.target.querySelectorAll('.skill-category');
+                        
+                        // Animate categories first
+                        skillCategories.forEach((category, index) => {
+                            setTimeout(() => {
+                                category.style.transitionDelay = '0s';
+                                category.classList.add('visible');
+                            }, index * 200);
+                        });
+                        
+                        // Then animate individual items
+                        skillItems.forEach((item, index) => {
+                            setTimeout(() => {
+                                item.style.transitionDelay = `${(index % 6) * 100}ms`;
+                                item.classList.add('visible');
+                            }, 600 + Math.floor(index / 6) * 100);
+                        });
+                    }
+                }
+            });
+        }, observerOptions);
+        
+        // Observe profile section and skills section
+        observer.observe(document.querySelector('.profile-section'));
+        observer.observe(document.querySelector('.skills-section'));
+        
+        // Make profile section visible immediately
+        document.querySelector('.profile-section').classList.add('visible');
+        
+        // Skill Detail Modal Functionality
+        const skillItems = document.querySelectorAll('.skill-item, .soft-skill');
+        const modal = document.getElementById('skillModal');
+        const closeModal = document.getElementById('closeModal');
+        const modalIcon = document.getElementById('modalIcon');
+        const modalTitle = document.getElementById('modalTitle');
+        const modalSubtitle = document.getElementById('modalSubtitle');
+        const modalDetails = document.getElementById('modalDetails');
+        
+        // Skill details data
+        const skillDetails = {
+            // Technical Skills
+            html: {
+                title: "HTML5",
+                subtitle: "HyperText Markup Language",
+                icon: '<i class="fab fa-html5 html" style="font-size: 3rem;"></i>',
+                details: `
+                    <p>HTML5 is the latest evolution of the standard that defines HTML. I use semantic HTML5 elements to create well-structured, accessible web pages.</p>
+                    <p>I'm proficient in using modern HTML5 features like canvas, video, audio, geolocation, and local storage to create rich, interactive web experiences.</p>
+                    <p>I follow best practices for SEO optimization and accessibility, ensuring that my HTML code is clean, semantic, and follows W3C standards.</p>
+                    <div class="skill-level">
+                        <h4>Proficiency Level</h4>
+                        <div class="level-bar">
+                            <div class="level-progress" style="width: 95%"></div>
+                        </div>
+                    </div>
+                `
+            },
+            css: {
+                title: "CSS3",
+                subtitle: "Cascading Style Sheets",
+                icon: '<i class="fab fa-css3-alt css" style="font-size: 3rem;"></i>',
+                details: `
+                    <p>CSS3 allows me to create visually appealing and responsive web designs. I'm skilled in using Flexbox, Grid, and media queries to build layouts that work across all device sizes.</p>
+                    <p>I have experience with CSS preprocessors like SASS and advanced CSS features like animations, transitions, and transforms to create engaging user interfaces.</p>
+                    <p>My approach to CSS focuses on maintainability, using methodologies like BEM and creating reusable component-based styles.</p>
+                    <div class="skill-level">
+                        <h4>Proficiency Level</h4>
+                        <div class="level-bar">
+                            <div class="level-progress" style="width: 90%"></div>
+                        </div>
+                    </div>
+                `
+            },
+            javascript: {
+                title: "JavaScript",
+                subtitle: "Programming Language of the Web",
+                icon: '<i class="fab fa-js js" style="font-size: 3rem;"></i>',
+                details: `
+                    <p>JavaScript is my primary programming language for adding interactivity to web pages. I'm proficient in ES6+ features including arrow functions, destructuring, promises, and async/await.</p>
+                    <p>I have experience with DOM manipulation, event handling, and making API calls to create dynamic, data-driven web applications.</p>
+                    <p>I follow modern JavaScript best practices and design patterns to write clean, efficient, and maintainable code.</p>
+                    <div class="skill-level">
+                        <h4>Proficiency Level</h4>
+                        <div class="level-bar">
+                            <div class="level-progress" style="width: 85%"></div>
+                        </div>
+                    </div>
+                `
+            },
+            react: {
+                title: "React",
+                subtitle: "JavaScript Library for UI",
+                icon: '<i class="fab fa-react react" style="font-size: 3rem;"></i>',
+                details: `
+                    <p>React is my go-to library for building modern, component-based user interfaces. I'm skilled in creating reusable components, managing state with hooks, and handling side effects.</p>
+                    <p>I have experience with React Router for navigation, Context API for state management, and integrating React applications with various APIs and backend services.</p>
+                    <p>I follow React best practices, including functional components, hooks, and proper component lifecycle management.</p>
+                    <div class="skill-level">
+                        <h4>Proficiency Level</h4>
+                        <div class="level-bar">
+                            <div class="level-progress" style="width: 80%"></div>
+                        </div>
+                    </div>
+                `
+            },
+            python: {
+                title: "Python",
+                subtitle: "Versatile Programming Language",
+                icon: '<i class="fab fa-python python" style="font-size: 3rem;"></i>',
+                details: `
+                    <p>Python is my preferred language for backend development, data analysis, and automation. I'm proficient in writing clean, readable Python code following PEP 8 guidelines.</p>
+                    <p>I have experience with Python's extensive standard library and popular third-party packages for web development, data manipulation, and scientific computing.</p>
+                    <p>I use Python for tasks ranging from simple scripts to complex web applications, leveraging its simplicity and power to solve diverse programming challenges.</p>
+                    <div class="skill-level">
+                        <h4>Proficiency Level</h4>
+                        <div class="level-bar">
+                            <div class="level-progress" style="width: 85%"></div>
+                        </div>
+                    </div>
+                `
+            },
+            django: {
+                title: "Django",
+                subtitle: "Python Web Framework",
+                icon: '<i class="fas fa-code django" style="font-size: 3rem;"></i>',
+                details: `
+                    <p>Django is my framework of choice for building robust, scalable web applications with Python. I'm skilled in Django's MTV (Model-Template-View) architecture.</p>
+                    <p>I have experience with Django ORM for database operations, Django REST Framework for building APIs, and Django's built-in admin interface for content management.</p>
+                    <p>I follow Django best practices, including proper project structure, class-based views, and security measures to protect against common web vulnerabilities.</p>
+                    <div class="skill-level">
+                        <h4>Proficiency Level</h4>
+                        <div class="level-bar">
+                            <div class="level-progress" style="width: 75%"></div>
+                        </div>
+                    </div>
+                `
+            },
+            git: {
+                title: "Git",
+                subtitle: "Version Control System",
+                icon: '<i class="fab fa-git git" style="font-size: 3rem;"></i>',
+                details: `
+                    <p>Git is an essential tool in my development workflow for version control and collaboration. I'm proficient in using Git for tracking changes, branching, merging, and resolving conflicts.</p>
+                    <p>I follow Git best practices, including meaningful commit messages, feature branching workflows, and regular commits to maintain a clean project history.</p>
+                    <p>I use Git not just for code, but for documentation, configuration files, and any project assets that benefit from version control.</p>
+                    <div class="skill-level">
+                        <h4>Proficiency Level</h4>
+                        <div class="level-bar">
+                            <div class="level-progress" style="width: 90%"></div>
+                        </div>
+                    </div>
+                `
+            },
+            github: {
+                title: "GitHub",
+                subtitle: "Code Hosting Platform",
+                icon: '<i class="fab fa-github github" style="font-size: 3rem;"></i>',
+                details: `
+                    <p>GitHub is my platform of choice for hosting Git repositories, collaborating with other developers, and contributing to open-source projects.</p>
+                    <p>I'm experienced with GitHub features like pull requests, code reviews, issue tracking, project boards, and GitHub Actions for CI/CD pipelines.</p>
+                    <p>I maintain an active GitHub profile with personal projects, contributions to open-source, and code samples that demonstrate my skills and learning journey.</p>
+                    <div class="skill-level">
+                        <h4>Proficiency Level</h4>
+                        <div class="level-bar">
+                            <div class="level-progress" style="width: 85%"></div>
+                        </div>
+                    </div>
+                `
+            },
+            vscode: {
+                title: "VS Code",
+                subtitle: "Code Editor",
+                icon: '<i class="fas fa-code vscode" style="font-size: 3rem;"></i>',
+                details: `
+                    <p>Visual Studio Code is my primary code editor for all development work. I'm proficient in using its powerful features and extensions to enhance productivity.</p>
+                    <p>I've customized my VS Code setup with themes, keybindings, and extensions that streamline my workflow for web development, Python, and various other technologies.</p>
+                    <p>I use integrated terminal, debugging tools, version control integration, and language-specific extensions to create an efficient development environment.</p>
+                    <div class="skill-level">
+                        <h4>Proficiency Level</h4>
+                        <div class="level-bar">
+                            <div class="level-progress" style="width: 95%"></div>
+                        </div>
+                    </div>
+                `
+            },
+            excel: {
+                title: "Microsoft Excel",
+                subtitle: "Spreadsheet Application",
+                icon: '<i class="fas fa-file-excel excel" style="font-size: 3rem;"></i>',
+                details: `
+                    <p>Excel is a powerful tool in my toolkit for data analysis, visualization, and automation. I'm skilled in using advanced Excel functions, pivot tables, and data analysis features.</p>
+                    <p>I use Excel for tasks ranging from simple data organization to complex financial modeling and data analysis workflows.</p>
+                    <p>I'm proficient in creating dynamic dashboards, using conditional formatting, and writing macros to automate repetitive tasks in Excel.</p>
+                    <div class="skill-level">
+                        <h4>Proficiency Level</h4>
+                        <div class="level-bar">
+                            <div class="level-progress" style="width: 80%"></div>
+                        </div>
+                    </div>
+                `
+            },
+            powerbi: {
+                title: "Power BI",
+                subtitle: "Business Analytics Tool",
+                icon: '<i class="fas fa-chart-bar powerbi" style="font-size: 3rem;"></i>',
+                details: `
+                    <p>Power BI is my tool of choice for creating interactive business intelligence dashboards and reports. I'm skilled in data modeling, DAX formulas, and visualization design.</p>
+                    <p>I use Power BI to transform raw data into meaningful insights through interactive visualizations that help stakeholders make data-driven decisions.</p>
+                    <p>I have experience connecting Power BI to various data sources, creating calculated columns and measures, and designing user-friendly report layouts.</p>
+                    <div class="skill-level">
+                        <h4>Proficiency Level</h4>
+                        <div class="level-bar">
+                            <div class="level-progress" style="width: 75%"></div>
+                        </div>
+                    </div>
+                `
+            },
+            mysql: {
+                title: "MySQL",
+                subtitle: "Relational Database Management System",
+                icon: '<i class="fas fa-database mysql" style="font-size: 3rem;"></i>',
+                details: `
+                    <p>MySQL is my preferred relational database management system for web applications. I'm skilled in database design, SQL queries, and performance optimization.</p>
+                    <p>I have experience designing normalized database schemas, writing complex queries with joins and subqueries, and implementing database security best practices.</p>
+                    <p>I use MySQL with various web frameworks and understand how to optimize database performance through indexing, query optimization, and proper database configuration.</p>
+                    <div class="skill-level">
+                        <h4>Proficiency Level</h4>
+                        <div class="level-bar">
+                            <div class="level-progress" style="width: 80%"></div>
+                        </div>
+                    </div>
+                `
+            },
+            // Soft Skills
+            "problem-solving": {
+                title: "Problem Solving",
+                subtitle: "Analytical Thinking",
+                icon: '<i class="fas fa-puzzle-piece" style="font-size: 3rem; color: var(--light-green);"></i>',
+                details: `
+                    <p>I approach problems methodically, breaking them down into manageable components and systematically working toward solutions.</p>
+                    <p>My problem-solving process involves understanding the root cause, exploring multiple solution paths, and evaluating the most effective approach.</p>
+                    <p>I enjoy tackling complex challenges and have developed strong analytical skills through both academic projects and personal coding endeavors.</p>
+                `
+            },
+            communication: {
+                title: "Communication",
+                subtitle: "Effective Information Exchange",
+                icon: '<i class="fas fa-comments" style="font-size: 3rem; color: var(--light-green);"></i>',
+                details: `
+                    <p>I excel at conveying technical concepts to both technical and non-technical audiences, ensuring clear understanding and alignment.</p>
+                    <p>My communication skills include active listening, articulate expression, and adapting my communication style to different audiences and contexts.</p>
+                    <p>I believe that effective communication is essential for successful collaboration, project management, and stakeholder engagement.</p>
+                `
+            },
+            teamwork: {
+                title: "Teamwork",
+                subtitle: "Collaborative Excellence",
+                icon: '<i class="fas fa-people-carry" style="font-size: 3rem; color: var(--light-green);"></i>',
+                details: `
+                    <p>I thrive in collaborative environments, valuing diverse perspectives and contributing positively to team dynamics.</p>
+                    <p>My approach to teamwork includes clear communication, reliability, supporting team members, and sharing knowledge to help the team succeed collectively.</p>
+                    <p>I've successfully collaborated on numerous group projects, both in academic settings and in professional contexts.</p>
+                `
+            },
+            adaptability: {
+                title: "Adaptability",
+                subtitle: "Embracing Change",
+                icon: '<i class="fas fa-sync-alt" style="font-size: 3rem; color: var(--light-green);"></i>',
+                details: `
+                    <p>I quickly adapt to new technologies, methodologies, and project requirements, maintaining productivity through changing circumstances.</p>
+                    <p>My adaptability stems from a growth mindset, continuous learning, and the ability to pivot strategies when faced with new information or constraints.</p>
+                    <p>I view change as an opportunity for growth and have successfully navigated transitions between different programming languages, frameworks, and project scopes.</p>
+                `
+            },
+            "time-management": {
+                title: "Time Management",
+                subtitle: "Efficient Productivity",
+                icon: '<i class="fas fa-clock" style="font-size: 3rem; color: var(--light-green);"></i>',
+                details: `
+                    <p>I effectively prioritize tasks, set realistic deadlines, and maintain focus to deliver quality work within specified timeframes.</p>
+                    <p>My time management strategies include breaking projects into milestones, using productivity tools, and regularly reviewing progress against goals.</p>
+                    <p>I balance multiple responsibilities effectively, ensuring that I meet commitments while maintaining work quality and personal well-being.</p>
+                `
+            },
+            creativity: {
+                title: "Creativity",
+                subtitle: "Innovative Thinking",
+                icon: '<i class="fas fa-lightbulb" style="font-size: 3rem; color: var(--light-green);"></i>',
+                details: `
+                    <p>I approach challenges with creative thinking, developing innovative solutions and exploring unconventional approaches when appropriate.</p>
+                    <p>My creativity extends beyond design to problem-solving, where I often find unique ways to overcome technical limitations or user experience challenges.</p>
+                    <p>I believe that creativity and technical expertise together enable the development of truly exceptional digital products and experiences.</p>
+                `
+            },
+            leadership: {
+                title: "Leadership",
+                subtitle: "Guiding and Inspiring",
+                icon: '<i class="fas fa-flag" style="font-size: 3rem; color: var(--light-green);"></i>',
+                details: `
+                    <p>I demonstrate leadership through taking initiative, mentoring others, and driving projects forward with vision and determination.</p>
+                    <p>My leadership style is collaborative and supportive, focusing on empowering team members while maintaining clear direction and accountability.</p>
+                    <p>I've led several academic projects and extracurricular initiatives, developing skills in project planning, delegation, and team motivation.</p>
+                `
+            },
+            "critical-thinking": {
+                title: "Critical Thinking",
+                subtitle: "Analytical Reasoning",
+                icon: '<i class="fas fa-brain" style="font-size: 3rem; color: var(--light-green);"></i>',
+                details: `
+                    <p>I apply logical reasoning and evidence-based analysis to evaluate information, identify patterns, and make informed decisions.</p>
+                    <p>My critical thinking skills help me assess complex situations, anticipate potential issues, and develop robust solutions.</p>
+                    <p>I continuously question assumptions, consider multiple perspectives, and refine my understanding through systematic analysis and reflection.</p>
+                `
+            }
+        };
+        
+        // Add click event to skill items
+        skillItems.forEach(item => {
+            item.addEventListener('click', () => {
+                const skill = item.getAttribute('data-skill');
+                const details = skillDetails[skill];
+                
+                modalIcon.innerHTML = details.icon;
+                modalTitle.textContent = details.title;
+                modalSubtitle.textContent = details.subtitle;
+                modalDetails.innerHTML = details.details;
+                
+                modal.classList.add('active');
+                document.body.style.overflow = 'hidden';
+            });
+        });
+        
+        // Close modal
+        closeModal.addEventListener('click', () => {
+            modal.classList.remove('active');
+            document.body.style.overflow = 'auto';
+        });
+        
+        // Close modal when clicking outside
+        modal.addEventListener('click', (e) => {
+            if (e.target === modal) {
+                modal.classList.remove('active');
+                document.body.style.overflow = 'auto';
+            }
+        });
+    </script>
+</body>
+</html>

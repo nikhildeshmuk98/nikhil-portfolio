@@ -1,0 +1,860 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contact | Nikhil Dandolu</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary-dark: #0a1929;
+            --primary-green: #0d3b2e;
+            --accent-green: #2e8b57;
+            --light-green: #4caf50;
+            --text-light: #e0e0e0;
+            --text-white: #ffffff;
+            --glass-bg: rgba(13, 59, 46, 0.25);
+            --glass-border: rgba(76, 175, 80, 0.2);
+            --glow-color: rgba(46, 139, 87, 0.6);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            background: linear-gradient(135deg, var(--primary-dark) 0%, var(--primary-green) 100%);
+            color: var(--text-light);
+            overflow-x: hidden;
+            min-height: 100vh;
+        }
+
+        /* Navigation */
+        .nav-container {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            padding: 1.2rem 5%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: var(--glass-bg);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            border-bottom: 1px solid var(--glass-border);
+            z-index: 1000;
+            transition: all 0.3s ease;
+        }
+
+        .back-btn {
+            background: transparent;
+            border: none;
+            color: var(--text-light);
+            font-size: 1.5rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .back-btn:hover {
+            color: var(--accent-green);
+            transform: translateX(-5px);
+        }
+
+        .nav-title {
+            font-weight: 600;
+            color: var(--text-white);
+            font-size: 1.4rem;
+        }
+
+        /* Main Container */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 8rem 2rem 4rem;
+            display: flex;
+            gap: 3rem;
+        }
+
+        /* Left Profile Section */
+        .profile-section {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            opacity: 0;
+            transform: translateX(-50px);
+            transition: opacity 1s ease, transform 1s ease;
+        }
+
+        .profile-section.visible {
+            opacity: 1;
+            transform: translateX(0);
+        }
+
+        .profile-img {
+            width: 280px;
+            height: 280px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 5px solid var(--accent-green);
+            box-shadow: 0 0 30px var(--glow-color);
+            margin-bottom: 2.5rem;
+            transition: all 0.5s ease;
+        }
+
+        .profile-img:hover {
+            transform: scale(1.05);
+            box-shadow: 0 0 40px var(--glow-color);
+        }
+
+        /* Social Media Icons */
+        .social-icons {
+            display: flex;
+            justify-content: center;
+            gap: 1.5rem;
+            margin-bottom: 2.5rem;
+        }
+
+        .social-icon {
+            width: 55px;
+            height: 55px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: var(--glass-bg);
+            backdrop-filter: blur(10px);
+            border: 1px solid var(--glass-border);
+            color: var(--text-light);
+            font-size: 1.5rem;
+            transition: all 0.3s ease;
+            text-decoration: none;
+        }
+
+        .social-icon:hover {
+            background: var(--accent-green);
+            transform: translateY(-5px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+        }
+
+        .github:hover { background: #333; }
+        .linkedin:hover { background: #0077b5; }
+        .whatsapp:hover { background: #25d366; }
+        .instagram:hover { 
+            background: radial-gradient(circle at 30% 107%, #fdf497 0%, #fdf497 5%, #fd5949 45%, #d6249f 60%, #285AEB 90%);
+        }
+
+        /* Contact Options */
+        .contact-options {
+            width: 100%;
+            background: var(--glass-bg);
+            backdrop-filter: blur(10px);
+            border: 1px solid var(--glass-border);
+            border-radius: 20px;
+            padding: 2rem;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+            transition: all 0.5s ease;
+        }
+
+        .contact-options:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.2);
+            border-color: var(--accent-green);
+            background: rgba(13, 59, 46, 0.4);
+        }
+
+        .contact-options h3 {
+            font-size: 1.5rem;
+            margin-bottom: 1.5rem;
+            color: var(--text-white);
+            text-align: center;
+        }
+
+        .contact-item {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            margin-bottom: 1.5rem;
+            padding: 1rem;
+            background: rgba(0, 0, 0, 0.2);
+            border-radius: 10px;
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+
+        .contact-item:hover {
+            background: rgba(46, 139, 87, 0.2);
+            transform: translateX(5px);
+        }
+
+        .contact-icon {
+            width: 45px;
+            height: 45px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: var(--accent-green);
+            color: var(--text-white);
+            font-size: 1.2rem;
+        }
+
+        .contact-info h4 {
+            font-size: 1.1rem;
+            color: var(--text-white);
+            margin-bottom: 0.3rem;
+        }
+
+        .contact-info p {
+            font-size: 0.9rem;
+            color: var(--light-green);
+        }
+
+        /* Contact Options Modal */
+        .contact-modal {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.8);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 2000;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s ease;
+        }
+
+        .contact-modal.active {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .modal-content {
+            background: var(--glass-bg);
+            backdrop-filter: blur(15px);
+            border: 1px solid var(--glass-border);
+            border-radius: 20px;
+            padding: 2.5rem;
+            max-width: 500px;
+            width: 90%;
+            text-align: center;
+            transform: scale(0.8);
+            transition: all 0.3s ease;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+        }
+
+        .contact-modal.active .modal-content {
+            transform: scale(1);
+        }
+
+        .modal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1.5rem;
+        }
+
+        .modal-title {
+            font-size: 1.5rem;
+            color: var(--text-white);
+        }
+
+        .close-modal {
+            background: transparent;
+            border: none;
+            color: var(--text-light);
+            font-size: 1.5rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .close-modal:hover {
+            color: var(--accent-green);
+            transform: rotate(90deg);
+        }
+
+        .modal-options {
+            display: flex;
+            justify-content: center;
+            gap: 1.5rem;
+            margin-top: 1.5rem;
+        }
+
+        .modal-option {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 0.8rem;
+            padding: 1.5rem;
+            background: rgba(0, 0, 0, 0.2);
+            border-radius: 15px;
+            transition: all 0.3s ease;
+            cursor: pointer;
+            width: 120px;
+        }
+
+        .modal-option:hover {
+            background: rgba(46, 139, 87, 0.2);
+            transform: translateY(-5px);
+        }
+
+        .modal-icon {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            color: var(--text-white);
+        }
+
+        .phone-icon { background: #25d366; }
+        .call-icon { background: #0077b5; }
+        .whatsapp-icon { background: #25d366; }
+        .telegram-icon { background: #0088cc; }
+        .email-icon { background: #ea4335; }
+        .map-icon { background: #34a853; }
+
+        .modal-option p {
+            font-size: 0.9rem;
+            color: var(--text-light);
+        }
+
+        /* Right Contact Form Section */
+        .contact-section {
+            flex: 1;
+            opacity: 0;
+            transform: translateX(50px);
+            transition: opacity 1s ease, transform 1s ease;
+        }
+
+        .contact-section.visible {
+            opacity: 1;
+            transform: translateX(0);
+        }
+
+        .contact-card {
+            background: var(--glass-bg);
+            backdrop-filter: blur(10px);
+            border: 1px solid var(--glass-border);
+            border-radius: 20px;
+            padding: 2.5rem;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+            transition: all 0.5s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .contact-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.1), transparent);
+            transition: all 0.6s ease;
+        }
+
+        .contact-card:hover::before {
+            left: 100%;
+        }
+
+        .contact-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.2);
+            border-color: var(--accent-green);
+            background: rgba(13, 59, 46, 0.4);
+        }
+
+        .contact-card h2 {
+            font-size: 2.2rem;
+            margin-bottom: 0.5rem;
+            color: var(--text-white);
+            text-align: center;
+        }
+
+        .contact-card p {
+            font-size: 1.1rem;
+            margin-bottom: 2rem;
+            text-align: center;
+            color: var(--light-green);
+        }
+
+        .form-group {
+            margin-bottom: 1.5rem;
+            position: relative;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            color: var(--text-white);
+            font-weight: 500;
+        }
+
+        .form-control {
+            width: 100%;
+            padding: 1rem 1.5rem;
+            border-radius: 10px;
+            background: rgba(0, 0, 0, 0.2);
+            border: 1px solid var(--glass-border);
+            color: var(--text-light);
+            font-size: 1rem;
+            transition: all 0.3s ease;
+        }
+
+        .form-control:focus {
+            outline: none;
+            border-color: var(--accent-green);
+            background: rgba(0, 0, 0, 0.3);
+            box-shadow: 0 0 10px var(--glow-color);
+        }
+
+        textarea.form-control {
+            min-height: 150px;
+            resize: vertical;
+        }
+
+        .submit-btn {
+            width: 100%;
+            padding: 1.2rem;
+            border-radius: 10px;
+            background: var(--accent-green);
+            color: var(--text-white);
+            border: none;
+            font-size: 1.1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.8rem;
+        }
+
+        .submit-btn:hover {
+            background: var(--light-green);
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
+        }
+
+        /* Floating Animation */
+        @keyframes float {
+            0% { transform: translateY(0px); }
+            50% { transform: translateY(-10px); }
+            100% { transform: translateY(0px); }
+        }
+
+        .floating {
+            animation: float 5s ease-in-out infinite;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 992px) {
+            .container {
+                flex-direction: column;
+                gap: 2rem;
+            }
+            
+            .profile-img {
+                width: 240px;
+                height: 240px;
+            }
+            
+            .modal-options {
+                flex-wrap: wrap;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                padding: 7rem 1.5rem 3rem;
+            }
+            
+            .profile-img {
+                width: 200px;
+                height: 200px;
+            }
+            
+            .contact-card {
+                padding: 2rem;
+            }
+            
+            .contact-card h2 {
+                font-size: 1.8rem;
+            }
+            
+            .modal-content {
+                padding: 2rem;
+            }
+        }
+
+        @media (max-width: 576px) {
+            .container {
+                padding: 6rem 1rem 2rem;
+            }
+            
+            .profile-img {
+                width: 180px;
+                height: 180px;
+            }
+            
+            .social-icon {
+                width: 50px;
+                height: 50px;
+                font-size: 1.3rem;
+            }
+            
+            .contact-options, .contact-card {
+                padding: 1.5rem;
+            }
+            
+            .contact-card h2 {
+                font-size: 1.6rem;
+            }
+            
+            .modal-option {
+                width: 100px;
+                padding: 1rem;
+            }
+            
+            .modal-icon {
+                width: 50px;
+                height: 50px;
+                font-size: 1.3rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <div class="nav-container">
+        <button class="back-btn" onclick="window.location.href='index.html'">
+            <i class="fas fa-arrow-left"></i>
+        </button>
+        <h1 class="nav-title">Contact Me</h1>
+        <div></div> <!-- Empty div for spacing -->
+    </div>
+
+    <!-- Main Container -->
+    <div class="container">
+        <!-- Left Profile Section -->
+        <section class="profile-section">
+            <img src="images/nikhildeshmuk.png" alt="Nikhil Dandolu" class="profile-img floating">
+            
+            <!-- Social Media Icons -->
+            <div class="social-icons">
+                <a href="https://github.com/nikhildeshmuk98" class="social-icon github" target="_blank" rel="noopener noreferrer">
+                    <i class="fab fa-github"></i>
+                </a>
+                <a href="https://in.linkedin.com/in/nikhil-dandolu-a9122b33b" target="_blank" class="social-icon linkedin">
+                    <i class="fab fa-linkedin"></i>
+                </a>
+                <a href="https://wa.me/916309872249" class="social-icon whatsapp" target="_blank">
+                    <i class="fab fa-whatsapp"></i>
+                </a>
+                <a href="https://www.instagram.com/nikhil_deshmuk_14" target="_blank" class="social-icon instagram">
+                    <i class="fab fa-instagram"></i>
+                </a>
+            </div>
+            
+            <!-- Contact Options -->
+            <div class="contact-options">
+                <h3>Contact Options</h3>
+                
+                <div class="contact-item" data-type="phone">
+                    <div class="contact-icon">
+                        <i class="fas fa-phone"></i>
+                    </div>
+                    <div class="contact-info">
+                        <h4>Phone</h4>
+                        <p>+91 6309872249</p>
+                    </div>
+                </div>
+                
+                <div class="contact-item" data-type="email">
+                    <div class="contact-icon">
+                        <i class="fas fa-envelope"></i>
+                    </div>
+                    <div class="contact-info">
+                        <h4>Email</h4>
+                        <p>nikhildeshmuk98@gmail.com</p>
+                    </div>
+                </div>
+                
+                <div class="contact-item" data-type="location">
+                    <div class="contact-icon">
+                        <i class="fas fa-map-marker-alt"></i>
+                    </div>
+                    <div class="contact-info">
+                        <h4>Location</h4>
+                        <p>Muttembaka, India</p>
+                    </div>
+                </div>
+                
+                <div class="contact-item" data-type="availability">
+                    <div class="contact-icon">
+                        <i class="fas fa-clock"></i>
+                    </div>
+                    <div class="contact-info">
+                        <h4>Availability</h4>
+                        <p>Mon - Fri, 9AM - 6PM</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Right Contact Form Section -->
+        <section class="contact-section">
+            <div class="contact-card">
+                <form action="https://formspree.io/f/xblawdbq" method="POST">
+                    <h2>📩 Get in Touch</h2>
+                    <p>I'd love to hear from you. Send me a message!</p>
+                    
+                    <div class="form-group">
+                        <input type="text" id="name" name="name" class="form-control" placeholder="Enter your name" required>
+                    </div>
+
+                    <div class="form-group">
+                        <input type="email" id="email" name="email" class="form-control" placeholder="Enter your email" required>
+                    </div>
+
+                    <div class="form-group">
+                        <input type="text" id="subject" name="subject" class="form-control" placeholder="Enter subject">
+                    </div>
+
+                    <div class="form-group">
+                        <textarea id="message" name="message" class="form-control" placeholder="Type your message..." required></textarea>
+                    </div>
+
+                    <button type="submit" class="submit-btn">
+                        Send Message <i class="fas fa-paper-plane"></i>
+                    </button>
+                </form>
+            </div>
+        </section>
+    </div>
+
+    <!-- Contact Modal -->
+    <div class="contact-modal" id="contactModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 class="modal-title" id="modalTitle">Contact Options</h3>
+                <button class="close-modal" id="closeModal">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            <p id="modalDescription">Choose how you'd like to contact me</p>
+            <div class="modal-options" id="modalOptions">
+                <!-- Options will be dynamically inserted here -->
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Magical Scroll Transitions
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+        
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                }
+            });
+        }, observerOptions);
+        
+        // Observe profile section and contact section
+        observer.observe(document.querySelector('.profile-section'));
+        observer.observe(document.querySelector('.contact-section'));
+        
+        // Make profile section visible immediately
+        document.querySelector('.profile-section').classList.add('visible');
+        
+        // Contact Options Functionality
+        const contactItems = document.querySelectorAll('.contact-item');
+        const contactModal = document.getElementById('contactModal');
+        const closeModal = document.getElementById('closeModal');
+        const modalTitle = document.getElementById('modalTitle');
+        const modalDescription = document.getElementById('modalDescription');
+        const modalOptions = document.getElementById('modalOptions');
+        
+        // Contact options data
+        const contactOptionsData = {
+            phone: {
+                title: "Call or Message",
+                description: "Choose how you'd like to contact me",
+                options: [
+                    {
+                        icon: "fas fa-phone",
+                        text: "Call",
+                        action: "tel:+916309872249",
+                        class: "call-icon"
+                    },
+                    {
+                        icon: "fab fa-whatsapp",
+                        text: "WhatsApp",
+                        action: "https://wa.me/916309872249",
+                        class: "whatsapp-icon"
+                    },
+                    {
+                        icon: "fab fa-telegram",
+                        text: "Telegram",
+                        action: "https://t.me/+916309872249",
+                        class: "telegram-icon"
+                    }
+                ]
+            },
+            email: {
+                title: "Send Email",
+                description: "Open your preferred email client",
+                options: [
+                    {
+                        icon: "fas fa-envelope",
+                        text: "Gmail",
+                        action: "mailto:nikhildeshmuk98@gmail.com?subject=Contact%20from%20Website",
+                        class: "email-icon"
+                    },
+                    {
+                        icon: "fas fa-at",
+                        text: "Outlook",
+                        action: "mailto:nikhildeshmuk98@gmail.com?subject=Contact%20from%20Website",
+                        class: "email-icon"
+                    },
+                    {
+                        icon: "fas fa-inbox",
+                        text: "Yahoo",
+                        action: "mailto:nikhildeshmuk98@gmail.com?subject=Contact%20from%20Website",
+                        class: "email-icon"
+                    }
+                ]
+            },
+            location: {
+                title: "Get Directions",
+                description: "Find my location on maps",
+                options: [
+                    {
+                        icon: "fab fa-google",
+                        text: "Google Maps",
+                        action: "https://www.google.com/maps/dir//Muttembaka+Village,+Vakadu+Mandal,+Tirupati+District,+Andhra+Pradesh,+India",
+                        class: "map-icon"
+                    },
+                    {
+                        icon: "fas fa-map",
+                        text: "Apple Maps",
+                        action: "https://maps.apple.com/?daddr=Muttembaka+Village,+Vakadu+Mandal,+Tirupati+District,+Andhra+Pradesh,+India",
+                        class: "map-icon"
+                    },
+                    {
+                        icon: "fas fa-location-arrow",
+                        text: "Waze",
+                        action: "https://waze.com/ul?q=Muttembaka+Village,+Vakadu+Mandal,+Tirupati+District,+Andhra+Pradesh,+India",
+                        class: "map-icon"
+                    }
+                ]
+            },
+            availability: {
+                title: "Availability",
+                description: "My working hours and timezone",
+                options: [
+                    {
+                        icon: "fas fa-calendar-alt",
+                        text: "Schedule",
+                        action: "#",
+                        class: "call-icon"
+                    },
+                    {
+                        icon: "fas fa-clock",
+                        text: "Timezone",
+                        action: "#",
+                        class: "whatsapp-icon"
+                    }
+                ]
+            }
+        };
+        
+        // Open modal when contact item is clicked
+        contactItems.forEach(item => {
+            item.addEventListener('click', () => {
+                const type = item.getAttribute('data-type');
+                const data = contactOptionsData[type];
+                
+                if (data) {
+                    modalTitle.textContent = data.title;
+                    modalDescription.textContent = data.description;
+                    
+                    // Clear previous options
+                    modalOptions.innerHTML = '';
+                    
+                    // Add new options
+                    data.options.forEach(option => {
+                        const optionElement = document.createElement('div');
+                        optionElement.className = 'modal-option';
+                        optionElement.innerHTML = `
+                            <div class="modal-icon ${option.class}">
+                                <i class="${option.icon}"></i>
+                            </div>
+                            <p>${option.text}</p>
+                        `;
+                        
+                        optionElement.addEventListener('click', () => {
+                            if (option.action === '#') {
+                                // For availability options, just close the modal
+                                contactModal.classList.remove('active');
+                            } else {
+                                // Open the link in a new tab
+                                window.open(option.action, '_blank');
+                                contactModal.classList.remove('active');
+                            }
+                        });
+                        
+                        modalOptions.appendChild(optionElement);
+                    });
+                    
+                    // Show modal
+                    contactModal.classList.add('active');
+                }
+            });
+        });
+        
+        // Close modal
+        closeModal.addEventListener('click', () => {
+            contactModal.classList.remove('active');
+        });
+        
+        // Close modal when clicking outside
+        contactModal.addEventListener('click', (e) => {
+            if (e.target === contactModal) {
+                contactModal.classList.remove('active');
+            }
+        });
+        
+        // Form submission
+        const contactForm = document.querySelector('.contact-card form');
+        
+        contactForm.addEventListener('submit', function(e) {
+            // Form will be submitted to Formspree
+            // You can add additional validation or confirmation here if needed
+        });
+    </script>
+</body>
+</html>
