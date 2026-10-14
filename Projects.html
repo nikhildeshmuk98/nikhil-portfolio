@@ -1,673 +1,364 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Projects | Nikhil Dandolu</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-    <style>
-        :root {
-            --primary-dark: #0a1929;
-            --primary-green: #0d3b2e;
-            --accent-green: #2e8b57;
-            --light-green: #4caf50;
-            --text-light: #e0e0e0;
-            --text-white: #ffffff;
-            --glass-bg: rgba(13, 59, 46, 0.25);
-            --glass-border: rgba(76, 175, 80, 0.2);
-            --glow-color: rgba(46, 139, 87, 0.6);
-        }
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Projects | Nikhil Dandolu</title>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600;700&family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{
+  --ink:#06101a;
+  --forest:#0a2a21;
+  --emerald:#2e8b57;
+  --mint:#6fcf97;
+  --gold:#d9bc82;
+  --gold-deep:#a98a4d;
+  --text:#d9e2de;
+  --muted:#9fb1aa;
+  --white:#fff;
+  --glass:rgba(12,46,36,.38);
+  --line:rgba(217,188,130,.18);
+  --ease:cubic-bezier(.22,1,.36,1);
+}
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  font-family:'Poppins',sans-serif;color:var(--text);min-height:100vh;overflow-x:hidden;
+  background:
+    radial-gradient(1200px 600px at 80% -10%,rgba(46,139,87,.22),transparent 60%),
+    radial-gradient(900px 500px at -10% 40%,rgba(217,188,130,.08),transparent 60%),
+    linear-gradient(160deg,var(--ink) 0%,#08201a 55%,var(--ink) 100%);
+  background-attachment:fixed;
+}
+a{text-decoration:none;color:inherit}
+:focus-visible{outline:2px solid var(--gold);outline-offset:3px}
 
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            font-family: 'Poppins', sans-serif;
-        }
+/* Scroll progress */
+.progress{position:fixed;top:0;left:0;height:3px;width:100%;z-index:1100;transform-origin:0 50%;transform:scaleX(0);
+  background:linear-gradient(90deg,var(--emerald),var(--gold),var(--mint));box-shadow:0 0 12px rgba(217,188,130,.7)}
 
-        html {
-            scroll-behavior: smooth;
-        }
+/* Floating orbs */
+.orb{position:fixed;border-radius:50%;filter:blur(90px);pointer-events:none;z-index:0;will-change:transform}
+.orb.a{width:380px;height:380px;background:rgba(46,139,87,.28);top:8%;left:-120px}
+.orb.b{width:320px;height:320px;background:rgba(217,188,130,.14);bottom:6%;right:-100px}
 
-        body {
-            background: linear-gradient(135deg, var(--primary-dark) 0%, var(--primary-green) 100%);
-            color: var(--text-light);
-            overflow-x: hidden;
-            min-height: 100vh;
-        }
+/* Nav */
+.nav{position:fixed;top:0;left:0;right:0;z-index:1000;display:grid;grid-template-columns:1fr auto 1fr;align-items:center;
+  padding:.9rem 5%;background:rgba(6,16,26,.55);backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);
+  border-bottom:1px solid var(--line);transition:padding .4s var(--ease),background .4s}
+.nav.scrolled{padding:.55rem 5%;background:rgba(6,16,26,.82)}
+.back{justify-self:start;width:44px;height:44px;border-radius:50%;display:grid;place-items:center;cursor:pointer;
+  background:transparent;border:1px solid var(--line);color:var(--gold);font-size:1rem;transition:all .4s var(--ease)}
+.back:hover{background:var(--gold);color:var(--ink);transform:translateX(-4px);box-shadow:0 0 22px rgba(217,188,130,.45)}
+.nav-title{font-family:'Cormorant Garamond',serif;font-size:1.6rem;font-weight:600;color:var(--white);letter-spacing:.04em}
 
-        /* Navigation */
-        .nav-container {
-            position: fixed;
-            top: 0;
-            width: 100%;
-            padding: 1.2rem 5%;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            background: var(--glass-bg);
-            backdrop-filter: blur(10px);
-            -webkit-backdrop-filter: blur(10px);
-            border-bottom: 1px solid var(--glass-border);
-            z-index: 1000;
-            transition: all 0.3s ease;
-        }
+/* Layout */
+.container{position:relative;z-index:1;max-width:1240px;margin:0 auto;padding:8rem 2rem 5rem}
 
-        .back-btn {
-            background: transparent;
-            border: none;
-            color: var(--text-light);
-            font-size: 1.5rem;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
-        }
+/* Hero */
+.hero{text-align:center;margin-bottom:3.5rem}
+.avatar{position:relative;width:208px;height:208px;margin:0 auto 2rem;border-radius:50%;padding:5px;
+  background:conic-gradient(from 0deg,var(--gold),var(--emerald),var(--gold-deep),var(--mint),var(--gold));
+  animation:spin 9s linear infinite;box-shadow:0 0 50px rgba(46,139,87,.45)}
+.avatar::after{content:"";position:absolute;inset:-14px;border-radius:50%;border:1px solid var(--line)}
+.avatar img{width:100%;height:100%;border-radius:50%;object-fit:cover;border:5px solid var(--ink);display:block;animation:spin 9s linear infinite reverse}
+@keyframes spin{to{transform:rotate(360deg)}}
 
-        .back-btn:hover {
-            color: var(--accent-green);
-            transform: translateX(-5px);
-        }
+.socials{display:flex;justify-content:center;gap:1rem;margin-bottom:2.4rem}
+.social{width:48px;height:48px;border-radius:50%;display:grid;place-items:center;font-size:1.25rem;color:var(--text);
+  background:var(--glass);border:1px solid var(--line);backdrop-filter:blur(10px);transition:all .45s var(--ease)}
+.social:hover{transform:translateY(-6px) scale(1.06);color:#fff;border-color:transparent;box-shadow:0 12px 24px rgba(0,0,0,.35)}
+.social.github:hover{background:#2b3137}
+.social.linkedin:hover{background:#0a75b5}
+.social.whatsapp:hover{background:#22c15e}
+.social.instagram:hover{background:radial-gradient(circle at 30% 107%,#fdf497 0%,#fd5949 45%,#d6249f 60%,#285AEB 90%)}
 
-        .nav-title {
-            font-weight: 600;
-            color: var(--text-white);
-            font-size: 1.4rem;
-        }
+.hero h2{font-family:'Cormorant Garamond',serif;font-weight:700;font-size:clamp(2.4rem,5.5vw,4rem);line-height:1.1;color:var(--white);letter-spacing:.01em}
+.hero h2 span{background:linear-gradient(100deg,var(--gold),#f3e3bd 50%,var(--gold-deep));-webkit-background-clip:text;background-clip:text;color:transparent}
+.hero p{margin:1rem auto 0;max-width:520px;color:var(--muted);font-weight:300;line-height:1.7}
+.rule{width:110px;height:2px;margin:1.6rem auto 0;background:linear-gradient(90deg,transparent,var(--gold),transparent)}
 
-        /* Main Container */
-        .container {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 8rem 2rem 4rem;
-        }
+/* Full stack button */
+.fs-wrap{display:flex;justify-content:center;margin:0 0 3.5rem}
+.fs-btn{position:relative;overflow:hidden;display:inline-flex;align-items:center;gap:.9rem;padding:1rem 2.2rem;border-radius:60px;
+  font-weight:500;font-size:1rem;letter-spacing:.04em;color:var(--ink);
+  background:linear-gradient(120deg,#f1deb0,var(--gold) 45%,var(--gold-deep));
+  box-shadow:0 10px 30px rgba(217,188,130,.25),inset 0 1px 0 rgba(255,255,255,.55);transition:all .5s var(--ease)}
+.fs-btn::before{content:"";position:absolute;top:0;left:-80%;width:50%;height:100%;
+  background:linear-gradient(100deg,transparent,rgba(255,255,255,.65),transparent);transform:skewX(-20deg);animation:shine 3.8s ease-in-out infinite}
+@keyframes shine{0%,55%{left:-80%}100%{left:140%}}
+.fs-btn i{transition:transform .5s var(--ease)}
+.fs-btn:hover{transform:translateY(-5px);box-shadow:0 18px 40px rgba(217,188,130,.42),0 0 0 6px rgba(217,188,130,.12)}
+.fs-btn:hover .fa-arrow-right{transform:translateX(6px)}
+.fs-btn:hover .fa-laptop-code{transform:rotate(-10deg) scale(1.15)}
 
-        /* Profile Section */
-        .profile-section {
-            text-align: center;
-            margin-bottom: 3rem;
-            opacity: 0;
-            transform: translateY(30px);
-            transition: opacity 1s ease, transform 1s ease;
-        }
+/* Grid: every card identical */
+.grid{display:grid;grid-template-columns:repeat(3,1fr);gap:2rem;align-items:stretch}
+@media(min-width:1025px){.card:last-child:nth-child(3n+1){grid-column:2}}
+@media(max-width:1024px){.grid{grid-template-columns:repeat(2,1fr)}.card:last-child:nth-child(2n+1){grid-column:1/-1;max-width:calc(50% - 1rem);justify-self:center}}
+@media(max-width:680px){.grid{grid-template-columns:1fr}.card:last-child:nth-child(2n+1){max-width:none}}
 
-        .profile-section.visible {
-            opacity: 1;
-            transform: translateY(0);
-        }
+.card{
+  --mx:50%;--my:50%;
+  position:relative;display:flex;flex-direction:column;height:100%;padding:1.1rem 1.1rem 1.5rem;border-radius:22px;
+  background:linear-gradient(160deg,rgba(16,60,47,.5),rgba(8,26,24,.62));
+  border:1px solid var(--line);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);
+  box-shadow:0 18px 40px rgba(0,0,0,.28);
+  opacity:0;transform:translateY(60px) scale(.96);filter:blur(6px);
+  transition:opacity .9s var(--ease),transform .9s var(--ease),filter .9s var(--ease),border-color .5s,box-shadow .5s;
+}
+.card.in{opacity:1;transform:translateY(0) scale(1);filter:blur(0)}
+.card.in.ready{transition:transform .25s ease-out,border-color .5s,box-shadow .5s}
+.card::before{content:"";position:absolute;inset:0;border-radius:inherit;pointer-events:none;opacity:0;transition:opacity .4s;
+  background:radial-gradient(420px circle at var(--mx) var(--my),rgba(217,188,130,.16),transparent 55%)}
+.card::after{content:"";position:absolute;inset:0;border-radius:inherit;padding:1px;pointer-events:none;opacity:0;transition:opacity .4s;
+  background:radial-gradient(260px circle at var(--mx) var(--my),var(--gold),transparent 65%);
+  -webkit-mask:linear-gradient(#000 0 0) content-box,linear-gradient(#000 0 0);-webkit-mask-composite:xor;mask-composite:exclude}
+.card:hover{box-shadow:0 30px 60px rgba(0,0,0,.42),0 0 40px rgba(46,139,87,.18)}
+.card:hover::before,.card:hover::after{opacity:1}
 
-        .profile-img {
-            width: 220px;
-            height: 220px;
-            border-radius: 50%;
-            object-fit: cover;
-            border: 5px solid var(--accent-green);
-            box-shadow: 0 0 30px var(--glow-color);
-            margin-bottom: 2rem;
-            transition: all 0.5s ease;
-        }
+.thumb{position:relative;height:210px;border-radius:15px;overflow:hidden;margin-bottom:1.4rem;border:1px solid var(--line);background:#0b1f1a}
+.thumb img{width:100%;height:100%;object-fit:cover;display:block;transition:transform 1.1s var(--ease)}
+.thumb::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,transparent 55%,rgba(6,16,26,.65))}
+.card:hover .thumb img{transform:scale(1.08)}
 
-        .profile-img:hover {
-            transform: scale(1.05);
-            box-shadow: 0 0 40px var(--glow-color);
-        }
+.body{display:flex;flex-direction:column;flex:1;padding:0 .5rem}
+.title{font-family:'Cormorant Garamond',serif;font-size:1.75rem;line-height:1.2;font-weight:700;color:var(--white);min-height:2.1em;display:flex;align-items:flex-start}
+.desc{margin-top:.7rem;font-size:.92rem;line-height:1.75;font-weight:300;color:var(--muted);
+  display:-webkit-box;-webkit-line-clamp:4;line-clamp:4;-webkit-box-orient:vertical;overflow:hidden;min-height:7em}
+.tags{display:flex;flex-wrap:wrap;gap:.5rem;margin:1.2rem 0 1.6rem;min-height:2.2rem;align-content:flex-start}
+.tag{padding:.28rem .85rem;border-radius:30px;font-size:.76rem;font-weight:500;letter-spacing:.03em;
+  color:var(--gold);background:rgba(217,188,130,.07);border:1px solid rgba(217,188,130,.28);transition:all .3s}
+.card:hover .tag{background:rgba(217,188,130,.13)}
 
-        /* Social Media Icons */
-        .social-icons {
-            display: flex;
-            justify-content: center;
-            gap: 1.5rem;
-            margin-bottom: 2rem;
-        }
+.actions{display:grid;grid-template-columns:1fr 1fr;gap:.8rem;margin-top:auto}
+.btn{position:relative;overflow:hidden;display:flex;align-items:center;justify-content:center;gap:.55rem;padding:.8rem 1rem;
+  border-radius:50px;font-size:.88rem;font-weight:500;letter-spacing:.03em;transition:all .45s var(--ease)}
+.btn i{transition:transform .45s var(--ease)}
+.btn.ghost{color:var(--text);border:1px solid rgba(217,188,130,.35);background:rgba(255,255,255,.02)}
+.btn.ghost:hover{color:var(--gold);border-color:var(--gold);background:rgba(217,188,130,.1);transform:translateY(-4px)}
+.btn.solid{color:var(--ink);font-weight:600;background:linear-gradient(120deg,#f1deb0,var(--gold) 50%,var(--gold-deep));
+  box-shadow:0 8px 20px rgba(217,188,130,.2);border:1px solid transparent}
+.btn.solid::before{content:"";position:absolute;top:0;left:-80%;width:50%;height:100%;
+  background:linear-gradient(100deg,transparent,rgba(255,255,255,.6),transparent);transform:skewX(-20deg);transition:left .8s var(--ease)}
+.btn.solid:hover{transform:translateY(-4px);box-shadow:0 14px 28px rgba(217,188,130,.38)}
+.btn.solid:hover::before{left:140%}
+.btn.solid:hover i{transform:translate(3px,-3px)}
 
-        .social-icon {
-            width: 50px;
-            height: 50px;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            background: var(--glass-bg);
-            backdrop-filter: blur(10px);
-            border: 1px solid var(--glass-border);
-            color: var(--text-light);
-            font-size: 1.5rem;
-            transition: all 0.3s ease;
-            text-decoration: none;
-        }
+/* Hero entrance */
+.hero>*{opacity:0;transform:translateY(26px);animation:rise 1s var(--ease) forwards}
+.hero>*:nth-child(2){animation-delay:.12s}.hero>*:nth-child(3){animation-delay:.24s}
+.hero>*:nth-child(4){animation-delay:.34s}.hero>*:nth-child(5){animation-delay:.44s}
+@keyframes rise{to{opacity:1;transform:none}}
+.fs-wrap{opacity:0;transform:translateY(20px);transition:all 1s var(--ease)}
+.fs-wrap.in{opacity:1;transform:none}
 
-        .social-icon:hover {
-            background: var(--accent-green);
-            transform: translateY(-5px);
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
-        }
+footer{position:relative;z-index:1;text-align:center;padding:2rem 1rem 3rem;color:var(--muted);font-size:.85rem;font-weight:300}
 
-        .github:hover { background: #333; }
-        .linkedin:hover { background: #0077b5; }
-        .whatsapp:hover { background: #25d366; }
-        .instagram:hover { 
-            background: radial-gradient(circle at 30% 107%, #fdf497 0%, #fdf497 5%, #fd5949 45%, #d6249f 60%, #285AEB 90%);
-        }
-
-        /* Explore Text */
-        .explore-text {
-            font-size: 2.5rem;
-            font-weight: 700;
-            color: var(--text-white);
-            margin-bottom: 3rem;
-            text-align: center;
-            position: relative;
-            display: inline-block;
-            opacity: 0;
-            transform: translateY(20px);
-            transition: all 0.8s ease 0.3s;
-        }
-
-        .profile-section.visible .explore-text {
-            opacity: 1;
-            transform: translateY(0);
-        }
-
-        .explore-text::after {
-            content: '';
-            position: absolute;
-            bottom: -10px;
-            left: 50%;
-            transform: translateX(-50%);
-            width: 100px;
-            height: 3px;
-            background: var(--accent-green);
-            border-radius: 2px;
-        }
-
-        /* Projects Section */
-        .projects-section {
-            opacity: 0;
-            transform: translateY(50px);
-            transition: opacity 1s ease, transform 1s ease;
-        }
-
-        .projects-section.visible {
-            opacity: 1;
-            transform: translateY(0);
-        }
-
-        .projects-container {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(500px, 1fr));
-            gap: 3rem;
-            margin-top: 2rem;
-        }
-
-        /* Glass Cards */
-        .glass-card {
-            background: var(--glass-bg);
-            backdrop-filter: blur(10px);
-            -webkit-backdrop-filter: blur(10px);
-            border: 1px solid var(--glass-border);
-            border-radius: 20px;
-            padding: 2rem;
-            transition: all 0.5s ease;
-            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
-            position: relative;
-            overflow: hidden;
-            opacity: 0;
-            transform: translateY(30px);
-        }
-
-        .projects-section.visible .glass-card {
-            opacity: 1;
-            transform: translateY(0);
-        }
-
-        .glass-card::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: -100%;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.1), transparent);
-            transition: all 0.6s ease;
-        }
-
-        .glass-card:hover::before {
-            left: 100%;
-        }
-
-        .glass-card:hover {
-            transform: translateY(-15px);
-            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.2);
-            border-color: var(--accent-green);
-            background: rgba(13, 59, 46, 0.4);
-        }
-
-        .project-img {
-            width: 100%;
-            height: 250px;
-            object-fit: cover;
-            border-radius: 15px;
-            margin-bottom: 1.5rem;
-            border: 1px solid var(--glass-border);
-            transition: all 0.5s ease;
-        }
-
-        .glass-card:hover .project-img {
-            transform: scale(1.03);
-        }
-
-        .project-title {
-            font-size: 1.8rem;
-            margin-bottom: 1rem;
-            color: var(--text-white);
-            font-weight: 600;
-        }
-
-        .project-description {
-            font-size: 1.1rem;
-            line-height: 1.6;
-            margin-bottom: 2rem;
-            color: var(--text-light);
-        }
-
-        .project-tech {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 0.7rem;
-            margin-bottom: 2rem;
-        }
-
-        .tech-tag {
-            background: rgba(46, 139, 87, 0.2);
-            color: var(--light-green);
-            padding: 0.4rem 1rem;
-            border-radius: 20px;
-            font-size: 0.9rem;
-            border: 1px solid rgba(76, 175, 80, 0.3);
-        }
-
-        .project-buttons {
-            display: flex;
-            gap: 1rem;
-        }
-
-        .project-btn {
-            flex: 1;
-            padding: 0.9rem 1.5rem;
-            border-radius: 30px;
-            font-size: 1rem;
-            font-weight: 600;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            text-decoration: none;
-            text-align: center;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 0.5rem;
-        }
-
-        .github-btn {
-            background: transparent;
-            color: var(--text-light);
-            border: 2px solid var(--glass-border);
-        }
-
-        .github-btn:hover {
-            background: rgba(255, 255, 255, 0.1);
-            border-color: var(--accent-green);
-            transform: translateY(-5px);
-        }
-
-        .demo-btn {
-            background: var(--accent-green);
-            color: var(--text-white);
-            border: 2px solid var(--accent-green);
-        }
-
-        .demo-btn:hover {
-            background: var(--light-green);
-            transform: translateY(-5px);
-            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
-        }
-
-        /* Floating Animation */
-        @keyframes float {
-            0% { transform: translateY(0px); }
-            50% { transform: translateY(-10px); }
-            100% { transform: translateY(0px); }
-        }
-
-        .floating {
-            animation: float 5s ease-in-out infinite;
-        }
-
-        /* Responsive Design */
-        @media (max-width: 992px) {
-            .projects-container {
-                grid-template-columns: 1fr;
-            }
-            
-            .profile-img {
-                width: 200px;
-                height: 200px;
-            }
-            
-            .explore-text {
-                font-size: 2.2rem;
-            }
-        }
-
-        @media (max-width: 768px) {
-            .container {
-                padding: 7rem 1.5rem 3rem;
-            }
-            
-            .profile-img {
-                width: 180px;
-                height: 180px;
-            }
-            
-            .explore-text {
-                font-size: 2rem;
-            }
-            
-            .projects-container {
-                grid-template-columns: 1fr;
-            }
-            
-            .project-buttons {
-                flex-direction: column;
-            }
-            
-            .glass-card {
-                padding: 1.5rem;
-            }
-        }
-
-        @media (max-width: 576px) {
-            .container {
-                padding: 6rem 1rem 2rem;
-            }
-            
-            .profile-img {
-                width: 160px;
-                height: 160px;
-            }
-            
-            .explore-text {
-                font-size: 1.8rem;
-            }
-            
-            .social-icon {
-                width: 45px;
-                height: 45px;
-                font-size: 1.3rem;
-            }
-            
-            .projects-container {
-                grid-template-columns: 1fr;
-            }
-            
-            .glass-card {
-                padding: 1.5rem;
-            }
-            
-            .project-title {
-                font-size: 1.6rem;
-            }
-        }
-    </style>
+@media(max-width:680px){
+  .container{padding:6.5rem 1.1rem 3rem}
+  .avatar{width:168px;height:168px}
+  .thumb{height:190px}
+  .nav-title{font-size:1.35rem}
+}
+@media(prefers-reduced-motion:reduce){
+  *,*::before,*::after{animation:none!important;transition:none!important}
+  .card,.fs-wrap,.hero>*{opacity:1!important;transform:none!important;filter:none!important}
+}
+</style>
 </head>
 <body>
-    <!-- Navigation -->
-    <div class="nav-container">
-        <button class="back-btn" onclick="window.location.href='home.html'">
-            <i class="fas fa-arrow-left"></i>
-        </button>
-        <h1 class="nav-title">My Projects</h1>
-        <div></div> <!-- Empty div for spacing -->
+<div class="progress" id="progress"></div>
+<div class="orb a" data-speed="0.08"></div>
+<div class="orb b" data-speed="-0.06"></div>
+
+<!-- Navigation -->
+<nav class="nav" id="nav">
+  <button class="back" onclick="window.location.href='home.html'" aria-label="Back to home"><i class="fas fa-arrow-left"></i></button>
+  <h1 class="nav-title">My Projects</h1>
+  <div></div>
+</nav>
+
+<main class="container">
+  <!-- Profile -->
+  <section class="hero">
+    <div class="avatar"><img src="images/nikhildeshmuk.png" alt="Nikhil Dandolu"></div>
+
+    <div class="socials">
+      <a href="https://github.com/nikhildeshmuk98" class="social github" target="_blank" rel="noopener noreferrer" aria-label="GitHub"><i class="fab fa-github"></i></a>
+      <a href="https://www.linkedin.com/in/nikhil-dandolu-429aa6407/" class="social linkedin" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn"><i class="fab fa-linkedin"></i></a>
+      <a href="https://wa.me/916309872249" class="social whatsapp" target="_blank" rel="noopener noreferrer" aria-label="WhatsApp"><i class="fab fa-whatsapp"></i></a>
+      <a href="https://www.instagram.com/nikhil_deshmuk_14" class="social instagram" target="_blank" rel="noopener noreferrer" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
     </div>
 
-    <!-- Main Container -->
-    <div class="container">
-        <!-- Profile Section -->
-        <section class="profile-section">
-            <img src="images/nikhildeshmuk.png" alt="Nikhil Dandolu" class="profile-img floating">
-            
-            <!-- Social Media Icons -->
-            <div class="social-icons">
-                <a href="https://github.com/nikhildeshmuk98" class="social-icon github" target="_blank" rel="noopener noreferrer">
-                    <i class="fab fa-github"></i>
-                </a>
-                <a href="https://www.linkedin.com/in/nikhil-dandolu-429aa6407/" target="_blank" class="social-icon linkedin">
-                    <i class="fab fa-linkedin"></i>
-                </a>
-                <a href="https://wa.me/916309872249" class="social-icon whatsapp" target="_blank">
-                    <i class="fab fa-whatsapp"></i>
-                </a>
-                <a href="https://www.instagram.com/nikhil_deshmuk_14" target="_blank" class="social-icon instagram">
-                    <i class="fab fa-instagram"></i>
-                </a>
-            </div>
-            
-            <h2 class="explore-text">Explore My Projects</h2>
-        </section>
+    <h2>Explore My <span>Projects</span></h2>
+    <p>Websites and web apps I have designed and built, each one live and ready to try.</p>
+    <div class="rule"></div>
+  </section>
 
-        <!-- Projects Section -->
-        <section class="projects-section" id="projectsSection">
-            <div class="projects-container">
-                <!-- Project 1: E-commerce Website -->
-                <div class="glass-card" style="transition-delay: 0.1s">
-                    <img src="images/freshmart grocery.png" 
-                         alt="Fresh Mart Grocery Store" class="project-img">
-                    <h3 class="project-title">Fresh Mart - Grocery Store</h3>
-                    <p class="project-description">
-                        A fully responsive e-commerce website for a grocery store with product catalog, shopping cart, 
-                        user authentication, and payment integration. Built with modern web technologies for a seamless shopping experience.
-                    </p>
-                    <div class="project-tech">
-                        <span class="tech-tag">HTML5</span>
-                        <span class="tech-tag">CSS3</span>
-                        <span class="tech-tag">JavaScript</span>
-                       
-                    </div>
-                    <div class="project-buttons">
-                        <a href="https://github.com/nikhildeshmuk98" class="project-btn github-btn" target="_blank">
-                            <i class="fab fa-github"></i> GitHub
-                        </a>
-                        <a href="https://fresh-mart-nikhil.vercel.app/" class="project-btn demo-btn" target="_blank">
-                            <i class="fas fa-external-link-alt"></i> Live Demo
-                        </a>
-                    </div>
-                </div>
-                
-                <!-- Project 2: Portfolio Website -->
-                <div class="glass-card" style="transition-delay: 0.3s">
-                    <img src="images/nikhil portifolio.png" 
-                         alt="Portfolio Website" class="project-img">
-                    <h3 class="project-title">Portfolio Website</h3>
-                    <p class="project-description">
-                        A modern, responsive portfolio website showcasing home,about,skills, projects, and certificationsand contact. 
-                        Features smooth animations, dark green and black theme glassmorphism background, and optimized performance for all devices.
-                    </p>
-                    <div class="project-tech">
-                        <span class="tech-tag">HTML5</span>
-                        <span class="tech-tag">CSS3</span>
-                        <span class="tech-tag">JavaScript</span>
-                       
-                    </div>
-                    <div class="project-buttons">
-                        <a href="https://github.com/nikhildeshmuk98" class="project-btn github-btn" target="_blank">
-                            <i class="fab fa-github"></i> GitHub
-                        </a>
-                        <a href="https://nikhil-portfolio-taupe.vercel.app/" class="project-btn demo-btn" target="_blank">
-                            <i class="fas fa-external-link-alt"></i> Live Demo
-                        </a>
-                    </div>
-                </div>
-                <!-- Project 2: Gluco Care - Diabetes web app -->
-                <div class="glass-card" style="transition-delay: 0.3s">
-                    <img src="images/gluco care.png" 
-                         alt="Gluco Care - Diabetes web app" class="project-img">
-                    <h3 class="project-title">Gluco Care - Diabetes Web app</h3>
-                    <p class="project-description">
-                       A responsive diabetes monitoring web application that helps users understand fasting and post-meal glucose levels and identify normal, prediabetes, or high-risk conditions. The app provides clear health guidance, diet awareness, and precautionary insights through a user-friendly and medically themed interface.
-                    </p>
-                    <div class="project-tech">
-                        <span class="tech-tag">HTML5</span>
-                        <span class="tech-tag">CSS3</span>
-                        <span class="tech-tag">JavaScript</span>
-                       
-                    </div>
-                    <div class="project-buttons">
-                        <a href="https://github.com/nikhildeshmuk98" class="project-btn github-btn" target="_blank">
-                            <i class="fab fa-github"></i> GitHub
-                        </a>
-                        <a href="https://gluco-care-diabetes.vercel.app/" class="project-btn demo-btn" target="_blank">
-                            <i class="fas fa-external-link-alt"></i> Live Demo
-                        </a>
-                    </div>
-                </div>
-                 <!-- Project 2: health & hygenic -->
-                <div class="glass-card" style="transition-delay: 0.3s">
-                    <img src="images/healthhygenic.png" 
-                         alt="Health & Hyhenic" class="project-img">
-                    <h3 class="project-title">Health & Hygenic</h3>
-                   <p class="project-description">
-    A community service project focused on promoting health and hygiene awareness among rural villagers. 
-    The initiative included interactive sessions, demonstrations on proper handwashing techniques, and discussions on sanitation and healthy living practices. 
-    Emphasizes teamwork, social responsibility, and real-world community engagement for a positive social impact.
-</p>
+  <!-- Full stack button -->
+  <div class="fs-wrap reveal-block">
+    <a href="fullstackprojects.html" class="fs-btn">
+      <i class="fas fa-laptop-code"></i>
+      Full Stack Projects
+      <i class="fas fa-arrow-right"></i>
+    </a>
+  </div>
 
-                    <div class="project-tech">
-                        <span class="tech-tag">HTML5</span>
-                        <span class="tech-tag">CSS3</span>
-                        <span class="tech-tag">JavaScript</span>
-                       
-                    </div>
-                    <div class="project-buttons">
-                        <a href="https://github.com/nikhildeshmuk98" class="project-btn github-btn" target="_blank">
-                            <i class="fab fa-github"></i> GitHub
-                        </a>
-                        <a href="https://health-hygenic-nikhildeshmuk.vercel.app/" class="project-btn demo-btn" target="_blank">
-                            <i class="fas fa-external-link-alt"></i> Live Demo
-                        </a>
-                    </div>
-                </div>
- <!-- Project 4: kiayar's Gallery -->
-                <div class="glass-card" style="transition-delay: 0.3s">
-                    <img src="images/kiaras gallery.png" 
-                         alt="kiayar's Gallery" class="project-img">
-                    <h3 class="project-title">memories of my cutiepie</h3>
-                   <p class="project-description">
-   Kiara’s Gallery is a charming personal website showcasing the magical world and memories of Princess Kiayara, inviting visitors to explore an enchanting digital gallery filled with love and joy. It’s crafted as a whimsical online space celebrating special moments and treasured experiences.
-</p>
+  <!-- Projects -->
+  <section class="grid" id="grid">
 
-                    <div class="project-tech">
-                        <span class="tech-tag">HTML5</span>
-                        <span class="tech-tag">CSS3</span>
-                        <span class="tech-tag">JavaScript</span>
-                       
-                    </div>
-                    <div class="project-buttons">
-                        <a href="https://github.com/nikhildeshmuk98" class="project-btn github-btn" target="_blank">
-                            <i class="fab fa-github"></i> GitHub
-                        </a>
-                        <a href="https://jayampu-guru-kiyara-gallery.vercel.app/" class="project-btn demo-btn" target="_blank">
-                            <i class="fas fa-external-link-alt"></i> Live Demo
-                        </a>
-                    </div>
-                </div>
-                <!-- Project 5: morning bites bill generating web app -->
-                <div class="glass-card" style="transition-delay: 0.3s">
-                    <img src="images/billing.png" 
-                         alt="Morning Bites billing web app" class="project-img">
-                    <h3 class="project-title">Morning Bites billing web app </h3>
-                   <p class="project-description">
-A responsive Restaurant Billing Web App built using HTML, CSS, and JavaScript that helps generate bills, manage menu items, and calculate GST automatically. Designed with a clean dashboard and smooth navigation for fast and easy hotel billing operations.</p>
+    <article class="card">
+      <div class="thumb"><img src="images/freshmart grocery.png" alt="Fresh Mart Grocery Store" loading="lazy"></div>
+      <div class="body">
+        <h3 class="title">Fresh Mart - Grocery Store</h3>
+        <p class="desc">A fully responsive e-commerce website for a grocery store with product catalog, shopping cart, user authentication, and payment integration. Built with modern web technologies for a seamless shopping experience.</p>
+        <div class="tags"><span class="tag">HTML5</span><span class="tag">CSS3</span><span class="tag">JavaScript</span></div>
+        <div class="actions">
+          <a href="https://github.com/nikhildeshmuk98/fresh_mart.git" class="btn ghost" target="_blank" rel="noopener noreferrer"><i class="fab fa-github"></i> GitHub</a>
+          <a href="https://fresh-mart-nikhil.vercel.app/" class="btn solid" target="_blank" rel="noopener noreferrer"><i class="fas fa-arrow-up-right-from-square"></i> Live Demo</a>
+        </div>
+      </div>
+    </article>
 
-                    <div class="project-tech">
-                        <span class="tech-tag">HTML5</span>
-                        <span class="tech-tag">CSS3</span>
-                        <span class="tech-tag">JavaScript</span>
-                       
-                    </div>
-                    <div class="project-buttons">
-                        <a href="https://github.com/nikhildeshmuk98" class="project-btn github-btn" target="_blank">
-                            <i class="fab fa-github"></i> GitHub
-                        </a>
-                        <a href= "https://morning-bite-billing-webapp.vercel.app/" class="project-btn demo-btn" target="_blank">
-                            <i class="fas fa-external-link-alt"></i> Live Demo
-                        </a>
-                    </div>
-                </div>
-<!-- Project 5: morning bites bill generating web app -->
-                <div class="glass-card" style="transition-delay: 0.3s">
-                    <img src="images/amazon.jpg"  
-                         alt="Amazon-Prime-clone web app"  class="project-img">
-                    <h3 class="project-title">Amazon-Prime-clone web app</h3>
-                   <p class="project-description"> Amazon Prime Clone is a full-stack Python web application that replicates an OTT streaming platform with secure authentication, dynamic content management, and responsive frontend design. 
-</p>
-                    <div class="project-tech">
-                        <span class="tech-tag">HTML5</span>
-                        <span class="tech-tag">CSS3</span>
-                        <span class="tech-tag">JavaScript</span>
-                         <span class="tech-tag">django</span>
-                          <span class="tech-tag">sql</span>
+    <article class="card">
+      <div class="thumb"><img src="images/nikhil portifolio.png" alt="Portfolio Website" loading="lazy"></div>
+      <div class="body">
+        <h3 class="title">Portfolio Website</h3>
+        <p class="desc">A modern, responsive portfolio showcasing home, about, skills, projects, certifications and contact. Features smooth animations, a dark green and black glassmorphism theme, and optimized performance for all devices.</p>
+        <div class="tags"><span class="tag">HTML5</span><span class="tag">CSS3</span><span class="tag">JavaScript</span></div>
+        <div class="actions">
+          <a href="https://github.com/nikhildeshmuk98/nikhil-portfolio.git" class="btn ghost" target="_blank" rel="noopener noreferrer"><i class="fab fa-github"></i> GitHub</a>
+          <a href="https://nikhil-portfolio-taupe.vercel.app/" class="btn solid" target="_blank" rel="noopener noreferrer"><i class="fas fa-arrow-up-right-from-square"></i> Live Demo</a>
+        </div>
+      </div>
+    </article>
 
-                       
-                    </div>
-                    <div class="project-buttons">
-                        <a href="https://github.com/nikhildeshmuk98" class="project-btn github-btn" target="_blank">
-                            <i class="fab fa-github"></i> GitHub
-                        </a>
-                        <a href= "https://amazon-prime-clone.base44.app/" class="project-btn demo-btn" target="_blank">
-                            <i class="fas fa-external-link-alt"></i> Live Demo
-                        </a>
-                    </div>
-                </div>
+    <article class="card">
+      <div class="thumb"><img src="images/gluco care.png" alt="Gluco Care - Diabetes web app" loading="lazy"></div>
+      <div class="body">
+        <h3 class="title">Gluco Care - Diabetes Web App</h3>
+        <p class="desc">A responsive diabetes monitoring web app that helps users understand fasting and post-meal glucose levels and identify normal, prediabetes, or high-risk conditions, with clear health guidance, diet awareness, and precautionary insights.</p>
+        <div class="tags"><span class="tag">HTML5</span><span class="tag">CSS3</span><span class="tag">JavaScript</span></div>
+        <div class="actions">
+          <a href="https://github.com/nikhildeshmuk98/gluco-care-diabetes.git" class="btn ghost" target="_blank" rel="noopener noreferrer"><i class="fab fa-github"></i> GitHub</a>
+          <a href="https://gluco-care-diabetes.vercel.app/" class="btn solid" target="_blank" rel="noopener noreferrer"><i class="fas fa-arrow-up-right-from-square"></i> Live Demo</a>
+        </div>
+      </div>
+    </article>
 
-            </div>
-        </section>
-    </div>
+    <article class="card">
+      <div class="thumb"><img src="images/healthhygenic.png" alt="Health and Hygiene" loading="lazy"></div>
+      <div class="body">
+        <h3 class="title">Health &amp; Hygienic</h3>
+        <p class="desc">A community service project promoting health and hygiene awareness among rural villagers, with interactive sessions, handwashing demonstrations, and discussions on sanitation and healthy living. It emphasizes teamwork and social responsibility.</p>
+        <div class="tags"><span class="tag">HTML5</span><span class="tag">CSS3</span><span class="tag">JavaScript</span></div>
+        <div class="actions">
+          <a href="https://github.com/nikhildeshmuk98/health-hygenic-nikhildeshmuk.git" class="btn ghost" target="_blank" rel="noopener noreferrer"><i class="fab fa-github"></i> GitHub</a>
+          <a href="https://health-hygenic-nikhildeshmuk.vercel.app/" class="btn solid" target="_blank" rel="noopener noreferrer"><i class="fas fa-arrow-up-right-from-square"></i> Live Demo</a>
+        </div>
+      </div>
+    </article>
 
-    <script>
-        // Magical Scroll Transitions
-        const observerOptions = {
-            threshold: 0.1,
-            rootMargin: '0px 0px -50px 0px'
-        };
-        
-        const observer = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    entry.target.classList.add('visible');
-                    
-                    // Add staggered animation for project cards
-                    if (entry.target.classList.contains('projects-section')) {
-                        const projectCards = entry.target.querySelectorAll('.glass-card');
-                        
-                        projectCards.forEach((card, index) => {
-                            setTimeout(() => {
-                                card.style.transitionDelay = `${index * 200}ms`;
-                                card.classList.add('visible');
-                            }, 300);
-                        });
-                    }
-                }
-            });
-        }, observerOptions);
-        
-        // Observe profile section and projects section
-        observer.observe(document.querySelector('.profile-section'));
-        observer.observe(document.querySelector('.projects-section'));
-        
-        // Make profile section visible immediately
-        document.querySelector('.profile-section').classList.add('visible');
-    </script>
+    <article class="card">
+      <div class="thumb"><img src="images/kiaras gallery.png" alt="Kiara's Gallery" loading="lazy"></div>
+      <div class="body">
+        <h3 class="title">Memories of My Cutiepie</h3>
+        <p class="desc">Kiara’s Gallery is a charming personal website showcasing the magical world and memories of Princess Kiayara, a whimsical digital gallery filled with love and joy that celebrates special moments and treasured experiences.</p>
+        <div class="tags"><span class="tag">HTML5</span><span class="tag">CSS3</span><span class="tag">JavaScript</span></div>
+        <div class="actions">
+          <a href="https://github.com/nikhildeshmuk98/jayampu-guru-kiyara-gallery.git" class="btn ghost" target="_blank" rel="noopener noreferrer"><i class="fab fa-github"></i> GitHub</a>
+          <a href="https://jayampu-guru-kiyara-gallery.vercel.app/" class="btn solid" target="_blank" rel="noopener noreferrer"><i class="fas fa-arrow-up-right-from-square"></i> Live Demo</a>
+        </div>
+      </div>
+    </article>
+
+    <article class="card">
+      <div class="thumb"><img src="images/billing.png" alt="Morning Bites billing web app" loading="lazy"></div>
+      <div class="body">
+        <h3 class="title">Morning Bites Billing Web App</h3>
+        <p class="desc">A responsive restaurant billing web app that generates bills, manages menu items, and calculates GST automatically. It has a clean dashboard and smooth navigation for fast and easy hotel billing operations.</p>
+        <div class="tags"><span class="tag">HTML5</span><span class="tag">CSS3</span><span class="tag">JavaScript</span></div>
+        <div class="actions">
+          <a href="https://github.com/nikhildeshmuk98/morning-bite-billing-webapp.git" class="btn ghost" target="_blank" rel="noopener noreferrer"><i class="fab fa-github"></i> GitHub</a>
+          <a href="https://morning-bite-billing-webapp.vercel.app/" class="btn solid" target="_blank" rel="noopener noreferrer"><i class="fas fa-arrow-up-right-from-square"></i> Live Demo</a>
+        </div>
+      </div>
+    </article>
+
+
+
+  </section>
+</main>
+
+<footer>&copy; <span id="yr"></span> Nikhil Dandolu. Crafted with care.</footer>
+
+<script>
+(function(){
+  var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var nav = document.getElementById('nav');
+  var bar = document.getElementById('progress');
+  var orbs = document.querySelectorAll('.orb');
+  document.getElementById('yr').textContent = new Date().getFullYear();
+
+  // Scroll progress, sticky nav shrink, orb parallax
+  var ticking = false;
+  function onScroll(){
+    var y = window.scrollY;
+    var max = document.documentElement.scrollHeight - window.innerHeight;
+    bar.style.transform = 'scaleX(' + (max > 0 ? y / max : 0) + ')';
+    nav.classList.toggle('scrolled', y > 30);
+    if(!reduce){
+      orbs.forEach(function(o){ o.style.transform = 'translateY(' + (y * parseFloat(o.dataset.speed)) + 'px)'; });
+    }
+    ticking = false;
+  }
+  window.addEventListener('scroll', function(){
+    if(!ticking){ requestAnimationFrame(onScroll); ticking = true; }
+  }, {passive:true});
+  onScroll();
+
+  // Reveal cards with a staggered cascade per row
+  var cards = Array.prototype.slice.call(document.querySelectorAll('.card'));
+  var io = new IntersectionObserver(function(entries){
+    entries.forEach(function(e){
+      if(!e.isIntersecting) return;
+      var el = e.target;
+      var col = cards.indexOf(el) % (window.innerWidth > 1024 ? 3 : window.innerWidth > 680 ? 2 : 1);
+      el.style.transitionDelay = (col * 130) + 'ms';
+      el.classList.add('in');
+      setTimeout(function(){ el.style.transitionDelay = '0ms'; el.classList.add('ready'); }, 1100 + col * 130);
+      io.unobserve(el);
+    });
+  }, {threshold:0.12, rootMargin:'0px 0px -60px 0px'});
+  cards.forEach(function(c){ io.observe(c); });
+  document.querySelectorAll('.reveal-block').forEach(function(b){
+    new IntersectionObserver(function(en, ob){
+      if(en[0].isIntersecting){ b.classList.add('in'); ob.disconnect(); }
+    }, {threshold:0.2}).observe(b);
+  });
+
+  // Spotlight glow + gentle 3D tilt (mouse devices only)
+  if(!reduce && window.matchMedia('(hover: hover)').matches){
+    cards.forEach(function(card){
+      card.addEventListener('mousemove', function(ev){
+        var r = card.getBoundingClientRect();
+        var x = ev.clientX - r.left, y = ev.clientY - r.top;
+        card.style.setProperty('--mx', x + 'px');
+        card.style.setProperty('--my', y + 'px');
+        if(card.classList.contains('ready')){
+          var rx = ((y / r.height) - 0.5) * -6;
+          var ry = ((x / r.width) - 0.5) * 6;
+          card.style.transform = 'perspective(900px) rotateX(' + rx + 'deg) rotateY(' + ry + 'deg) translateY(-10px)';
+        }
+      });
+      card.addEventListener('mouseleave', function(){
+        if(card.classList.contains('ready')) card.style.transform = '';
+      });
+    });
+  }
+})();
+</script>
 </body>
 </html>
