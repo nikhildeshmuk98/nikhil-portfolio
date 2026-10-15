@@ -1,0 +1,248 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Resume | Nikhil Dandolu</title>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600;700&family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{--ink:#06101a;--emerald:#2e8b57;--mint:#6fcf97;--gold:#d9bc82;--gold2:#a98a4d;--acc:#d9bc82;--text:#d9e2de;--muted:#9fb1aa;--white:#fff;
+--line:rgba(217,188,130,.22);--navbg:rgba(6,16,26,.62);--sh:rgba(0,0,0,.35);--e:cubic-bezier(.22,1,.36,1);
+--card:linear-gradient(160deg,rgba(16,60,47,.55),rgba(8,26,24,.7));
+--bg:radial-gradient(1200px 600px at 80% -10%,rgba(46,139,87,.22),transparent 60%),radial-gradient(900px 500px at -10% 45%,rgba(217,188,130,.08),transparent 60%),linear-gradient(160deg,#06101a,#08201a 55%,#06101a)}
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{font-family:'Poppins',sans-serif;color:var(--text);background:var(--bg);background-attachment:fixed;min-height:100vh;overflow-x:hidden}
+a{text-decoration:none;color:inherit}
+:focus-visible{outline:2px solid var(--gold);outline-offset:3px}
+
+.orb{position:fixed;border-radius:50%;filter:blur(90px);pointer-events:none;z-index:0}
+.orb.a{width:380px;height:380px;background:rgba(46,139,87,.26);top:8%;left:-120px}
+.orb.b{width:320px;height:320px;background:rgba(217,188,130,.14);bottom:6%;right:-100px}
+
+/* sparkle stars */
+.stars{position:fixed;inset:0;z-index:0;pointer-events:none}
+.stars::before{content:"";position:absolute;top:12%;left:8%;width:2px;height:2px;border-radius:50%;background:#f3e3bd;
+box-shadow:75px 80px 0 rgba(217,188,130,.8),150px 20px 0 rgba(255,255,255,.65),220px 145px 0 rgba(111,207,151,.8),310px 60px 0 rgba(217,188,130,.7),390px 190px 0 rgba(255,255,255,.7),480px 35px 0 rgba(111,207,151,.7),560px 130px 0 rgba(217,188,130,.8),640px 55px 0 rgba(255,255,255,.6),720px 205px 0 rgba(111,207,151,.7),800px 90px 0 rgba(217,188,130,.8),900px 160px 0 rgba(255,255,255,.65),1010px 45px 0 rgba(111,207,151,.7),1100px 180px 0 rgba(217,188,130,.7),120px 300px 0 rgba(255,255,255,.6),280px 380px 0 rgba(217,188,130,.8),450px 320px 0 rgba(111,207,151,.7),620px 420px 0 rgba(255,255,255,.6),790px 350px 0 rgba(217,188,130,.8),960px 450px 0 rgba(111,207,151,.7),1080px 320px 0 rgba(255,255,255,.6);
+opacity:.6;animation:tw 4s ease-in-out infinite alternate}
+@keyframes tw{0%{opacity:.25}50%{opacity:.8}100%{opacity:.45}}
+
+/* Back button (top-left) */
+.back{position:fixed;top:1.3rem;left:1.3rem;z-index:100;width:52px;height:52px;border-radius:50%;display:grid;place-items:center;font-size:1.15rem;color:var(--acc);
+background:var(--navbg);backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);border:1px solid var(--line);box-shadow:0 10px 26px var(--sh);transition:all .45s var(--e)}
+.back:hover{color:var(--ink);background:linear-gradient(120deg,#f1deb0,var(--gold) 50%,var(--gold2));box-shadow:0 0 26px rgba(217,188,130,.5);transform:translateX(-4px)}
+.back i{transition:transform .45s var(--e)}
+.back:hover i{transform:translateX(-2px)}
+
+main{position:relative;z-index:1;max-width:1240px;margin:0 auto;padding:6.5rem 2rem 3rem}
+
+/* Header */
+.head{text-align:center;margin-bottom:3.5rem;animation:rise 1s var(--e) both}
+.eyebrow{display:inline-flex;align-items:center;gap:.6rem;padding:.4rem 1.1rem;border-radius:40px;font-size:.78rem;letter-spacing:.14em;text-transform:uppercase;color:var(--acc);border:1px solid var(--line);background:rgba(217,188,130,.06);margin-bottom:1.2rem}
+.title{font-family:'Cormorant Garamond',serif;font-weight:700;font-size:clamp(2.4rem,5vw,3.8rem);line-height:1.1;margin-bottom:.8rem;background:linear-gradient(100deg,var(--acc),#f3e3bd 50%,var(--gold2));-webkit-background-clip:text;background-clip:text;color:transparent}
+.rule{width:110px;height:2px;margin:0 auto 1.2rem;background:linear-gradient(90deg,transparent,var(--gold),transparent)}
+.lead{max-width:600px;margin:0 auto;color:var(--muted);font-weight:300;line-height:1.85;font-size:.95rem}
+
+/* Grid: all cards equal size */
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(270px,1fr));gap:2rem;grid-auto-rows:1fr}
+.card{--mx:50%;--my:50%;position:relative;display:flex;flex-direction:column;height:430px;padding:1.1rem;border-radius:22px;background:var(--card);border:1px solid var(--line);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);box-shadow:0 18px 40px var(--sh);overflow:hidden;
+opacity:0;animation:rise .9s var(--e) forwards;transition:transform .5s var(--e),box-shadow .5s,border-color .5s}
+.card:nth-child(1){animation-delay:.15s}.card:nth-child(2){animation-delay:.27s}.card:nth-child(3){animation-delay:.39s}.card:nth-child(4){animation-delay:.51s}.card:nth-child(5){animation-delay:.63s}.card:nth-child(6){animation-delay:.75s}
+@keyframes rise{from{opacity:0;transform:translateY(40px)}to{opacity:1;transform:none}}
+.card::before,.card::after{content:"";position:absolute;inset:0;border-radius:inherit;pointer-events:none;opacity:0;transition:opacity .4s}
+.card::before{background:radial-gradient(420px circle at var(--mx) var(--my),rgba(217,188,130,.15),transparent 55%)}
+.card::after{padding:1px;background:radial-gradient(260px circle at var(--mx) var(--my),var(--gold),transparent 65%);-webkit-mask:linear-gradient(#000 0 0) content-box,linear-gradient(#000 0 0);-webkit-mask-composite:xor;mask-composite:exclude}
+.card:hover,.card:focus-within{transform:translateY(-10px);border-color:rgba(217,188,130,.5);box-shadow:0 32px 64px var(--sh),0 0 44px rgba(46,139,87,.2)}
+.card:hover::before,.card:hover::after,.card:focus-within::before,.card:focus-within::after{opacity:1}
+
+/* Document preview */
+.prev{position:relative;display:block;height:230px;flex:none;border-radius:15px;border:1px solid var(--line);background:radial-gradient(circle at 50% 0%,rgba(46,139,87,.28),#0b1f1a 70%);overflow:hidden;margin-bottom:1.3rem}
+.paper{position:absolute;left:50%;top:22px;width:150px;height:210px;transform:translateX(-50%) rotate(-2deg);border-radius:6px;padding:14px 12px;background:linear-gradient(180deg,#fffdf7,#f1e8d2);box-shadow:0 18px 30px rgba(0,0,0,.45);transition:transform .8s var(--e)}
+.card:hover .paper{transform:translateX(-50%) rotate(0deg) translateY(-6px) scale(1.05)}
+.paper .av{width:26px;height:26px;border-radius:50%;background:linear-gradient(120deg,var(--gold),var(--gold2));margin-bottom:8px}
+.paper b{display:block;height:6px;width:70%;border-radius:3px;background:#2b3a35;margin-bottom:5px}
+.paper s{display:block;height:3px;border-radius:2px;background:#c9bfa5;margin-bottom:5px;text-decoration:none}
+.paper s.g{background:var(--gold2);width:40%;margin-top:10px}
+.paper s.w1{width:92%}.paper s.w2{width:78%}.paper s.w3{width:85%}.paper s.w4{width:60%}
+.prev::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,transparent 55%,rgba(6,16,26,.7));pointer-events:none}
+.badge{position:absolute;left:.8rem;bottom:.7rem;z-index:2;padding:.25rem .8rem;border-radius:30px;font-size:.72rem;font-weight:500;letter-spacing:.04em;color:var(--acc);background:rgba(6,16,26,.6);border:1px solid rgba(217,188,130,.35);backdrop-filter:blur(6px)}
+
+/* Download icon: visible only on hover / keyboard focus */
+.dl{position:absolute;top:1.9rem;right:1.9rem;z-index:5;width:46px;height:46px;border-radius:50%;display:grid;place-items:center;font-size:1.05rem;color:#10241d;
+background:linear-gradient(120deg,#f1deb0,var(--gold) 50%,var(--gold2));box-shadow:0 10px 24px rgba(217,188,130,.45);
+opacity:0;visibility:hidden;transform:translateY(-12px) scale(.7);transition:all .45s var(--e)}
+.card:hover .dl,.card:focus-within .dl{opacity:1;visibility:visible;transform:none}
+.dl:hover{transform:translateY(-3px) scale(1.12)!important;box-shadow:0 14px 30px rgba(217,188,130,.6)}
+.dl::after{content:attr(data-tip);position:absolute;right:calc(100% + 10px);top:50%;transform:translateY(-50%);white-space:nowrap;padding:.3rem .7rem;border-radius:8px;font-size:.74rem;font-weight:500;color:var(--text);background:rgba(6,16,26,.85);border:1px solid var(--line);opacity:0;pointer-events:none;transition:opacity .3s}
+.dl:hover::after{opacity:1}
+@media(hover:none){.dl{opacity:1;visibility:visible;transform:none}}
+
+/* Text */
+.body{display:flex;flex-direction:column;flex:1;padding:0 .5rem}
+.name{font-family:'Cormorant Garamond',serif;font-size:1.6rem;line-height:1.2;font-weight:700;color:var(--white);min-height:2.4em;display:flex;align-items:flex-start}
+.desc{margin-top:.4rem;font-size:.88rem;line-height:1.7;font-weight:300;color:var(--muted);display:-webkit-box;-webkit-line-clamp:3;line-clamp:3;-webkit-box-orient:vertical;overflow:hidden}
+.meta{margin-top:auto;display:flex;justify-content:space-between;align-items:center;padding-top:.9rem;border-top:1px solid var(--line);font-size:.78rem;color:var(--acc)}
+.meta span i{margin-right:.4rem}
+.view{display:inline-flex;align-items:center;gap:.4rem;font-weight:500;transition:gap .4s var(--e)}
+.view:hover{gap:.7rem;color:#f3e3bd}
+
+.note{text-align:center;margin-top:3.5rem;color:var(--muted);font-size:.82rem;font-weight:300}
+.note i{color:var(--acc);margin-right:.4rem}
+
+@media(max-width:680px){main{padding:6rem 1.1rem 2.5rem}.grid{grid-template-columns:1fr}.back{top:1rem;left:1rem;width:46px;height:46px}}
+@media(prefers-reduced-motion:reduce){*,*::before,*::after{animation:none!important;transition:none!important}.card{opacity:1}}
+</style>
+</head>
+<body>
+<div class="orb a"></div><div class="orb b"></div><div class="stars"></div>
+
+<a class="back" href="home.html" aria-label="Back to home" title="Back to home"><i class="fas fa-arrow-left"></i></a>
+
+<main>
+  <header class="head">
+    <div class="eyebrow"><i class="fas fa-gem"></i> Curated Collection</div>
+    <h1 class="title">My Resumes</h1>
+    <div class="rule"></div>
+    <p class="lead">Choose the resume that fits your role. Hover over a card and tap the download icon to save it.</p>
+  </header>
+
+  <section class="grid" id="grid"></section>
+  <p class="note"><i class="fas fa-lock-open"></i>Thank you for visiting, Nikhil Dandolu &mdash; Python Full Stack Developer</p>
+</main>
+
+<script>
+/* ---------- DATA (edit here) ----------
+   [title, description, file path, badge, format, updated]
+   Put your PDF files in the images/ folder (or change the paths).            */
+
+var RESUMES = [
+    [
+        'Python Full Stack Developer Resume',
+        'Highlights Python, Flask, MySQL, HTML, CSS, JavaScript, REST APIs, and full-stack projects including Rythu Connect and Deepflix.',
+        'images/ufora_nikhil_resume.pdf',
+        'Featured',
+        'PDF',
+        '2026'
+    ],
+    [
+        'Data Analytics Resume',
+        'Showcases Python, SQL, data cleaning, exploratory data analysis, data visualization, and Data Analytics Internship experience at Aspire Primo Grad.',
+        'images/agentic ai nikhil resume.pdf',
+        'Analytics',
+        'PDF',
+        '2026'
+    ],
+    [
+        'Application Technical Support Practitioner Resume',
+        'Focuses on technical support, troubleshooting, application support, problem-solving, and technical skills relevant to application support practitioner roles.',
+        'images/Application_Tech_Support_Practitioner_Resume.pdf',
+        'Technical Support',
+        'PDF',
+        '2026'
+    ],
+    [
+        'Associate Software Engineer Resume',
+        'Entry-level software engineering resume highlighting programming fundamentals, software development, databases, problem-solving, and academic projects.',
+        'images/associate software engineer resume nikhil.pdf',
+        'Software Engineering',
+        'PDF',
+        '2026'
+    ],
+    [
+        'Associate Technical Support Engineer – Salesforce Resume',
+        'Targets technical support and Salesforce-related opportunities, emphasizing troubleshooting, customer assistance, technical communication, and problem-solving.',
+        'images/associate technical support enginner salaesforce.pdf',
+        'Technical Support',
+        'PDF',
+        '2026'
+    ],
+    [
+        'Quality Engineer Resume',
+        'Presents a fresher profile for quality engineering roles, with emphasis on analytical thinking, attention to detail, testing concepts, and problem-solving.',
+        'images/dandolunikhilqualityengineerresume.pdf',
+        'Quality Engineering',
+        'PDF',
+        '2026'
+    ],
+    [
+        'Customer Support Chat Resume',
+        'Highlights customer communication, chat support, issue resolution, troubleshooting, and interpersonal skills for customer support opportunities.',
+        'images/nikhil customer support chat resume.pdf',
+        'Customer Support',
+        'PDF',
+        '2026'
+    ],
+    [
+        'Cognizant Java Developer – AWS Targeted Resume',
+        'Tailored for Java developer opportunities involving software development fundamentals, Java-related skills, AWS exposure, and application development.',
+        'images/Nikhil_Dandolu_Cognizant_Java_Developer_AWS_Targeted_Resume.pdf',
+        'Java / AWS',
+        'PDF',
+        '2026'
+    ],
+    [
+        'Virtusa Associate Targeted Resume',
+        'Targets associate-level technology roles, highlighting database fundamentals, technical problem-solving, software skills, and relevant academic projects.',
+        'images/Nikhil_Dandolu_Virtusa_Associate_Targeted resumee1.pdf',
+        'Associate Role',
+        'PDF',
+        '2026'
+    ],
+    [
+        'Python Full Stack Developer Resume',
+        'Emphasizes Python, Flask, MySQL, REST APIs, frontend technologies, and full-stack application development for entry-level developer positions.',
+        'images/python full stack developer resume.pdf',
+        'Python Development',
+        'PDF',
+        '2026'
+    ],
+    [
+        'General Fresher Resume',
+        'A general entry-level resume for fresher opportunities, presenting educational background, technical skills, projects, certifications, and transferable skills.',
+        'images/resume nikhil.pdf',
+        'Fresher',
+        'PDF',
+        '2026'
+    ],
+    [
+        'Siemens Internship Resume',
+        'Designed for internship applications, highlighting academic background, technical skills, project experience, adaptability, and willingness to learn.',
+        'images/semens intern resume.pdf',
+        'Internship',
+        'PDF',
+        '2026'
+    ],
+    [
+        'Virtusa Associate Resume',
+        'Presents technical skills, database knowledge, software development fundamentals, and problem-solving experience for associate-level technology opportunities.',
+        'images/virtusa resume associate.pdf',
+        'Associate Role',
+        'PDF',
+        '2026'
+    ]
+];
+
+var esc=function(s){return String(s).replace(/[&<>"]/g,function(c){return{'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]})};
+document.getElementById('grid').innerHTML=RESUMES.map(function(r){
+ var f=esc(r[2]),t=esc(r[0]);
+ return '<article class="card">'+
+  '<a class="dl" href="'+f+'" download aria-label="Download '+t+'" data-tip="Download"><i class="fas fa-download"></i></a>'+
+  '<a class="prev" href="'+f+'" target="_blank" rel="noopener" aria-label="View '+t+'">'+
+   '<div class="paper"><div class="av"></div><b></b><s class="w1"></s><s class="w2"></s><s class="g"></s><s class="w1"></s><s class="w3"></s><s class="w4"></s><s class="g"></s><s class="w2"></s><s class="w3"></s></div>'+
+   '<span class="badge">'+esc(r[3])+'</span></a>'+
+  '<div class="body"><h3 class="name">'+t+'</h3><p class="desc">'+esc(r[1])+'</p>'+
+  '<div class="meta"><span><i class="far fa-file-pdf"></i>'+esc(r[4])+' &bull; '+esc(r[5])+'</span>'+
+  '<a class="view" href="'+f+'" target="_blank" rel="noopener">View <i class="fas fa-arrow-right"></i></a></div></div>'+
+ '</article>';
+}).join('');
+
+/* cursor-follow glow on cards */
+if(matchMedia('(hover: hover)').matches){
+ Array.prototype.forEach.call(document.querySelectorAll('.card'),function(c){
+  c.addEventListener('mousemove',function(e){var r=c.getBoundingClientRect();c.style.setProperty('--mx',(e.clientX-r.left)+'px');c.style.setProperty('--my',(e.clientY-r.top)+'px')});
+ });
+}
+</script>
+</body>
+</html>

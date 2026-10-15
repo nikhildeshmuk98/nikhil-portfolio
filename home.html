@@ -28,7 +28,7 @@ body.light .orb{opacity:.5}
 /* Nav */
 nav{position:fixed;top:0;left:0;right:0;z-index:1000;display:flex;justify-content:space-between;align-items:center;padding:.8rem 5%;background:var(--navbg);backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);border-bottom:1px solid var(--line);transition:padding .4s var(--e)}
 nav.sc{padding:.45rem 5%}
-.brand{display:flex;align-items:center;gap:.8rem}
+.brand{display:flex;align-items:center;gap:.8rem;cursor:pointer}
 .brand img{width:46px;height:46px;border-radius:50%;object-fit:cover;border:2px solid var(--gold)}
 .brand h2{font-family:'Cormorant Garamond',serif;font-size:1.55rem;font-weight:700;color:var(--white);letter-spacing:.03em}
 .nr{display:flex;align-items:center;gap:.3rem}
@@ -594,6 +594,24 @@ footer p{color:var(--muted);font-size:.85rem}
 .lang:hover,.lang.on{border-color:var(--gold);background:rgba(217,188,130,.12);transform:translateY(-5px);box-shadow:0 14px 28px var(--sh)}
 .lang .f{font-size:2.8rem}.lang b{display:block;color:var(--white);font-size:1.15rem;margin-top:.4rem}.lang small{color:var(--muted)}
 
+/* =========================
+   RESUME ACCESS (PASSWORD) CARD
+========================= */
+.pbox{width:min(92%,420px);text-align:center;padding:2.4rem 2rem 2rem}
+.pbox .lockicon{width:78px;height:78px;margin:0 auto 1.2rem;border-radius:50%;display:grid;place-items:center;font-size:1.9rem;color:#10241d;background:linear-gradient(120deg,#f1deb0,var(--gold),var(--gold2));box-shadow:0 0 30px rgba(217,188,130,.35)}
+.pbox h3{font-family:'Cormorant Garamond',serif;font-size:1.9rem;color:var(--white);margin-bottom:.4rem}
+.pbox .hint{color:var(--muted);font-size:.88rem;font-weight:300;line-height:1.7;margin-bottom:1.4rem}
+.pwrap{position:relative}
+.pwrap .field{margin-bottom:.5rem;padding-right:3.2rem;text-align:center;letter-spacing:.12em;font-size:1rem}
+.pwrap .eye{position:absolute;right:.9rem;top:50%;transform:translateY(-50%);margin-top:-.25rem;background:none;border:0;cursor:pointer;color:var(--acc);font-size:1rem;padding:.4rem}
+.perr{min-height:1.4rem;margin-bottom:.8rem;font-size:.85rem;color:#ff7b7b;font-weight:500}
+.pbox .btn{width:100%;padding:1rem}
+.pbox .pclose{position:absolute;top:1rem;right:1rem;width:38px;height:38px;font-size:.95rem}
+.pbox{position:relative}
+.shake{animation:shake .45s linear}
+@keyframes shake{10%,90%{transform:translateX(-2px)}20%,80%{transform:translateX(4px)}30%,50%,70%{transform:translateX(-7px)}40%,60%{transform:translateX(7px)}}
+.pbox.ok .lockicon{background:linear-gradient(120deg,#9be8bb,var(--mint),var(--emerald))}
+
 @media(max-width:1100px){.nr .nl{display:none}.burger{display:grid}}
 @media(max-width:1024px){.grid{--c:2}.grid.c4{--c:2}#home{grid-template-columns:1fr;text-align:center;gap:4rem}.hr{order:-1}.hl p{margin:0 auto}.btns{justify-content:center}.contact{grid-template-columns:1fr}}
 @media(max-width:680px){.grid,.grid.c4,.grid.c2{--c:1}.sec{padding:5rem 1.1rem 1rem}.brand h2{font-size:1.25rem}.slide .ci{height:240px}.langs{grid-template-columns:1fr}.top{right:16px;bottom:16px}.btn{width:100%}.act .btn{width:auto}}
@@ -605,7 +623,12 @@ footer p{color:var(--muted);font-size:.85rem}
 <div class="orb a" data-s=".08"></div><div class="orb b" data-s="-.06"></div>
 
 <nav id="nav">
-  <a class="brand" href="home.html"><img src="images/nikhildeshmuk.png" alt="Profile"><h2>Nikhil Dandolu</h2></a>
+ 
+<a class="brand" href="#" id="profileTrigger" aria-label="Open resume access" role="button">
+  <img src="images/nikhildeshmuk.png" alt="Profile">
+  <h2>Nikhil Dandolu</h2>
+</a>
+
   <div class="nr">
     <span id="navLinks" style="display:contents"></span>
     <div class="set">
@@ -633,6 +656,20 @@ footer p{color:var(--muted);font-size:.85rem}
     <div class="lang on" data-lang="en"><div class="f">🇺🇸</div><b>English</b><small>International</small></div>
     <div class="lang" data-lang="te"><div class="f">🇮🇳</div><b>తెలుగు</b><small>Telugu</small></div>
   </div>
+</div></div>
+
+<!-- Resume access card (opens when top-left profile is clicked) -->
+<div class="modal" id="pwdModal" aria-hidden="true"><div class="mbox pbox" id="pwdBox" role="dialog" aria-modal="true" aria-labelledby="pwdTitle">
+  <button class="iconbtn pclose" id="pwdClose" type="button" aria-label="Close"><i class="fas fa-times"></i></button>
+  <div class="lockicon"><i class="fas fa-lock" id="lockI"></i></div>
+  <h3 id="pwdTitle">Resume Access</h3>
+  <p class="hint">Enter the password to view the resume.<br>Format: DD/MM/YYYY</p>
+  <div class="pwrap">
+    <input class="field" id="pwdIn" type="password" placeholder="DD/MM/YYYY" autocomplete="off" inputmode="numeric" maxlength="10">
+    <button class="eye" id="pwdEye" type="button" aria-label="Show password"><i class="fas fa-eye"></i></button>
+  </div>
+  <div class="perr" id="pwdErr" role="alert"></div>
+  <button class="btn solid" id="pwdGo" type="button"><span>Enter</span> <i class="fas fa-arrow-right"></i></button>
 </div></div>
 
 <main>
@@ -797,7 +834,7 @@ document.addEventListener('click',function(e){
   if(l){lang=l.dataset.lang;applyLang();setTimeout(function(){lm.classList.remove('on')},450)}
   if(e.target.closest('[data-close]')||e.target===sm||e.target===lm){sm.classList.remove('on');lm.classList.remove('on')}
 });
-document.addEventListener('keydown',function(e){if(e.key==='Escape'){sm.classList.remove('on');lm.classList.remove('on');closeAll()}});
+document.addEventListener('keydown',function(e){if(e.key==='Escape'){sm.classList.remove('on');lm.classList.remove('on');closePwd();closeAll()}});
 function showResults(){
   var q=sIn.value.trim().toLowerCase();
   if(!q){sRes.innerHTML='';return}
@@ -808,7 +845,50 @@ sIn.addEventListener('input',showResults);
 sRes.addEventListener('click',function(e){var s=e.target.closest('[data-go]');if(!s)return;sm.classList.remove('on');sIn.value='';sRes.innerHTML='';var t=$(s.dataset.go);if(t)window.scrollTo({top:t.offsetTop-70,behavior:'smooth'})});
 document.addEventListener('click',function(e){
   var a=e.target.closest('a[href^="#"]');
-  if(a){e.preventDefault();var t=$(a.getAttribute('href'));if(t)window.scrollTo({top:t.offsetTop-70,behavior:'smooth'})}
+  if(a&&a.id!=='profileTrigger'){e.preventDefault();var t=$(a.getAttribute('href'));if(t)window.scrollTo({top:t.offsetTop-70,behavior:'smooth'})}
+});
+
+/* ---------- Resume access (password card) ---------- */
+var RESUME_PAGE='resume.html';
+var RESUME_PASS='14022004'; /* DOB 14/02/2004 → digits only; change here if needed */
+var pm=$('#pwdModal'),pBox=$('#pwdBox'),pIn=$('#pwdIn'),pErr=$('#pwdErr'),pEye=$('#pwdEye');
+function openPwd(){
+  pIn.value='';pErr.textContent='';pIn.type='password';
+  pEye.innerHTML='<i class="fas fa-eye"></i>';
+  pBox.classList.remove('ok');$('#lockI').className='fas fa-lock';
+  pm.classList.add('on');pm.setAttribute('aria-hidden','false');
+  setTimeout(function(){pIn.focus()},350);
+}
+function closePwd(){pm.classList.remove('on');pm.setAttribute('aria-hidden','true')}
+function checkPwd(){
+  var v=pIn.value.replace(/[^0-9]/g,''); /* accepts 14/02/2004, 14-02-2004, 14022004 */
+  if(!v){pErr.textContent='Please enter the password.';pIn.focus();return}
+  if(v===RESUME_PASS){
+    pErr.textContent='';pBox.classList.add('ok');$('#lockI').className='fas fa-lock-open';
+    setTimeout(function(){window.location.href=RESUME_PAGE},450);
+  }else{
+    pErr.textContent='Incorrect password. Please try again.';
+    pBox.classList.remove('shake');void pBox.offsetWidth;pBox.classList.add('shake');
+    pIn.select();
+  }
+}
+$('#profileTrigger').addEventListener('click',function(e){e.preventDefault();openPwd()});
+$('#profileTrigger').addEventListener('keydown',function(e){if(e.key==='Enter'||e.key===' '){e.preventDefault();openPwd()}});
+$('#pwdGo').addEventListener('click',checkPwd);
+$('#pwdClose').addEventListener('click',closePwd);
+pm.addEventListener('click',function(e){if(e.target===pm)closePwd()});
+pIn.addEventListener('keydown',function(e){if(e.key==='Enter'){e.preventDefault();checkPwd()}});
+pIn.addEventListener('input',function(){
+  pErr.textContent='';
+  /* auto-format as DD/MM/YYYY while typing */
+  var d=pIn.value.replace(/[^0-9]/g,'').slice(0,8),o=d;
+  if(d.length>4)o=d.slice(0,2)+'/'+d.slice(2,4)+'/'+d.slice(4);
+  else if(d.length>2)o=d.slice(0,2)+'/'+d.slice(2);
+  pIn.value=o;
+});
+pEye.addEventListener('click',function(){
+  var show=pIn.type==='password';pIn.type=show?'text':'password';
+  pEye.innerHTML='<i class="fas '+(show?'fa-eye-slash':'fa-eye')+'"></i>';pIn.focus();
 });
 
 /* ---------- Typing ---------- */
