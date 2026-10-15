@@ -1,0 +1,330 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>NOVA AI | Nikhil Dandolu</title>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600;700&family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{--ink:#06101a;--emerald:#2e8b57;--mint:#6fcf97;--gold:#d9bc82;--gold-deep:#a98a4d;--text:#d9e2de;--muted:#9fb1aa;--white:#fff;--line:rgba(217,188,130,.18);--ease:cubic-bezier(.22,1,.36,1)}
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{font-family:'Poppins',sans-serif;color:var(--text);overflow-x:hidden;
+  background:radial-gradient(1200px 600px at 80% 10%,rgba(46,139,87,.2),transparent 60%),radial-gradient(900px 500px at -10% 60%,rgba(217,188,130,.08),transparent 60%),linear-gradient(160deg,var(--ink),#08201a 55%,var(--ink));background-attachment:fixed}
+a{text-decoration:none;color:inherit}
+:focus-visible{outline:2px solid var(--gold);outline-offset:3px}
+.progress{position:fixed;top:0;left:0;height:3px;width:100%;z-index:1100;transform-origin:0 50%;transform:scaleX(0);background:linear-gradient(90deg,var(--emerald),var(--gold),var(--mint));box-shadow:0 0 12px rgba(217,188,130,.7)}
+.back{position:fixed;top:max(1rem,env(safe-area-inset-top));left:1.2rem;z-index:1000;width:48px;height:48px;border-radius:50%;display:grid;place-items:center;font-size:1.05rem;color:var(--gold);background:rgba(6,16,26,.55);border:1px solid rgba(217,188,130,.4);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);transition:all .4s var(--ease)}
+.back:hover{background:var(--gold);color:var(--ink);transform:translateX(-4px);box-shadow:0 0 24px rgba(217,188,130,.5)}
+
+.hero{position:relative;height:100vh;height:100svh;min-height:520px;display:grid;place-items:center;text-align:center;overflow:hidden;background:linear-gradient(160deg,#0b2a1f,var(--ink))}
+.hero img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:center}
+.hero::after{content:"";position:absolute;inset:0;pointer-events:none;background:linear-gradient(180deg,rgba(6,16,26,.28) 0%,rgba(6,16,26,.05) 30%,rgba(6,16,26,.55) 68%,rgba(6,16,26,.92) 100%)}
+
+.hero-in{
+  position:relative;
+  z-index:2;
+  padding:0 1.4rem;
+  max-width:900px;
+  width:100%;
+  margin-top:8vh;
+  margin-left:0;
+  margin-right:auto;
+  text-align:left;
+}
+
+.hero h1{font-family:'Cormorant Garamond',serif;font-weight:700;font-size:clamp(3.2rem,10vw,7rem);line-height:1;color:var(--white);letter-spacing:.02em;text-shadow:0 4px 30px rgba(0,0,0,.6)}
+.sub{margin-top:.9rem;font-size:clamp(.74rem,1.6vw,.95rem);letter-spacing:.14em;color:var(--gold);font-weight:500;text-shadow:0 2px 12px rgba(0,0,0,.7)}
+.quote{font-family:'Cormorant Garamond',serif;font-style:italic;font-weight:500;font-size:clamp(1.25rem,3vw,1.9rem);line-height:1.5;color:#f4ecd8;margin:1.4rem auto 0;max-width:680px;text-shadow:0 3px 18px rgba(0,0,0,.75)}
+
+.hero .cta{
+  display:flex;
+  justify-content:flex-start;
+  flex-wrap:wrap;
+  gap:1rem;
+  margin-top:2.2rem;
+}
+
+.btn{position:relative;overflow:hidden;display:inline-flex;align-items:center;justify-content:center;gap:.6rem;padding:.95rem 2rem;border-radius:50px;font-size:.92rem;font-weight:500;letter-spacing:.03em;transition:all .45s var(--ease)}
+.btn i{transition:transform .45s var(--ease)}
+.btn.solid{color:var(--ink);font-weight:600;background:linear-gradient(120deg,#f1deb0,var(--gold) 50%,var(--gold-deep));box-shadow:0 10px 26px rgba(217,188,130,.3)}
+.btn.solid::before{content:"";position:absolute;top:0;left:-80%;width:50%;height:100%;background:linear-gradient(100deg,transparent,rgba(255,255,255,.6),transparent);transform:skewX(-20deg);transition:left .8s var(--ease)}
+.btn.solid:hover{transform:translateY(-4px);box-shadow:0 16px 32px rgba(217,188,130,.45)}
+.btn.solid:hover::before{left:140%}
+.btn.solid:hover i{transform:translate(3px,-3px)}
+.btn.ghost{color:var(--white);border:1px solid rgba(217,188,130,.55);background:rgba(6,16,26,.45);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px)}
+.btn.ghost:hover{color:var(--gold);border-color:var(--gold);background:rgba(217,188,130,.14);transform:translateY(-4px)}
+.scroll{position:absolute;bottom:1.6rem;left:50%;translate:-50% 0;z-index:2;width:28px;height:46px;border:2px solid rgba(217,188,130,.7);border-radius:20px}
+.scroll::after{content:"";position:absolute;top:8px;left:50%;width:4px;height:9px;margin-left:-2px;border-radius:4px;background:var(--gold);animation:dot 1.8s ease-in-out infinite}
+@keyframes dot{0%{opacity:0;transform:translateY(0)}30%{opacity:1}100%{opacity:0;transform:translateY(16px)}}
+
+.wrap{position:relative;max-width:1240px;margin:0 auto;padding:0 2rem}
+.sec{padding:6rem 0 1rem}
+.head{text-align:center;margin-bottom:3rem}
+.head h2{font-family:'Cormorant Garamond',serif;font-size:clamp(2.2rem,5vw,3.4rem);font-weight:700;color:var(--white);line-height:1.15}
+.head p{max-width:660px;margin:.9rem auto 0;color:var(--muted);font-weight:300;line-height:1.75}
+.rule{width:110px;height:2px;margin:1.3rem auto 0;background:linear-gradient(90deg,transparent,var(--gold),transparent)}
+.glass{background:linear-gradient(160deg,rgba(16,60,47,.5),rgba(8,26,24,.62));border:1px solid var(--line);border-radius:22px;backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);box-shadow:0 18px 40px rgba(0,0,0,.28);transition:transform .5s var(--ease),border-color .5s,box-shadow .5s}
+.glass:hover{transform:translateY(-6px);border-color:rgba(217,188,130,.5);box-shadow:0 26px 50px rgba(0,0,0,.4),0 0 36px rgba(46,139,87,.18)}
+.ico{width:54px;height:54px;border-radius:16px;display:grid;place-items:center;font-size:1.35rem;color:var(--gold);background:rgba(217,188,130,.08);border:1px solid rgba(217,188,130,.3);margin-bottom:1.1rem}
+.rv{opacity:0;transform:translateY(40px);transition:opacity .9s var(--ease),transform .9s var(--ease)}
+.rv.in{opacity:1;transform:none}
+
+.steps,.tech{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:1.6rem}
+.step,.tc{padding:2rem 1.7rem}
+.step h3,.tc h3{font-family:'Cormorant Garamond',serif;font-size:1.55rem;color:var(--white);margin-bottom:.6rem}
+.step p,.tc p{font-size:.92rem;line-height:1.8;font-weight:300;color:var(--muted)}
+
+.pair{display:grid;grid-template-columns:1fr auto 1fr;gap:1.2rem;align-items:stretch;margin-bottom:1.2rem}
+.pb,.sv{padding:1.5rem 1.7rem}
+.pb{border-left:3px solid #c8665a}.sv{border-left:3px solid var(--mint)}
+.pair small{display:block;font-size:.78rem;font-weight:600;margin-bottom:.5rem}
+.pb small{color:#e58f84}.sv small{color:var(--mint)}
+.pair p{font-size:.93rem;line-height:1.75;font-weight:300}
+.pb p{color:var(--muted)}
+.mid{display:grid;place-items:center;color:var(--gold);font-size:1.2rem}
+
+.pc{display:grid;grid-template-columns:1fr 1fr;gap:1.8rem}
+.pc .glass{padding:2.2rem 2rem}
+.pc h3{font-family:'Cormorant Garamond',serif;font-size:1.9rem;color:var(--white);margin-bottom:1.2rem}
+.pc li{list-style:none;display:flex;gap:.8rem;padding:.65rem 0;font-size:.93rem;line-height:1.65;font-weight:300;border-bottom:1px solid rgba(217,188,130,.1)}
+.pc li:last-child{border:0}
+.pc li i{margin-top:.3rem;font-size:.85rem}
+.pro li i{color:var(--mint)}.con li i{color:#e0a15a}
+
+.reqs{display:flex;flex-wrap:wrap;justify-content:center;gap:.7rem;margin-bottom:2.6rem}
+.chip{padding:.45rem 1.1rem;border-radius:30px;font-size:.82rem;font-weight:500;color:var(--gold);background:rgba(217,188,130,.07);border:1px solid rgba(217,188,130,.3)}
+.chip i{margin-right:.45rem}
+
+.pk{display:grid;grid-template-columns:repeat(auto-fill,minmax(340px,1fr));gap:1.3rem}
+.p{padding:1.5rem 1.5rem 1.6rem;border-radius:18px}
+.p:hover{transform:translateY(-4px)}
+.p b{display:block;color:var(--white);font-weight:600;font-size:1.02rem}
+.p b em{font-style:normal;font-weight:500;font-size:.74rem;color:var(--ink);background:linear-gradient(120deg,#f1deb0,var(--gold));padding:.12rem .6rem;border-radius:20px;margin-left:.6rem}
+.p span{display:block;margin-top:.6rem;font-size:.88rem;line-height:1.75;font-weight:300;color:var(--muted)}
+.p code,.fl code,.rt{font-family:Consolas,Menlo,monospace;font-size:.78rem;color:var(--gold)}
+.p .use{margin-top:.7rem;padding-top:.7rem;border-top:1px solid rgba(217,188,130,.12);color:var(--text)}
+
+/* Translation demo */
+.tr{display:grid;grid-template-columns:1.1fr 1fr;gap:1.8rem;align-items:start}
+.flow{padding:2rem 1.8rem}
+.flow li{list-style:none;display:flex;gap:1rem;padding:.8rem 0;font-size:.92rem;line-height:1.7;font-weight:300;color:var(--muted);border-bottom:1px solid rgba(217,188,130,.1)}
+.flow li:last-child{border:0}
+.flow li b{flex:none;width:32px;height:32px;border-radius:50%;display:grid;place-items:center;font-size:.85rem;font-weight:600;color:var(--ink);background:linear-gradient(120deg,#f1deb0,var(--gold))}
+.flow code{font-family:Consolas,Menlo,monospace;font-size:.78rem;color:var(--gold)}
+.demo{padding:2rem 1.8rem}
+.demo h3{font-family:'Cormorant Garamond',serif;font-size:1.6rem;color:var(--white);margin-bottom:1rem}
+.filters{display:flex;flex-wrap:wrap;gap:.6rem;margin-bottom:1.2rem}
+.f{cursor:pointer;font:500 .84rem 'Poppins',sans-serif;padding:.55rem 1.25rem;border-radius:30px;color:var(--text);background:transparent;border:1px solid rgba(217,188,130,.35);transition:all .35s var(--ease)}
+.f:hover{color:var(--gold);border-color:var(--gold)}
+.f.on{color:var(--ink);font-weight:600;background:linear-gradient(120deg,#f1deb0,var(--gold));border-color:transparent}
+.row{display:flex;justify-content:space-between;gap:1rem;padding:.7rem 0;border-bottom:1px solid rgba(217,188,130,.1);font-size:.95rem}
+.row:last-child{border:0}
+.row span:first-child{font-family:Consolas,Menlo,monospace;font-size:.78rem;color:var(--gold);align-self:center}
+.row span:last-child{color:var(--white);font-weight:500;text-align:right}
+
+/* app.py walkthrough */
+.fl{display:grid;gap:1.3rem}
+.fl .glass{display:grid;grid-template-columns:auto 1fr;gap:1.4rem;padding:1.7rem 1.8rem}
+.fl .ico{margin:0}
+.fl h3{font-family:'Cormorant Garamond',serif;font-size:1.5rem;color:var(--white);display:flex;flex-wrap:wrap;align-items:baseline;gap:.7rem}
+.fl h3 small{font:500 .7rem 'Poppins',sans-serif;color:var(--gold);border:1px solid rgba(217,188,130,.35);border-radius:20px;padding:.1rem .65rem}
+.rt{display:block;margin:.5rem 0}
+.fl p{font-size:.9rem;line-height:1.8;font-weight:300;color:var(--muted)}
+
+.end{text-align:center;padding:6rem 0 4rem}
+.end h2{font-family:'Cormorant Garamond',serif;font-size:clamp(2rem,4.5vw,3rem);color:var(--white)}
+footer{text-align:center;padding:1.5rem 1rem 3rem;color:var(--muted);font-size:.85rem;font-weight:300}
+
+
+
+@media(max-width:680px){
+  .hero-in{
+    margin-top:12vh;
+    text-align:center;
+  }
+
+  .hero .cta{
+    justify-content:center;
+  }
+}
+
+@media(prefers-reduced-motion:reduce){*,*::before,*::after{animation:none!important;transition:none!important}.rv{opacity:1!important;transform:none!important}}
+</style>
+</head>
+<body>
+<div class="progress" id="progress"></div>
+<a class="back" href="home.html" aria-label="Back to home"><i class="fas fa-arrow-left"></i></a>
+
+<header class="hero">
+  <img src="images/nova.jpg" alt="NOVA AI" onerror="this.style.display='none'">
+  <div class="hero-in">
+    <h1>NOVA AI</h1>
+    <p class="sub">INTELLIGENCE STUDIO &middot; CHAT, VOICE, IMAGE &amp; DOCUMENT AI</p>
+    <p class="quote">&ldquo;One studio where you can talk to AI, show it a picture, and hand it a document, and it understands them all.&rdquo;</p>
+    <div class="cta">
+      <a class="btn solid" href="https://nova-ai-s9ri.onrender.com/" target="_blank" rel="noopener noreferrer"><i class="fas fa-arrow-up-right-from-square"></i> Live Demo</a>
+      <a class="btn ghost" href="https://github.com/nikhildeshmuk98/nova-ai" target="_blank" rel="noopener noreferrer"><i class="fab fa-github"></i> GitHub</a>
+    </div>
+  </div>
+  <div class="scroll" aria-hidden="true"></div>
+</header>
+
+<main class="wrap">
+  <section class="sec">
+    <div class="head rv"><h2>Why NOVA AI?</h2><div class="rule"></div><p>People use many separate tools for chatting, reading documents and understanding images. NOVA AI brings these together in one personal, secure and customisable web platform.</p></div>
+    <div class="steps" id="steps"></div>
+  </section>
+
+  <section class="sec">
+    <div class="head rv"><h2>Problems We Saw, Problems We Solved</h2><div class="rule"></div><p>Each major feature answers a real difficulty users face with everyday AI tools.</p></div>
+    <div id="pairs"></div>
+  </section>
+
+  <section class="sec">
+    <div class="head rv"><h2>Advantages &amp; Limitations</h2><div class="rule"></div><p>A clear look at what NOVA AI does well and where it can still improve.</p></div>
+    <div class="pc">
+      <div class="glass pro rv"><h3>Advantages</h3><ul id="pros"></ul></div>
+      <div class="glass con rv"><h3>Limitations</h3><ul id="cons"></ul></div>
+    </div>
+  </section>
+
+  <section class="sec">
+    <div class="head rv"><h2>Requirements &amp; Tech Stack</h2><div class="rule"></div><p>What you need to run NOVA AI, and what each technology does inside the application.</p></div>
+    <div class="reqs rv" id="reqs"></div>
+    <div class="tech" id="tech"></div>
+  </section>
+
+  <section class="sec">
+    <div class="head rv"><h2>Python Packages (requirements.txt)</h2><div class="rule"></div><p>Every library the project depends on, what it is, and exactly how app.py uses it.</p></div>
+    <div class="pk" id="pk"></div>
+  </section>
+
+  <section class="sec">
+    <div class="head rv"><h2>Multi-Language Support (translations.py)</h2><div class="rule"></div><p>The interface can switch between English, Telugu, Hindi and Tamil. translations.py is a Python dictionary: language name &rarr; keys &rarr; translated text.</p></div>
+    <div class="tr">
+      <div class="glass flow rv"><ul id="flow"></ul></div>
+      <div class="glass demo rv"><h3>Try it live</h3><div class="filters" id="langs"></div><div id="rows"></div></div>
+    </div>
+  </section>
+
+  <section class="sec">
+    <div class="head rv"><h2>How app.py Works</h2><div class="rule"></div><p>A top to bottom walkthrough of the Flask backend, in the same order as the code.</p></div>
+    <div class="fl" id="fl"></div>
+  </section>
+
+  <section class="end rv">
+    <h2>See it in action</h2>
+    <div class="cta">
+      <a class="btn solid" href="https://nova-ai-s9ri.onrender.com/" target="_blank" rel="noopener noreferrer"><i class="fas fa-arrow-up-right-from-square"></i> Live Demo</a>
+      <a class="btn ghost" href="https://github.com/nikhildeshmuk98/nova-ai" target="_blank" rel="noopener noreferrer"><i class="fab fa-github"></i> GitHub</a>
+      <a class="btn ghost" href="home.html"><i class="fas fa-house"></i> Back to Home</a>
+    </div>
+  </section>
+</main>
+<footer>&copy; <span id="yr"></span> Nikhil Dandolu. Crafted with care.</footer>
+
+<script>
+var STEPS=[
+["fa-bullseye","Purpose","Give users one intelligent workspace for chatting, speaking, analysing images and summarising documents, with their own theme, language and AI model."],
+["fa-user-astronaut","Who It Helps","Students, professionals and curious users who want quick answers, document summaries and image understanding without juggling several apps."],
+["fa-wand-magic-sparkles","How It Works","Register and log in, choose a model and personality, then chat, upload an image or document, or speak a command. Every chat is saved with its sentiment."]
+];
+var PAIRS=[
+["Users switch between many apps for chat, images and documents.","NOVA AI offers chat, voice, image analysis, image generation and document analysis in one platform."],
+["Reading long PDFs and files takes a lot of time.","The document analyser extracts text from PDF, TXT and DOCX files and returns topic, key points, summary and conclusion."],
+["Images are hard to explain, and creating new ones needs another tool.","Image analysis describes any uploaded picture in detail, and the generator creates a new image from a text prompt."],
+["Typing is slow and not always possible.","Voice chat and voice commands let users speak, open websites and ask for music."],
+["Most AI tools are English only and look the same for everyone.","Four interface languages, light and dark mode, theme colours, selectable AI models and personalities."],
+["Users and admins cannot see how conversations feel or how the platform is used.","Sentiment analysis labels every message, and analytics dashboards show daily activity, peak hours and top users."]
+];
+var PROS=["Chat, voice, image and document AI in one place","Different AI models for different tasks through OpenRouter","Sentiment analysis on every conversation","Interface in English, Telugu, Hindi and Tamil","Personal themes, dark mode and AI personality settings","Complete chat history with search and filters","Admin dashboard to manage users, chats and team","Email contact form and notifications built in"];
+var CONS=["AI replies depend on the OpenRouter service and its credits","Needs an internet connection","Documents are limited to PDF, TXT and DOCX, and only the first 10,000 characters are analysed","Scanned PDFs that contain only images cannot be read","Translations currently cover only the main interface labels","Sentiment analysis is simple and may miss sarcasm","The free hosting plan can be slow after idle time","Generated images and long answers may take a few seconds"];
+var REQS=[["fab fa-python","Python 3"],["fas fa-database","MySQL Server"],["fas fa-key","OpenRouter API key"],["fas fa-envelope","Gmail app password (SMTP)"],["fas fa-file-shield",".env file for secrets"],["fas fa-globe","Modern web browser"]];
+var TECH=[
+["fa-code","Frontend: HTML, CSS, JavaScript","Jinja2 templates render pages like chat, dashboard and settings. JavaScript sends messages to the backend with fetch and shows replies, charts and voice features."],
+["fa-server","Backend: Python Flask","Flask handles routing, login sessions, file uploads and all business logic, and connects the database, the AI models and the email service."],
+["fa-database","Database: MySQL","Tables such as users, chats, notifications, ai_models, about, people and image_analysis_history store accounts, conversations, settings and history."],
+["fa-robot","AI Chatbot","User messages go to OpenRouter, which runs GPT-4o-mini for chat and vision. Replies are saved with the user id and sentiment."],
+["fa-face-smile","Sentiment Analysis","TextBlob scores every message from -1 to +1 and labels it Positive, Neutral or Negative, which powers history filters and charts."],
+["fa-image","Image Intelligence","Uploaded images are encoded in base64 and sent to a vision model for a detailed description. DALL-E 3 creates images from text prompts."],
+["fa-file-lines","Document Analysis","PyPDF2 and python-docx extract text, then DeepSeek returns a structured summary with topic, key points, insights and conclusion."],
+["fa-microphone-lines","Voice & Commands","Voice chat and commands such as open YouTube or play a song are turned into actions that the browser carries out."]
+];
+var PKG=[
+["Flask","Core","Lightweight web framework.","Creates the app, every @app.route page, sessions, flash messages, JSON replies and redirects.","The whole backend is built on it."],
+["pymysql","Database","Pure Python MySQL driver.","get_connection() opens the MySQL connection with DictCursor, so rows come back as dictionaries. Host, user, password, port and SSL come from .env.","Every query for users, chats, notifications and analytics."],
+["flask-session","Sessions","Stores session data on the server.","Session(app) with SESSION_TYPE filesystem keeps user_id, username, role and language after login.","Login checks on almost every page."],
+["werkzeug","Security","Core toolkit under Flask.","generate_password_hash and check_password_hash protect passwords. secure_filename makes uploaded file names safe.","Register, login, image, document and profile uploads."],
+["textblob","NLP","Easy natural language processing.","TextBlob(message).sentiment.polarity decides Positive, Neutral or Negative for each chat message.","Sentiment on chats, history, analytics and charts."],
+["google-generativeai","AI","Official Google Gemini client.","Listed as a dependency for Gemini support. The current app.py sends its AI requests to OpenRouter over HTTP, so this library is available for future use.","Optional or future AI integration."],
+["python-dotenv","Config","Loads a .env file.","load_dotenv() reads SECRET_KEY, mail login, OpenRouter key and database settings so secrets stay out of the code.","Configuration at start-up."],
+["gunicorn","Deployment","Production WSGI server.","Runs the Flask app on Render instead of the development server used by app.run().","Live demo hosting."],
+["Pillow","Images","Python imaging library.","Imported for image handling support alongside the upload and image analysis features.","Image processing support."],
+["Flask-Mail","Email","Sends emails from Flask.","Mail(app) with Gmail SMTP on port 587 and TLS sends the Contact form message to the owner's inbox. Also used by the test mail routes.","/contact and mail tests."],
+["PyPDF2","Documents","Reads PDF files.","PdfReader loops through the pages and extract_text() collects the text for analysis.","Document analysis of PDFs."],
+["python-docx","Documents","Reads Word files.","docx.Document(path) reads each paragraph of a .docx file into plain text.","Document analysis of Word files."],
+["requests","Networking","HTTP client.","Calls the OpenRouter chat, vision and image endpoints with the API key and reads the JSON replies. app.py imports it, so keep it in requirements.txt.","All AI requests."]
+];
+var FLOW=[
+"The user picks a language on the <code>/settings</code> page.",
+"The route saves it in <code>session['language']</code> and in the users table.",
+"The context processor <code>inject_translator()</code> reads the language on every page, loads that dictionary from <code>translations.py</code> and falls back to English.",
+"It exposes a function <code>t(key)</code> to every template, so HTML uses <code>{{ t('dashboard') }}</code>.",
+"If a key is missing, <code>t()</code> simply returns the key itself, so the page never breaks."
+];
+var TR={English:["Dashboard","Profile","Settings","Logout","Edit Profile","Welcome Back","Language","Save Language"],
+Telugu:["డాష్‌బోర్డ్","ప్రొఫైల్","సెట్టింగ్స్","లాగౌట్","ప్రొఫైల్ మార్చు","తిరిగి స్వాగతం","భాష","భాష సేవ్ చేయి"],
+Hindi:["डैशबोर्ड","प्रोफ़ाइल","सेटिंग्स","लॉगआउट","प्रोफ़ाइल संपादित करें","वापसी पर स्वागत है","भाषा","भाषा सेव करें"],
+Tamil:["டாஷ்போர்டு","சுயவிவரம்","அமைப்புகள்","வெளியேறு","சுயவிவரத்தை திருத்து","மீண்டும் வரவேற்கிறோம்","மொழி","மொழியை சேமி"]};
+var KEYS=["dashboard","profile","settings","logout","edit_profile","welcome","language","save_language"];
+var APP=[
+["fa-box-open","Imports & Setup","start of file","The file imports Flask tools, PyMySQL, Flask-Session, password helpers, TextBlob, Flask-Mail, PyPDF2, python-docx and the translations dictionary. load_dotenv() reads secrets, then Flask(__name__) is created with a secret key and server-side filesystem sessions."],
+["fa-envelope","Mail & Folders","config","Gmail SMTP (port 587, TLS) is configured with credentials from .env. Three folders are created if missing: static/profile_images, uploads/documents and static/generated_images."],
+["fa-brain","OpenRouter & Database","config","The OpenRouter key, URL and request headers are prepared, and a small test call checks the connection at start-up. get_connection() builds a PyMySQL connection from environment settings and is reused by every route."],
+["fa-house","Home Page","/","Counts total users and total chats from MySQL and sends them to index.html, together with the accuracy and availability labels shown on the landing page."],
+["fa-user-lock","Authentication","/register /login /logout /forgot_password /reset_password","Registration stores a hashed password. Login handles the admin account and normal users, saves user_id, username and role in the session, and can remember the email in a 30 day cookie. Forgot password verifies username and email, then lets the user set a new password."],
+["fa-gauge-high","Dashboard & Chat Pages","/dashboard /chat","Both pages check the login first. The dashboard shows the chat count and user details, and the chat page loads the user and the selected AI model, defaulting to gpt-4o-mini."],
+["fa-comments","AI Chat API","/get_ai_response","The heart of the app. It checks login, handles commands like 'open youtube', scores sentiment with TextBlob, builds a prompt, calls OpenRouter, safely parses the reply, saves message, reply and sentiment to the chats table and returns JSON to the page."],
+["fa-clock-rotate-left","History, Search & Filters","/chat_history /chat_stats /filter_chats /search_chat /delete_chat","Shows all chats of the user, weekly count and positive percentage, filters by sentiment, searches keywords with LIKE and deletes a chat."],
+["fa-id-card","Profile & Settings","/profile /edit_profile /settings","Profile shows details, chats, messages, streak and rating. Edit profile updates fields and saves a new picture with a unique uuid name. Settings stores dark mode, theme, AI model, personality, notifications, language and voice options."],
+["fa-bell","Notifications, Models & Personality","/notifications /mark-read /ai_models /select_model /ai_personality","Lists notifications with total and unread counts and marks them read. Models and personalities are loaded from tables, and selecting a model saves it for the user and opens the chat."],
+["fa-chart-pie","Sentiment & Analytics","/sentiment_analysis /analytics /user_analytics_dashboard","Groups chats by sentiment and calculates percentages for charts. Analytics adds date filters, daily activity, an hourly heatmap and top users. The user dashboard filters by date, month or year."],
+["fa-image","Image Analysis","/image_analysis","Describe: saves the upload, converts it to base64 and asks a vision model for a detailed explanation, then stores it in image_analysis_history. Generate: sends the prompt to DALL-E 3 and returns the image URL."],
+["fa-file-lines","Document Analysis","/document_upload /upload_document","Accepts PDF, TXT or DOCX, extracts the text, limits it to 10,000 characters and asks DeepSeek for topic, key points, summary, insights and conclusion."],
+["fa-microphone","Voice Chat & Commands","/voice_chat /voice-command","Voice commands are text rules: 'open ...' returns a website address and 'play ...' returns a music query. The browser performs the action."],
+["fa-user-shield","Admin Area","/admin_dashboard /manage_users /manage_chats /view_user_chat /admin_about /upload_people /team","The admin sees totals, recent users and activity, manages users and chats, edits the About text and adds or removes team members with photos."],
+["fa-circle-info","Public Pages & Contact","/about /features /privacy /terms /support /cookies_policy /contact /watch_demo","Serves informational pages. The contact form builds a Flask-Mail message and sends it to the owner. A 404 handler shows a friendly error page."],
+["fa-language","Context Processors","inject_user_settings, inject_translator","Before every page renders, the first loads the user's theme and dark mode, and the second provides the t() translation function. This is why every template gets themes and languages automatically."],
+["fa-play","Run the App","__main__","app.run(debug=True, host='0.0.0.0', port=5000) starts the development server. In production, Gunicorn starts the same app."]
+];
+
+function $(id){return document.getElementById(id)}
+$('steps').innerHTML=STEPS.map(function(s){return '<div class="glass step rv"><div class="ico"><i class="fas '+s[0]+'"></i></div><h3>'+s[1]+'</h3><p>'+s[2]+'</p></div>'}).join('');
+$('pairs').innerHTML=PAIRS.map(function(p){return '<div class="pair rv"><div class="glass pb"><small><i class="fas fa-triangle-exclamation"></i> Problem</small><p>'+p[0]+'</p></div><div class="mid"><i class="fas fa-arrow-right"></i></div><div class="glass sv"><small><i class="fas fa-circle-check"></i> Solved</small><p>'+p[1]+'</p></div></div>'}).join('');
+$('pros').innerHTML=PROS.map(function(t){return '<li><i class="fas fa-check"></i>'+t+'</li>'}).join('');
+$('cons').innerHTML=CONS.map(function(t){return '<li><i class="fas fa-circle-exclamation"></i>'+t+'</li>'}).join('');
+$('reqs').innerHTML=REQS.map(function(r){return '<span class="chip"><i class="'+r[0]+'"></i>'+r[1]+'</span>'}).join('');
+$('tech').innerHTML=TECH.map(function(t){return '<div class="glass tc rv"><div class="ico"><i class="fas '+t[0]+'"></i></div><h3>'+t[1]+'</h3><p>'+t[2]+'</p></div>'}).join('');
+$('pk').innerHTML=PKG.map(function(p){return '<div class="glass p rv"><b>'+p[0]+'<em>'+p[1]+'</em></b><span>'+p[2]+'</span><span class="use"><strong>In NOVA AI:</strong> '+p[3]+' <code>'+p[4]+'</code></span></div>'}).join('');
+$('flow').innerHTML=FLOW.map(function(t,i){return '<li><b>'+(i+1)+'</b><div>'+t+'</div></li>'}).join('');
+$('fl').innerHTML=APP.map(function(a){return '<div class="glass rv"><div class="ico"><i class="fas '+a[0]+'"></i></div><div><h3>'+a[1]+'<small>'+a[2]+'</small></h3><p>'+a[3]+'</p></div></div>'}).join('');
+
+function lang(n){
+  $('rows').innerHTML=KEYS.map(function(k,i){return '<div class="row"><span>t(\''+k+'\')</span><span>'+TR[n][i]+'</span></div>'}).join('');
+  Array.prototype.forEach.call(document.querySelectorAll('.f'),function(b){b.classList.toggle('on',b.dataset.l===n)});
+}
+$('langs').innerHTML=Object.keys(TR).map(function(n){return '<button class="f" data-l="'+n+'">'+n+'</button>'}).join('');
+$('langs').addEventListener('click',function(e){var b=e.target.closest('.f');if(b)lang(b.dataset.l)});
+lang('English');
+
+$('yr').textContent=new Date().getFullYear();
+var bar=$('progress'),tk=false;
+function onScroll(){var m=document.documentElement.scrollHeight-innerHeight;bar.style.transform='scaleX('+(m>0?scrollY/m:0)+')';tk=false}
+addEventListener('scroll',function(){if(!tk){requestAnimationFrame(onScroll);tk=true}},{passive:true});onScroll();
+var io=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target)}})},{threshold:.08,rootMargin:'0px 0px -40px 0px'});
+Array.prototype.forEach.call(document.querySelectorAll('.rv'),function(el,i){el.style.transitionDelay=(i%3)*90+'ms';io.observe(el)});
+</script>
+</body>
+</html>

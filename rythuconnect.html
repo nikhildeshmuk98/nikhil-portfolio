@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Rythu Connect | Nikhil Dandolu</title>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600;700&family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{--ink:#06101a;--emerald:#2e8b57;--mint:#6fcf97;--gold:#d9bc82;--gold-deep:#a98a4d;--text:#d9e2de;--muted:#9fb1aa;--white:#fff;--line:rgba(217,188,130,.18);--ease:cubic-bezier(.22,1,.36,1)}
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{font-family:'Poppins',sans-serif;color:var(--text);overflow-x:hidden;
+  background:radial-gradient(1200px 600px at 80% 10%,rgba(46,139,87,.2),transparent 60%),radial-gradient(900px 500px at -10% 60%,rgba(217,188,130,.08),transparent 60%),linear-gradient(160deg,var(--ink),#08201a 55%,var(--ink));background-attachment:fixed}
+a{text-decoration:none;color:inherit}
+:focus-visible{outline:2px solid var(--gold);outline-offset:3px}
+.progress{position:fixed;top:0;left:0;height:3px;width:100%;z-index:1100;transform-origin:0 50%;transform:scaleX(0);background:linear-gradient(90deg,var(--emerald),var(--gold),var(--mint));box-shadow:0 0 12px rgba(217,188,130,.7)}
+
+/* Back button */
+.back{position:fixed;top:max(1rem,env(safe-area-inset-top));left:1.2rem;z-index:1000;width:48px;height:48px;border-radius:50%;display:grid;place-items:center;font-size:1.05rem;color:var(--gold);
+  background:rgba(6,16,26,.55);border:1px solid rgba(217,188,130,.4);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);transition:all .4s var(--ease)}
+.back:hover{background:var(--gold);color:var(--ink);transform:translateX(-4px);box-shadow:0 0 24px rgba(217,188,130,.5)}
+
+/* Hero */
+.hero{position:relative;height:100vh;height:100svh;min-height:520px;display:grid;place-items:center;text-align:center;overflow:hidden;background:linear-gradient(160deg,#0b2a1f,var(--ink))}
+.hero img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:center}
+.hero::after{content:"";position:absolute;inset:0;pointer-events:none;background:linear-gradient(180deg,rgba(6,16,26,.28) 0%,rgba(6,16,26,.05) 30%,rgba(6,16,26,.55) 68%,rgba(6,16,26,.92) 100%)}
+.hero-in{position:relative;z-index:2;padding:0 1.4rem;max-width:900px;margin-top:8vh}
+.hero h1{font-family:'Cormorant Garamond',serif;font-weight:700;font-size:clamp(3.2rem,10vw,7rem);line-height:1;color:var(--white);letter-spacing:.02em;text-shadow:0 4px 30px rgba(0,0,0,.6)}
+.hero .sub{margin-top:.9rem;font-size:clamp(.78rem,1.6vw,.95rem);letter-spacing:.14em;color:var(--gold);font-weight:500;text-shadow:0 2px 12px rgba(0,0,0,.7)}
+.quote{font-family:'Cormorant Garamond',serif;font-style:italic;font-weight:500;font-size:clamp(1.25rem,3vw,1.9rem);line-height:1.5;color:#f4ecd8;margin:1.4rem auto 0;max-width:680px;text-shadow:0 3px 18px rgba(0,0,0,.75)}
+.cta{display:flex;justify-content:center;flex-wrap:wrap;gap:1rem;margin-top:2.2rem}
+.btn{position:relative;overflow:hidden;display:inline-flex;align-items:center;justify-content:center;gap:.6rem;padding:.95rem 2rem;border-radius:50px;font-size:.92rem;font-weight:500;letter-spacing:.03em;transition:all .45s var(--ease)}
+.btn i{transition:transform .45s var(--ease)}
+.btn.solid{color:var(--ink);font-weight:600;background:linear-gradient(120deg,#f1deb0,var(--gold) 50%,var(--gold-deep));box-shadow:0 10px 26px rgba(217,188,130,.3)}
+.btn.solid::before{content:"";position:absolute;top:0;left:-80%;width:50%;height:100%;background:linear-gradient(100deg,transparent,rgba(255,255,255,.6),transparent);transform:skewX(-20deg);transition:left .8s var(--ease)}
+.btn.solid:hover{transform:translateY(-4px);box-shadow:0 16px 32px rgba(217,188,130,.45)}
+.btn.solid:hover::before{left:140%}
+.btn.solid:hover i{transform:translate(3px,-3px)}
+.btn.ghost{color:var(--white);border:1px solid rgba(217,188,130,.55);background:rgba(6,16,26,.45);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px)}
+.btn.ghost:hover{color:var(--gold);border-color:var(--gold);background:rgba(217,188,130,.14);transform:translateY(-4px)}
+.scroll{position:absolute;bottom:1.6rem;left:50%;translate:-50% 0;z-index:2;width:28px;height:46px;border:2px solid rgba(217,188,130,.7);border-radius:20px}
+.scroll::after{content:"";position:absolute;top:8px;left:50%;width:4px;height:9px;margin-left:-2px;border-radius:4px;background:var(--gold);animation:dot 1.8s ease-in-out infinite}
+@keyframes dot{0%{opacity:0;transform:translateY(0)}30%{opacity:1}100%{opacity:0;transform:translateY(16px)}}
+
+/* Sections */
+.wrap{position:relative;max-width:1240px;margin:0 auto;padding:0 2rem}
+.sec{padding:6rem 0 1rem}
+.head{text-align:center;margin-bottom:3rem}
+.head h2{font-family:'Cormorant Garamond',serif;font-size:clamp(2.2rem,5vw,3.4rem);font-weight:700;color:var(--white);line-height:1.15}
+.head p{max-width:640px;margin:.9rem auto 0;color:var(--muted);font-weight:300;line-height:1.75}
+.rule{width:110px;height:2px;margin:1.3rem auto 0;background:linear-gradient(90deg,transparent,var(--gold),transparent)}
+.glass{background:linear-gradient(160deg,rgba(16,60,47,.5),rgba(8,26,24,.62));border:1px solid var(--line);border-radius:22px;backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);box-shadow:0 18px 40px rgba(0,0,0,.28);transition:transform .5s var(--ease),border-color .5s,box-shadow .5s}
+.glass:hover{transform:translateY(-6px);border-color:rgba(217,188,130,.5);box-shadow:0 26px 50px rgba(0,0,0,.4),0 0 36px rgba(46,139,87,.18)}
+.ico{width:54px;height:54px;border-radius:16px;display:grid;place-items:center;font-size:1.35rem;color:var(--gold);background:rgba(217,188,130,.08);border:1px solid rgba(217,188,130,.3);margin-bottom:1.1rem}
+.rv{opacity:0;transform:translateY(40px);transition:opacity .9s var(--ease),transform .9s var(--ease)}
+.rv.in{opacity:1;transform:none}
+
+/* Why / steps */
+.steps{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:1.6rem}
+.step{padding:2rem 1.7rem}
+.step h3,.tc h3{font-family:'Cormorant Garamond',serif;font-size:1.55rem;color:var(--white);margin-bottom:.6rem}
+.step p,.tc p{font-size:.92rem;line-height:1.8;font-weight:300;color:var(--muted)}
+
+/* Problem / solved */
+.pair{display:grid;grid-template-columns:1fr auto 1fr;gap:1.2rem;align-items:stretch;margin-bottom:1.2rem}
+.pb,.sv{padding:1.5rem 1.7rem}
+.pb{border-left:3px solid #c8665a}
+.sv{border-left:3px solid var(--mint)}
+.pair small{display:block;font-size:.78rem;font-weight:600;margin-bottom:.5rem}
+.pb small{color:#e58f84}.sv small{color:var(--mint)}
+.pair p{font-size:.93rem;line-height:1.75;font-weight:300}
+.pb p{color:var(--muted)}.sv p{color:var(--text)}
+.mid{display:grid;place-items:center;color:var(--gold);font-size:1.2rem}
+
+/* Pros / cons */
+.pc{display:grid;grid-template-columns:1fr 1fr;gap:1.8rem}
+.pc .glass{padding:2.2rem 2rem}
+.pc h3{font-family:'Cormorant Garamond',serif;font-size:1.9rem;color:var(--white);margin-bottom:1.2rem}
+.pc li{list-style:none;display:flex;gap:.8rem;padding:.65rem 0;font-size:.93rem;line-height:1.65;font-weight:300;border-bottom:1px solid rgba(217,188,130,.1)}
+.pc li:last-child{border:0}
+.pc li i{margin-top:.3rem;font-size:.85rem}
+.pro li i{color:var(--mint)}.con li i{color:#e0a15a}
+
+/* Tech */
+.reqs{display:flex;flex-wrap:wrap;justify-content:center;gap:.7rem;margin-bottom:2.6rem}
+.chip{padding:.45rem 1.1rem;border-radius:30px;font-size:.82rem;font-weight:500;color:var(--gold);background:rgba(217,188,130,.07);border:1px solid rgba(217,188,130,.3)}
+.chip i{margin-right:.45rem}
+.tech{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:1.6rem}
+.tc{padding:2rem 1.7rem}
+
+/* Packages */
+.filters{display:flex;flex-wrap:wrap;justify-content:center;gap:.6rem;margin-bottom:2rem}
+.f{cursor:pointer;font:500 .84rem 'Poppins',sans-serif;padding:.55rem 1.25rem;border-radius:30px;color:var(--text);background:transparent;border:1px solid rgba(217,188,130,.35);transition:all .35s var(--ease)}
+.f:hover{color:var(--gold);border-color:var(--gold)}
+.f.on{color:var(--ink);font-weight:600;background:linear-gradient(120deg,#f1deb0,var(--gold));border-color:transparent}
+.pk{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:1.1rem}
+.p{padding:1.2rem 1.3rem;border-radius:16px;animation:pop .5s var(--ease) both}
+.p:hover{transform:translateY(-4px)}
+@keyframes pop{from{opacity:0;transform:translateY(14px)}}
+.p b{display:block;color:var(--white);font-weight:600;font-size:.95rem}
+.p b em{font-style:normal;font-weight:400;font-size:.76rem;color:var(--gold);margin-left:.5rem}
+.p span{display:block;margin-top:.4rem;font-size:.84rem;line-height:1.65;font-weight:300;color:var(--muted)}
+
+.end{text-align:center;padding:6rem 0 4rem}
+.end h2{font-family:'Cormorant Garamond',serif;font-size:clamp(2rem,4.5vw,3rem);color:var(--white)}
+.end .cta{margin-top:1.8rem}
+footer{text-align:center;padding:1.5rem 1rem 3rem;color:var(--muted);font-size:.85rem;font-weight:300}
+
+@media(max-width:860px){.pair{grid-template-columns:1fr}.mid{transform:rotate(90deg);padding:.1rem 0}.pc{grid-template-columns:1fr}}
+@media(max-width:680px){.wrap{padding:0 1.1rem}.sec{padding-top:4.5rem}.hero-in{margin-top:12vh}.back{left:.9rem}.btn{padding:.85rem 1.5rem;font-size:.88rem}}
+@media(prefers-reduced-motion:reduce){*,*::before,*::after{animation:none!important;transition:none!important}.rv{opacity:1!important;transform:none!important}}
+</style>
+</head>
+<body>
+<div class="progress" id="progress"></div>
+<a class="back" href="home.html" aria-label="Back to home"><i class="fas fa-arrow-left"></i></a>
+
+<header class="hero">
+  <img src="images/rythu.jpg" alt="Rythu Connect" onerror="this.style.display='none'">
+  <div class="hero-in">
+    <h1>Rythu Connect</h1>
+    <p class="sub">AI-POWERED AGRICULTURAL MANAGEMENT &amp; FARMER CONNECTIVITY</p>
+    <p class="quote">&ldquo;Where every seed is backed by knowledge, and every farmer is never alone.&rdquo;</p>
+    <div class="cta">
+      <a class="btn solid" href="https://rythuconnect.onrender.com/" target="_blank" rel="noopener noreferrer"><i class="fas fa-arrow-up-right-from-square"></i> Live Demo</a>
+      <a class="btn ghost" href="https://github.com/nikhildeshmuk98/rythuconnect.git" target="_blank" rel="noopener noreferrer"><i class="fab fa-github"></i> GitHub</a>
+    </div>
+  </div>
+  <div class="scroll" aria-hidden="true"></div>
+</header>
+
+<main class="wrap">
+  <section class="sec">
+    <div class="head rv"><h2>Why Rythu Connect?</h2><div class="rule"></div>
+      <p>Farmers feed the nation, yet useful information, fair markets and a supportive network are often out of reach. Rythu Connect brings all of it into one simple web application.</p></div>
+    <div class="steps" id="steps"></div>
+  </section>
+
+  <section class="sec">
+    <div class="head rv"><h2>Problems We Saw, Problems We Solved</h2><div class="rule"></div>
+      <p>Every feature in Rythu Connect answers a real difficulty that farmers face in daily life.</p></div>
+    <div id="pairs"></div>
+  </section>
+
+  <section class="sec">
+    <div class="head rv"><h2>Advantages &amp; Limitations</h2><div class="rule"></div>
+      <p>An honest look at what the platform does well and where it can still grow.</p></div>
+    <div class="pc">
+      <div class="glass pro rv"><h3>Advantages</h3><ul id="pros"></ul></div>
+      <div class="glass con rv"><h3>Limitations</h3><ul id="cons"></ul></div>
+    </div>
+  </section>
+
+  <section class="sec">
+    <div class="head rv"><h2>Requirements &amp; Tech Stack</h2><div class="rule"></div>
+      <p>Everything needed to run Rythu Connect, and what each technology does inside the application.</p></div>
+    <div class="reqs rv" id="reqs"></div>
+    <div class="tech" id="tech"></div>
+  </section>
+
+  <section class="sec">
+    <div class="head rv"><h2>Python Packages Used</h2><div class="rule"></div>
+      <p>All 42 libraries from requirements.txt, grouped by the job they do in the project. Tap a group to filter.</p></div>
+    <div class="filters rv" id="filters"></div>
+    <div class="pk" id="pk"></div>
+  </section>
+
+  <section class="end rv">
+    <h2>See it in action</h2>
+    <div class="cta">
+      <a class="btn solid" href="https://rythuconnect.onrender.com/" target="_blank" rel="noopener noreferrer"><i class="fas fa-arrow-up-right-from-square"></i> Live Demo</a>
+      <a class="btn ghost" href="https://github.com/nikhildeshmuk98/rythuconnect.git" target="_blank" rel="noopener noreferrer"><i class="fab fa-github"></i> GitHub</a>
+      <a class="btn ghost" href="home.html"><i class="fas fa-house"></i> Back to Home</a>
+    </div>
+  </section>
+</main>
+<footer>&copy; <span id="yr"></span> Nikhil Dandolu. Crafted with care.</footer>
+
+<script>
+var STEPS=[
+["fa-bullseye","Purpose","Give farmers one trusted place for advice, weather, markets, work, schemes and community, so decisions are based on information and not guesswork."],
+["fa-seedling","Who It Helps","Small and marginal farmers, agricultural workers, buyers and sellers of farm produce, and anyone who wants to stay connected with farming."],
+["fa-route","How It Works","Create an account, explore the dashboard, ask the AI assistant, check the weather, trade in the marketplace and connect with other farmers."]
+];
+var PAIRS=[
+["Farm information is scattered across many sources, and farmers waste time finding reliable advice.","The AI assistant answers farming questions in one chat, including crops, pests, soil and seasonal tips."],
+["Sudden weather changes damage crops and make sowing and harvesting hard to plan.","Live weather updates and analysis help farmers plan irrigation, spraying and harvesting."],
+["Middlemen reduce profit and farmers have little reach to real buyers.","The agricultural marketplace lets farmers list produce and connect with buyers directly."],
+["Farm workers and landowners struggle to find each other during busy seasons.","The farming jobs section lets people post and find work in their own area."],
+["Government schemes exist, but many farmers never hear about them.","A government schemes section collects the available schemes in one easy place."],
+["Farmers often work alone and have no easy way to share problems or learn from each other.","The community and networking features let farmers chat, share experience and support each other."],
+["Farmers rarely see data about their own activity, so progress is hard to measure.","The analytics view turns platform data into simple insights that support better decisions."]
+];
+var PROS=["Everything a farmer needs in one web application","AI assistant gives quick, easy farming guidance","Weather updates support better planning","Direct marketplace reduces dependence on middlemen","Real-time community chat builds a connected network","Works in any modern browser without installation","Secure MySQL database stores user data in a structured way","Deployed online, so it is reachable from anywhere"];
+var CONS=["Needs an internet connection to work","Farmers with limited digital skills may need initial guidance","AI answers can occasionally be inaccurate and should be verified with experts","Weather accuracy depends on the external weather service","The free hosting plan can be slow to wake up after idle time","Currently available mainly in English","Scheme and market data need regular updating to stay current","Cannot replace on-field advice from agricultural officers"];
+var REQS=[["fa-python","Python 3"],["fa-database","MySQL Server"],["fa-robot","Ollama runtime"],["fa-wifi","Internet for weather and search"],["fa-globe","Modern web browser"],["fa-envelope","Email account (SMTP)"]];
+var TECH=[
+["fa-code","Frontend: HTML, CSS, JavaScript","HTML5 builds the page structure, CSS3 gives the responsive and clean design, and JavaScript adds interactivity such as chat, live updates and dynamic content without reloading."],
+["fa-server","Backend: Python Flask","Flask is the brain of the app. It handles login, routes, business logic and talks to the database, the AI model and the weather service before sending results to the browser."],
+["fa-database","Database: MySQL","MySQL stores users, marketplace listings, jobs, schemes, community posts and messages in related tables, so data stays organised, secure and quick to search."],
+["fa-plug","API Layer","Flask REST API endpoints return JSON to the frontend. The page requests data from them, for example listings, weather or chat replies, and updates itself instantly."],
+["fa-comment-dots","AI Chatbot","A local language model served through Ollama answers farmer questions. DuckDuckGo search can add fresh web results, so replies are not limited to the model's own knowledge."],
+["fa-cloud-sun-rain","Weather Analysis","The backend fetches live weather data with HTTP requests and analyses temperature, rain and humidity, then shows simple guidance on farming activities."],
+["fa-people-group","Real-Time Community","Flask-SocketIO keeps a live connection open, so community messages and notifications appear instantly for everyone without refreshing the page."],
+["fa-cloud-arrow-up","Deployment","Gunicorn with Eventlet runs the Flask app in production and the project is hosted on Render, which gives the public live demo link."]
+];
+var PKG=("Core Web|Flask|3.1.3|The main framework. Defines routes, APIs and the whole backend logic.\nCore Web|Werkzeug|3.1.8|Handles requests and responses, and securely hashes passwords.\nCore Web|Jinja2|3.1.6|Template engine that fills HTML pages with data from the backend.\nCore Web|itsdangerous|2.2.0|Signs session cookies and tokens so they cannot be tampered with.\nCore Web|click|8.4.1|Command line support that Flask uses to run and manage the app.\nCore Web|blinker|1.9.0|Signal system Flask uses to broadcast internal events.\nCore Web|MarkupSafe|3.0.3|Escapes user text so malicious scripts cannot run in pages.\n"+
+"Database|Flask-MySQLdb|2.0.0|Connects the Flask app to the MySQL database.\nDatabase|mysqlclient|2.2.8|Fast C driver that carries queries between Python and MySQL.\nDatabase|mysql-connector-python|9.7.0|Alternative official MySQL driver for database operations.\nDatabase|Flask-SQLAlchemy|3.1.1|Brings SQLAlchemy into Flask for working with tables as Python classes.\nDatabase|SQLAlchemy|2.0.50|ORM that reads and writes data without hand-written SQL everywhere.\n"+
+"AI & Search|ollama|0.6.2|Python client that sends farmer questions to the AI model and returns answers.\nAI & Search|duckduckgo_search|8.1.1|Fetches live web results so the chatbot can use fresh information.\nAI & Search|primp|1.3.1|HTTP client used by the search library to fetch results.\nAI & Search|lxml|6.1.1|Fast parser that reads and cleans HTML from search results.\nAI & Search|pydantic|2.13.4|Validates the data structures exchanged with the AI client.\nAI & Search|pydantic_core|2.46.4|Rust engine that makes pydantic validation fast.\nAI & Search|annotated-types|0.7.0|Adds value rules such as limits and lengths to pydantic types.\nAI & Search|typing_extensions|4.15.0|Newer typing features for older Python versions.\nAI & Search|typing-inspection|0.4.2|Helps pydantic inspect type hints correctly.\n"+
+"Real-Time|Flask-SocketIO|5.6.1|Adds live two-way communication to Flask for community chat.\nReal-Time|python-socketio|5.16.2|Socket.IO server that manages events, rooms and clients.\nReal-Time|python-engineio|4.13.2|Transport layer under Socket.IO that keeps connections alive.\nReal-Time|eventlet|0.41.0|Concurrent server that handles many live connections together.\nReal-Time|greenlet|3.5.1|Lightweight threads that power eventlet.\nReal-Time|dnspython|2.8.0|DNS toolkit that eventlet needs to resolve addresses.\nReal-Time|bidict|0.23.1|Two-way dictionary used by Socket.IO to map clients and sessions.\nReal-Time|simple-websocket|1.1.0|WebSocket support for the Flask server.\nReal-Time|wsproto|1.3.2|Implements the WebSocket protocol rules.\n"+
+"Networking|requests|2.34.2|Makes HTTP calls to the weather service and other web APIs.\nNetworking|httpx|0.28.1|Modern HTTP client the AI library uses to reach the model server.\nNetworking|httpcore|1.0.9|Low-level engine that httpx is built on.\nNetworking|h11|0.16.0|Pure Python HTTP/1.1 protocol handling for httpcore.\nNetworking|anyio|4.13.0|Async compatibility layer used by httpx.\nNetworking|urllib3|2.7.0|Connection pooling and retries for requests.\nNetworking|certifi|2026.5.20|Trusted certificates that keep HTTPS connections secure.\nNetworking|charset-normalizer|3.4.7|Detects text encoding of responses so text is read correctly.\nNetworking|idna|3.16|Supports international domain names in web addresses.\n"+
+"Email|Flask-Mail|0.10.0|Sends emails from the app such as verification and notifications.\n"+
+"Deployment|gunicorn|26.2.0|Production server that runs the Flask app on Render.\nDeployment|colorama|0.4.6|Colours terminal logs so they are easier to read.").split("\n").map(function(l){return l.split("|")});
+
+function esc(s){return String(s).replace(/[&<>"]/g,function(c){return{'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]})}
+function $(id){return document.getElementById(id)}
+$('steps').innerHTML=STEPS.map(function(s){return '<div class="glass step rv"><div class="ico"><i class="fas '+s[0]+'"></i></div><h3>'+s[1]+'</h3><p>'+s[2]+'</p></div>'}).join('');
+$('pairs').innerHTML=PAIRS.map(function(p){return '<div class="pair rv"><div class="glass pb"><small><i class="fas fa-triangle-exclamation"></i> Problem</small><p>'+p[0]+'</p></div><div class="mid"><i class="fas fa-arrow-right"></i></div><div class="glass sv"><small><i class="fas fa-circle-check"></i> Solved</small><p>'+p[1]+'</p></div></div>'}).join('');
+$('pros').innerHTML=PROS.map(function(t){return '<li><i class="fas fa-check"></i>'+t+'</li>'}).join('');
+$('cons').innerHTML=CONS.map(function(t){return '<li><i class="fas fa-circle-exclamation"></i>'+t+'</li>'}).join('');
+$('reqs').innerHTML=REQS.map(function(r){return '<span class="chip"><i class="'+(r[0]=='fa-python'?'fab ':'fas ')+r[0]+'"></i>'+r[1]+'</span>'}).join('');
+$('tech').innerHTML=TECH.map(function(t){return '<div class="glass tc rv"><div class="ico"><i class="fas '+t[0]+'"></i></div><h3>'+t[1]+'</h3><p>'+t[2]+'</p></div>'}).join('');
+
+var groups=['All'].concat(PKG.map(function(p){return p[0]}).filter(function(g,i,a){return a.indexOf(g)===i}));
+function showPkgs(g){
+  $('pk').innerHTML=PKG.filter(function(p){return g==='All'||p[0]===g}).map(function(p,i){return '<div class="glass p" style="animation-delay:'+(i*25)+'ms"><b>'+esc(p[1])+'<em>'+esc(p[2])+'</em></b><span>'+esc(p[3])+'</span></div>'}).join('');
+  Array.prototype.forEach.call(document.querySelectorAll('.f'),function(b){b.classList.toggle('on',b.dataset.g===g)});
+}
+$('filters').innerHTML=groups.map(function(g){return '<button class="f" data-g="'+g+'">'+g+(g==='All'?' ('+PKG.length+')':'')+'</button>'}).join('');
+$('filters').addEventListener('click',function(e){var b=e.target.closest('.f');if(b)showPkgs(b.dataset.g)});
+showPkgs('All');
+
+$('yr').textContent=new Date().getFullYear();
+var bar=$('progress'),tk=false;
+function onScroll(){var m=document.documentElement.scrollHeight-innerHeight;bar.style.transform='scaleX('+(m>0?scrollY/m:0)+')';tk=false}
+addEventListener('scroll',function(){if(!tk){requestAnimationFrame(onScroll);tk=true}},{passive:true});onScroll();
+var io=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target)}})},{threshold:.1,rootMargin:'0px 0px -40px 0px'});
+Array.prototype.forEach.call(document.querySelectorAll('.rv'),function(el,i){el.style.transitionDelay=(i%3)*90+'ms';io.observe(el)});
+</script>
+</body>
+</html>

@@ -1,0 +1,577 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Deepflix | AI-Powered Movie & OTT Recommendation System</title>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600;700&family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{--ink:#06101a;--emerald:#2e8b57;--mint:#6fcf97;--gold:#d9bc82;--gold2:#a98a4d;--acc:#d9bc82;--text:#d9e2de;--muted:#9fb1aa;--white:#fff;
+--glass:rgba(12,46,36,.4);--line:rgba(217,188,130,.2);--navbg:rgba(6,16,26,.62);--field:rgba(255,255,255,.06);
+--card:linear-gradient(160deg,rgba(16,60,47,.5),rgba(8,26,24,.62));--sh:rgba(0,0,0,.3);--e:cubic-bezier(.22,1,.36,1);--code:#05101a;
+--good:#6fcf97;--bad:#ff8a7a;
+--bg:radial-gradient(1200px 600px at 80% -10%,rgba(46,139,87,.22),transparent 60%),radial-gradient(900px 500px at -10% 45%,rgba(217,188,130,.08),transparent 60%),linear-gradient(160deg,#06101a,#08201a 55%,#06101a)}
+body.light{--ink:#f6faf7;--acc:#8a6a2c;--text:#2b3a35;--muted:#5d6f67;--white:#10241d;--glass:rgba(255,255,255,.75);--line:rgba(169,138,77,.38);
+--navbg:rgba(255,255,255,.78);--field:rgba(0,0,0,.04);--card:linear-gradient(160deg,#fff,#f6f0e2);--sh:rgba(70,80,60,.16);--code:#10241d;--good:#1f7a4a;--bad:#b4472f;
+--bg:radial-gradient(1000px 500px at 80% -10%,rgba(46,139,87,.14),transparent 60%),linear-gradient(160deg,#f3f8f5,#fbf6ea 60%,#eef6f1)}
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{font-family:'Poppins',sans-serif;color:var(--text);background:var(--bg);background-attachment:fixed;overflow-x:hidden;transition:background .5s,color .5s}
+a{text-decoration:none;color:inherit}
+:focus-visible{outline:2px solid var(--gold);outline-offset:3px}
+.progress{position:fixed;top:0;left:0;height:3px;width:100%;z-index:1100;transform-origin:0 50%;transform:scaleX(0);background:linear-gradient(90deg,var(--emerald),var(--gold),var(--mint));box-shadow:0 0 12px rgba(217,188,130,.7)}
+.orb{position:fixed;border-radius:50%;filter:blur(90px);pointer-events:none;z-index:0}
+.orb.a{width:380px;height:380px;background:rgba(46,139,87,.26);top:8%;left:-120px}
+.orb.b{width:320px;height:320px;background:rgba(217,188,130,.14);bottom:6%;right:-100px}
+body.light .orb{opacity:.5}
+
+/* Nav */
+nav{position:fixed;top:0;left:0;right:0;z-index:1000;display:flex;justify-content:space-between;align-items:center;padding:.8rem 5%;background:transparent;transition:all .4s var(--e);border-bottom:1px solid transparent}
+nav.sc{padding:.5rem 5%;background:var(--navbg);backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);border-bottom-color:var(--line)}
+.nleft{display:flex;align-items:center;gap:.9rem}
+.iconbtn{width:46px;height:46px;border-radius:50%;display:grid;place-items:center;cursor:pointer;color:var(--acc);background:rgba(6,16,26,.55);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);border:1px solid var(--line);font-size:1.05rem;transition:all .4s var(--e)}
+.iconbtn:hover{background:var(--gold);color:#10241d;box-shadow:0 0 22px rgba(217,188,130,.45);transform:scale(1.08)}
+.back:hover{transform:translateX(-4px) scale(1.08)}
+.nbrand{font-family:'Cormorant Garamond',serif;font-size:1.5rem;font-weight:700;color:#fff;letter-spacing:.04em}
+nav.sc .nbrand{color:var(--white)}
+.nr{display:flex;align-items:center;gap:.3rem}
+.nl{padding:.5rem .95rem;border-radius:40px;font-size:.83rem;font-weight:500;color:#e6eee9;transition:all .4s var(--e)}
+nav.sc .nl{color:var(--text)}
+.nl:hover{color:#10241d;background:linear-gradient(120deg,#f1deb0,var(--gold) 50%,var(--gold2));transform:translateY(-2px)}
+
+/* Layout */
+main{position:relative;z-index:1}
+.sec{max-width:1240px;margin:0 auto;padding:6rem 2rem 1rem}
+.eyebrow{display:block;text-align:center;font-size:.78rem;font-weight:500;letter-spacing:.32em;text-transform:uppercase;color:var(--acc);margin-bottom:.8rem}
+.title{font-family:'Cormorant Garamond',serif;text-align:center;font-weight:700;font-size:clamp(2.2rem,4.5vw,3.3rem);margin-bottom:.6rem;background:linear-gradient(100deg,var(--acc),#f3e3bd 50%,var(--gold2));-webkit-background-clip:text;background-clip:text;color:transparent}
+body.light .title{background:linear-gradient(100deg,#7a5a1f,#b8964f 50%,#7a5a1f);-webkit-background-clip:text;background-clip:text}
+.rule{width:100px;height:2px;margin:0 auto 1.6rem;background:linear-gradient(90deg,transparent,var(--gold),transparent)}
+.lead{max-width:780px;margin:0 auto 3rem;text-align:center;line-height:1.9;color:var(--muted);font-weight:300}
+.sub{font-family:'Cormorant Garamond',serif;font-size:1.8rem;color:var(--white);text-align:center;margin:3.5rem 0 1.6rem}
+
+/* HERO */
+.hero{position:relative;min-height:100vh;min-height:100svh;display:grid;place-items:center;text-align:center;overflow:hidden;isolation:isolate;padding:7rem 1.5rem 5rem}
+.hero .bg{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:center;z-index:-3;transform:scale(1.06);animation:kb 22s ease-in-out infinite alternate}
+@keyframes kb{to{transform:scale(1.16) translate(-1%,-1%)}}
+.hero::before{content:"";position:absolute;inset:0;z-index:-2;background:
+ radial-gradient(ellipse at 50% 45%,rgba(6,16,26,.25),rgba(6,16,26,.82) 78%),
+ linear-gradient(180deg,rgba(6,16,26,.78) 0%,rgba(6,16,26,.35) 38%,rgba(6,16,26,.55) 70%,#06101a 100%),
+ linear-gradient(120deg,rgba(46,139,87,.35),transparent 55%)}
+.hero::after{content:"";position:absolute;inset:0;z-index:-1;pointer-events:none;background:radial-gradient(circle at 20% 80%,rgba(217,188,130,.16),transparent 45%)}
+.hero-in{max-width:980px;opacity:0;transform:translateY(30px);animation:rise 1.2s var(--e) .15s forwards}
+@keyframes rise{to{opacity:1;transform:none}}
+.badge{display:inline-flex;align-items:center;gap:.6rem;padding:.5rem 1.3rem;border-radius:50px;font-size:.78rem;letter-spacing:.2em;text-transform:uppercase;font-weight:500;color:var(--gold);border:1px solid rgba(217,188,130,.5);background:rgba(6,16,26,.5);backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);margin-bottom:1.6rem}
+.hero h1{font-family:'Cormorant Garamond',serif;font-weight:700;font-size:clamp(3.8rem,13vw,9rem);line-height:.95;letter-spacing:.02em;background:linear-gradient(100deg,#f3e3bd,#fff 45%,var(--gold) 70%,#f3e3bd);-webkit-background-clip:text;background-clip:text;color:transparent;filter:drop-shadow(0 10px 40px rgba(0,0,0,.55));transition:transform .6s var(--e),filter .6s var(--e),letter-spacing .6s var(--e);cursor:default}
+.hero h1:hover{transform:scale(1.04);letter-spacing:.06em;filter:drop-shadow(0 0 38px rgba(217,188,130,.7))}
+.hero .tagline{margin:1.4rem auto 0;max-width:820px;font-size:clamp(1rem,2.2vw,1.45rem);font-weight:500;line-height:1.6;color:#f3f7f4;text-shadow:0 4px 20px rgba(0,0,0,.6)}
+.hero .tagline b{color:var(--gold);font-weight:600}
+.quote{position:relative;margin:1.8rem auto 0;max-width:720px;padding:0 1.8rem;font-family:'Cormorant Garamond',serif;font-style:italic;font-size:clamp(1.15rem,2.2vw,1.55rem);line-height:1.6;color:#e6eee9;text-shadow:0 3px 16px rgba(0,0,0,.6)}
+.quote::before,.quote::after{position:absolute;font-size:3.2rem;line-height:1;color:var(--gold);opacity:.7}
+.quote::before{content:"\201C";left:-.2rem;top:-.6rem}
+.quote::after{content:"\201D";right:-.2rem;bottom:-1.6rem}
+.btns{display:flex;gap:1rem;margin-top:2.6rem;flex-wrap:wrap;justify-content:center}
+.btn{position:relative;overflow:hidden;display:inline-flex;align-items:center;justify-content:center;gap:.6rem;padding:.95rem 2.1rem;border-radius:50px;font-size:.92rem;font-weight:500;letter-spacing:.03em;cursor:pointer;border:1px solid transparent;font-family:inherit;transition:all .45s var(--e)}
+.btn i{transition:transform .45s var(--e)}
+.btn.solid{color:#10241d;font-weight:600;background:linear-gradient(120deg,#f1deb0,var(--gold) 50%,var(--gold2));box-shadow:0 10px 26px rgba(217,188,130,.3),inset 0 1px 0 rgba(255,255,255,.5)}
+.btn.solid::before{content:"";position:absolute;top:0;left:-80%;width:50%;height:100%;background:linear-gradient(100deg,transparent,rgba(255,255,255,.65),transparent);transform:skewX(-20deg);transition:left .8s var(--e)}
+.btn.solid:hover{transform:translateY(-4px);box-shadow:0 16px 34px rgba(217,188,130,.45)}
+.btn.solid:hover::before{left:140%}
+.btn.solid:hover i{transform:translate(3px,-3px)}
+.btn.ghost{color:#f3f7f4;border-color:rgba(217,188,130,.55);background:rgba(6,16,26,.45);backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px)}
+.btn.ghost:hover{color:var(--gold);border-color:var(--gold);background:rgba(217,188,130,.14);transform:translateY(-4px)}
+.scrollhint{position:absolute;bottom:1.6rem;left:50%;transform:translateX(-50%);color:var(--gold);font-size:1.2rem;animation:bob 2s ease-in-out infinite;opacity:.8}
+@keyframes bob{50%{transform:translate(-50%,8px)}}
+
+/* Cards */
+.grid{--c:3;display:flex;flex-wrap:wrap;justify-content:center;gap:1.8rem;align-items:stretch}
+.grid.c2{--c:2}.grid.c4{--c:4}.grid.c1{--c:1}
+.card{--mx:50%;--my:50%;position:relative;border-radius:22px;background:var(--card);border:1px solid var(--line);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);box-shadow:0 18px 40px var(--sh);padding:1.8rem 1.6rem}
+.grid>.card{flex:0 1 calc((100% - (var(--c) - 1) * 1.8rem) / var(--c));min-width:0}
+.rv{opacity:0;transform:translateY(50px) scale(.97);filter:blur(5px);transition:opacity .9s var(--e),transform .9s var(--e),filter .9s var(--e),border-color .5s,box-shadow .5s}
+.rv.in{opacity:1;transform:none;filter:none}
+.rv.in.ready{transition:transform .25s ease-out,border-color .5s,box-shadow .5s}
+.card::before,.card::after{content:"";position:absolute;inset:0;border-radius:inherit;pointer-events:none;opacity:0;transition:opacity .4s}
+.card::before{background:radial-gradient(420px circle at var(--mx) var(--my),rgba(217,188,130,.15),transparent 55%)}
+.card::after{padding:1px;background:radial-gradient(260px circle at var(--mx) var(--my),var(--gold),transparent 65%);-webkit-mask:linear-gradient(#000 0 0) content-box,linear-gradient(#000 0 0);-webkit-mask-composite:xor;mask-composite:exclude}
+.card:hover::before,.card:hover::after{opacity:1}
+.card:hover{box-shadow:0 30px 60px var(--sh),0 0 40px rgba(46,139,87,.16)}
+.card.flat:hover::before,.card.flat:hover::after{opacity:0}
+.card h4{font-family:'Cormorant Garamond',serif;font-size:1.5rem;color:var(--white);margin-bottom:.8rem;line-height:1.25}
+.card p{color:var(--muted);font-size:.92rem;line-height:1.85;font-weight:300}
+.card p+p{margin-top:.7rem}
+.card p b,.card li b{color:var(--acc);font-weight:500}
+.ico{width:58px;height:58px;border-radius:16px;display:grid;place-items:center;font-size:1.5rem;color:#10241d;margin-bottom:1.2rem;background:linear-gradient(120deg,#f1deb0,var(--gold),var(--gold2));box-shadow:0 10px 24px rgba(217,188,130,.25)}
+.ul{list-style:none;margin-top:.4rem}
+.ul li{display:flex;gap:.8rem;padding:.6rem 0;border-bottom:1px solid var(--line);font-size:.9rem;color:var(--muted);line-height:1.7;font-weight:300}
+.ul li:last-child{border:0}
+.ul li>i{margin-top:.35rem;color:var(--acc);width:16px;flex:none;text-align:center}
+
+/* Steps */
+.steps{display:grid;grid-template-columns:repeat(3,1fr);gap:1.6rem;counter-reset:s}
+.step{counter-increment:s;padding-top:2.4rem}
+.step::before{content:counter(s,decimal-leading-zero);position:absolute;top:.6rem;right:1.4rem;font-family:'Cormorant Garamond',serif;font-size:3rem;font-weight:700;line-height:1;color:var(--acc);opacity:.28}
+
+/* Problem / Solution */
+.ps{display:grid;grid-template-columns:1fr 1fr;gap:1.8rem}
+.ps .card.bad{border-color:rgba(255,138,122,.3)}
+.ps .card.good{border-color:rgba(111,207,151,.35)}
+.ps h3{font-family:'Cormorant Garamond',serif;font-size:1.9rem;color:var(--white);margin-bottom:1.1rem;display:flex;align-items:center;gap:.7rem}
+.bad h3 i{color:var(--bad)}.good h3 i{color:var(--good)}
+.pair{padding:.9rem 0;border-bottom:1px solid var(--line)}
+.pair:last-child{border:0}
+.pair h5{font-size:.98rem;font-weight:500;color:var(--white);margin-bottom:.25rem}
+.pair p{font-size:.88rem;line-height:1.75}
+
+/* Pros cons */
+.pc{display:grid;grid-template-columns:1fr 1fr;gap:1.8rem}
+.pc h3{font-family:'Cormorant Garamond',serif;font-size:1.9rem;color:var(--white);margin-bottom:1rem;display:flex;align-items:center;gap:.7rem}
+.pros h3 i,.pros .ul li>i{color:var(--good)}
+.cons h3 i,.cons .ul li>i{color:var(--bad)}
+
+/* Stack */
+.stack .card{text-align:center}
+.stack .ico{margin:0 auto 1.2rem}
+.stack .role{display:inline-block;margin-bottom:.9rem;padding:.25rem .9rem;border-radius:30px;font-size:.72rem;letter-spacing:.14em;text-transform:uppercase;color:var(--acc);border:1px solid rgba(217,188,130,.35);background:rgba(217,188,130,.07)}
+.tags{display:flex;flex-wrap:wrap;gap:.5rem;justify-content:center;margin-top:1rem}
+.tag{padding:.28rem .85rem;border-radius:30px;font-size:.75rem;font-weight:500;color:var(--acc);background:rgba(217,188,130,.08);border:1px solid rgba(217,188,130,.3)}
+
+/* Packages */
+.pk .card{padding:1.4rem 1.3rem}
+.pk .ph{display:flex;justify-content:space-between;align-items:center;gap:.6rem;margin-bottom:.7rem;flex-wrap:wrap}
+.pk h4{margin:0;font-family:'Poppins',sans-serif;font-size:1.02rem;font-weight:600}
+.ver{font-family:ui-monospace,Menlo,Consolas,monospace;font-size:.74rem;padding:.2rem .65rem;border-radius:8px;color:var(--gold);background:var(--code);border:1px solid var(--line)}
+.pk p{font-size:.86rem;line-height:1.75}
+.pk .for{margin-top:.6rem;font-size:.76rem;color:var(--acc);letter-spacing:.04em}
+.note{max-width:900px;margin:2rem auto 0;padding:1.1rem 1.4rem;border-radius:16px;border:1px dashed rgba(217,188,130,.45);background:rgba(217,188,130,.06);font-size:.88rem;line-height:1.8;color:var(--muted)}
+.note b{color:var(--acc)}
+
+/* Table */
+.tw{overflow-x:auto;border-radius:16px;border:1px solid var(--line);margin-top:1rem}
+table{width:100%;border-collapse:collapse;font-size:.86rem;min-width:520px}
+th,td{text-align:left;padding:.8rem 1rem;border-bottom:1px solid var(--line);color:var(--muted);font-weight:300;vertical-align:top;line-height:1.6}
+th{color:var(--acc);font-weight:500;font-size:.78rem;letter-spacing:.12em;text-transform:uppercase;background:rgba(217,188,130,.06)}
+tr:last-child td{border:0}
+td code,p code,li code{font-family:ui-monospace,Menlo,Consolas,monospace;font-size:.82em;color:var(--gold);background:var(--code);padding:.1rem .4rem;border-radius:6px}
+td:first-child{color:var(--white);font-weight:500;white-space:nowrap}
+
+/* Pipeline */
+.pipe{display:flex;flex-wrap:wrap;justify-content:center;align-items:center;gap:.6rem;margin:1.2rem 0 2.4rem}
+.pn{padding:.6rem 1.1rem;border-radius:40px;font-size:.82rem;font-weight:500;color:var(--white);background:var(--card);border:1px solid var(--line)}
+.pa{color:var(--acc)}
+
+/* Code */
+.code{margin-top:1rem;border-radius:16px;overflow:hidden;border:1px solid var(--line);background:var(--code)}
+.code .bar{display:flex;align-items:center;gap:.5rem;padding:.6rem 1rem;border-bottom:1px solid var(--line);font-size:.78rem;color:var(--muted)}
+.code .bar i{width:10px;height:10px;border-radius:50%;display:inline-block}
+.code .bar i:nth-child(1){background:#ff5f57}.code .bar i:nth-child(2){background:#febc2e}.code .bar i:nth-child(3){background:#28c840}
+.code .bar span{margin-left:.6rem;font-family:ui-monospace,Menlo,Consolas,monospace}
+pre{padding:1.2rem 1.3rem;overflow-x:auto;font-family:ui-monospace,Menlo,Consolas,monospace;font-size:.82rem;line-height:1.75;color:#d9e2de}
+pre .k{color:#d9bc82}pre .c{color:#6b8a7e;font-style:italic}pre .s{color:#6fcf97}
+
+/* Hybrid */
+.hy{display:grid;grid-template-columns:1fr 1fr;gap:1.8rem;align-items:start}
+.status{display:inline-flex;align-items:center;gap:.5rem;padding:.3rem .9rem;border-radius:30px;font-size:.74rem;font-weight:500;letter-spacing:.06em;margin-bottom:1rem}
+.status.now{color:#ffcf8a;background:rgba(255,190,100,.1);border:1px solid rgba(255,190,100,.35)}
+.status.plan{color:var(--good);background:rgba(111,207,151,.1);border:1px solid rgba(111,207,151,.35)}
+.weights{margin-top:1rem}
+.wr{display:flex;align-items:center;gap:.8rem;margin:.55rem 0;font-size:.82rem;color:var(--muted)}
+.wr span:first-child{width:150px;flex:none}
+.wb{flex:1;height:8px;border-radius:8px;background:rgba(127,127,127,.18);overflow:hidden}
+.wb i{display:block;height:100%;border-radius:8px;background:linear-gradient(90deg,var(--emerald),var(--gold))}
+
+/* CTA + Footer */
+.cta{text-align:center;padding:3rem 1.6rem}
+.cta h3{font-family:'Cormorant Garamond',serif;font-size:2.2rem;color:var(--white);margin-bottom:.6rem}
+.cta .btn.ghost{color:var(--text);background:rgba(217,188,130,.04)}
+.cta .btn.ghost:hover{color:var(--acc)}
+footer{position:relative;z-index:1;margin-top:5rem;padding:2.2rem 5%;text-align:center;border-top:1px solid var(--line);background:var(--glass)}
+footer p{color:var(--muted);font-size:.85rem}
+footer a{color:var(--acc)}
+.top{position:fixed;right:28px;bottom:28px;z-index:900;width:52px;height:52px;border-radius:50%;display:grid;place-items:center;cursor:pointer;color:#10241d;background:linear-gradient(120deg,#f1deb0,var(--gold),var(--gold2));box-shadow:0 10px 26px rgba(217,188,130,.4);opacity:0;visibility:hidden;transform:translateY(20px);transition:all .5s var(--e);border:0}
+.top.on{opacity:1;visibility:visible;transform:none}
+.top:hover{transform:translateY(-6px)}
+
+@media(max-width:1100px){.nr .nl{display:none}}
+@media(max-width:1024px){.grid,.grid.c4{--c:2}.steps{grid-template-columns:1fr 1fr}.hy{grid-template-columns:1fr}}
+@media(max-width:780px){.ps,.pc{grid-template-columns:1fr}}
+@media(max-width:680px){.grid,.grid.c4,.grid.c2{--c:1}.steps{grid-template-columns:1fr}.sec{padding:5rem 1.1rem 1rem}.btn{width:100%}.top{right:16px;bottom:16px}.nbrand{font-size:1.2rem}.hero{padding:6.5rem 1.1rem 5rem}.wr span:first-child{width:112px}}
+@media(prefers-reduced-motion:reduce){*,*::before,*::after{animation:none!important;transition:none!important}.rv,.hero-in{opacity:1!important;transform:none!important;filter:none!important}}
+</style>
+</head>
+<body>
+<div class="progress" id="progress"></div>
+<div class="orb a" data-s=".08"></div><div class="orb b" data-s="-.06"></div>
+
+<nav id="nav">
+  <div class="nleft">
+    <a href="home.html" class="iconbtn back" aria-label="Back to Home" title="Back to Home"><i class="fas fa-arrow-left"></i></a>
+    <span class="nbrand">Deepflix</span>
+  </div>
+  <div class="nr">
+    <a class="nl" href="#why">Why</a>
+    <a class="nl" href="#problem">Problem</a>
+    <a class="nl" href="#pros">Pros &amp; Cons</a>
+    <a class="nl" href="#stack">Tech Stack</a>
+    <a class="nl" href="#packages">Packages</a>
+    <a class="nl" href="#training">CNN Model</a>
+    <a class="nl" href="#hybrid">Hybrid Engine</a>
+    <button class="iconbtn" id="themeBtn" aria-label="Toggle theme" style="margin-left:.4rem"><i class="fas fa-palette"></i></button>
+  </div>
+</nav>
+
+<!-- ============ HERO ============ -->
+<header class="hero" id="top-hero">
+  <img class="bg" src="images/deepflixx.jpg" alt="" onerror="this.style.display='none'">
+  <div class="hero-in">
+    <span class="badge"><i class="fas fa-film"></i> AI &middot; NLP &middot; CNN</span>
+    <h1>Deepflix</h1>
+    <p class="tagline"><b>AI-Powered Movie &amp; OTT Recommendation System</b> using Script Analysis with NLP and CNN</p>
+    <p class="quote">Great stories deserve the right audience. Deepflix reads the script, understands the story, and finds what you will love next.</p>
+    <div class="btns">
+      <a href="https://github.com/nikhildeshmuk98/deepflix.git" class="btn ghost" target="_blank" rel="noopener noreferrer"><i class="fab fa-github"></i> GitHub</a>
+      <a href="https://deepflix-fpd0.onrender.com/" class="btn solid" target="_blank" rel="noopener noreferrer"><i class="fas fa-arrow-up-right-from-square"></i> Live Demo</a>
+    </div>
+  </div>
+  <a class="scrollhint" href="#why" aria-label="Scroll down"><i class="fas fa-chevron-down"></i></a>
+</header>
+
+<main>
+
+<!-- ============ WHY DEEPFLIX ============ -->
+<section class="sec" id="why">
+  <span class="eyebrow">Overview</span>
+  <h2 class="title rv">Why Deepflix?</h2><div class="rule"></div>
+  <p class="lead rv">Choosing what to watch on OTT platforms takes longer than watching it. Deepflix removes that friction by understanding the <b style="color:var(--acc);font-weight:500">story of a movie</b>, not just its title, genre tag or popularity.</p>
+
+  <div class="grid">
+    <div class="card rv"><div class="ico"><i class="fas fa-bullseye"></i></div><h4>Purpose</h4>
+      <p>Deepflix is a web application that recommends movies and OTT content by analysing the <b>script / story text</b> of each title. Using NLP, a CNN and sentiment analysis, it learns what a story is really about and matches it to what each user enjoys.</p>
+      <p>Instead of showing the same trending list to everyone, every user gets a personalised feed that improves with their ratings, preferences and viewing progress.</p></div>
+    <div class="card rv"><div class="ico"><i class="fas fa-users"></i></div><h4>Who it helps</h4>
+      <ul class="ul">
+        <li><i class="fas fa-circle-check"></i><span><b>Movie lovers</b> who are tired of endless scrolling and want relevant picks fast.</span></li>
+        <li><i class="fas fa-circle-check"></i><span><b>New users</b> who want good suggestions right after setting their preferences.</span></li>
+        <li><i class="fas fa-circle-check"></i><span><b>Binge watchers</b> who want to resume titles and track viewing progress.</span></li>
+        <li><i class="fas fa-circle-check"></i><span><b>Students &amp; developers</b> who want a practical example of NLP + deep learning in a real web app.</span></li>
+      </ul></div>
+    <div class="card rv"><div class="ico"><i class="fas fa-gears"></i></div><h4>How it works</h4>
+      <p>Story text from the database is cleaned and tokenised, passed through a 1D CNN that learns genre and theme patterns, and combined with sentiment signals and the user's behaviour. A hybrid recommendation engine then ranks content for each user.</p>
+      <p>The full journey is shown in the six steps below.</p></div>
+  </div>
+
+  <h3 class="sub rv">The Deepflix Workflow</h3>
+  <div class="steps">
+    <div class="card step rv"><h4>User Preferences</h4><p>The user signs up, picks preferred genres and starts browsing, rating and watching movies. These actions become personalisation signals.</p></div>
+    <div class="card step rv"><h4>Script Analysis (NLP)</h4><p>The story/script of each title is cleaned, tokenised and converted into fixed-length numeric sequences that a neural network can read.</p></div>
+    <div class="card step rv"><h4>CNN Learning</h4><p>A 1D Convolutional Neural Network scans the text for meaningful phrase patterns and learns to connect story content with genres and themes.</p></div>
+    <div class="card step rv"><h4>Sentiment Analysis</h4><p>The emotional tone of a story (uplifting, dark, tense, romantic) is measured so recommendations can match the mood the user likes.</p></div>
+    <div class="card step rv"><h4>Hybrid Engine</h4><p>Content-based scores from the story analysis are blended with user-based signals such as ratings and history to produce one ranked list.</p></div>
+    <div class="card step rv"><h4>Personal Feed</h4><p>Top results are shown in the app, with movie browsing, ratings and viewing-progress tracking keeping the loop learning.</p></div>
+  </div>
+</section>
+
+<!-- ============ PROBLEM ============ -->
+<section class="sec" id="problem">
+  <span class="eyebrow">Case Study</span>
+  <h2 class="title rv">The Problem &amp; The Solution</h2><div class="rule"></div>
+  <p class="lead rv">What we noticed while using OTT platforms, and how Deepflix answers each issue.</p>
+  <div class="ps">
+    <div class="card bad flat rv">
+      <h3><i class="fas fa-triangle-exclamation"></i> Problems We Saw</h3>
+      <div class="pair"><h5>Decision fatigue</h5><p>Thousands of titles across platforms make it hard to pick one. Users spend more time browsing than watching.</p></div>
+      <div class="pair"><h5>Shallow recommendations</h5><p>Most suggestions rely on genre tags, popularity or what is trending, so they ignore the actual story and themes.</p></div>
+      <div class="pair"><h5>One-size-fits-all feeds</h5><p>Generic lists do not reflect individual taste, mood or viewing history.</p></div>
+      <div class="pair"><h5>Cold start for new users</h5><p>With no history, a new user gets poor suggestions until enough data is collected.</p></div>
+      <div class="pair"><h5>No story understanding</h5><p>Two films with the same genre label can feel completely different. Metadata alone cannot capture that.</p></div>
+    </div>
+    <div class="card good flat rv">
+      <h3><i class="fas fa-circle-check"></i> Problems We Solved</h3>
+      <div class="pair"><h5>Faster choices</h5><p>A short, ranked, personalised list replaces endless scrolling.</p></div>
+      <div class="pair"><h5>Story-aware recommendations</h5><p>NLP and a CNN read the script text and learn genre and theme patterns directly from the story.</p></div>
+      <div class="pair"><h5>Personalisation</h5><p>Ratings, preferences and viewing progress feed a hybrid engine so each user sees a different feed.</p></div>
+      <div class="pair"><h5>Better first experience</h5><p>Content-based story analysis works even for new users, since it needs only the movie's text and not a long history.</p></div>
+      <div class="pair"><h5>Mood matching</h5><p>Sentiment analysis adds the emotional tone of a story to the recommendation logic.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ PROS / CONS ============ -->
+<section class="sec" id="pros">
+  <span class="eyebrow">Honest Evaluation</span>
+  <h2 class="title rv">Advantages &amp; Limitations</h2><div class="rule"></div>
+  <div class="pc">
+    <div class="card pros flat rv">
+      <h3><i class="fas fa-thumbs-up"></i> Advantages</h3>
+      <ul class="ul">
+        <li><i class="fas fa-check"></i><span><b>Story-based understanding</b> using NLP and a CNN rather than only tags.</span></li>
+        <li><i class="fas fa-check"></i><span><b>Hybrid design</b> that can mix content-based and user-based signals.</span></li>
+        <li><i class="fas fa-check"></i><span><b>Sentiment analysis</b> adds emotional context to suggestions.</span></li>
+        <li><i class="fas fa-check"></i><span><b>Full-stack web app</b> with browsing, ratings, preferences and progress tracking.</span></li>
+        <li><i class="fas fa-check"></i><span><b>Retrainable model</b>: the Flask app can call the training script to learn from new content in the database.</span></li>
+        <li><i class="fas fa-check"></i><span><b>Visual metrics</b> such as accuracy and loss curves and a confusion matrix are saved after training.</span></li>
+        <li><i class="fas fa-check"></i><span><b>Lightweight stack</b> that is simple to deploy on Render.</span></li>
+      </ul>
+    </div>
+    <div class="card cons flat rv">
+      <h3><i class="fas fa-triangle-exclamation"></i> Limitations</h3>
+      <ul class="ul">
+        <li><i class="fas fa-xmark"></i><span><b>Hybrid engine is a placeholder:</b> the current <code>HybridEngine</code> returns fixed IDs 1 to 10 and the real blending logic is the next milestone.</span></li>
+        <li><i class="fas fa-xmark"></i><span><b>Small dataset:</b> the CNN learns only from the stories stored in the database, so accuracy depends on how much and how clean that text is.</span></li>
+        <li><i class="fas fa-xmark"></i><span><b>Genre labels are multi-label,</b> but evaluation compares only the top predicted genre, which is a simplified view.</span></li>
+        <li><i class="fas fa-xmark"></i><span><b>Text only:</b> posters, trailers, cast and audio are not analysed.</span></li>
+        <li><i class="fas fa-xmark"></i><span><b>English text:</b> TextBlob and the tokenizer are tuned for English stories.</span></li>
+        <li><i class="fas fa-xmark"></i><span><b>Older ML stack:</b> TensorFlow 2.10 and pinned dependencies need careful version management.</span></li>
+        <li><i class="fas fa-xmark"></i><span><b>Hosting cold starts:</b> free-tier hosting may take a few seconds to wake up on the first visit.</span></li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- ============ TECH STACK ============ -->
+<section class="sec stack" id="stack">
+  <span class="eyebrow">Requirements</span>
+  <h2 class="title rv">Requirements &amp; Tech Stack</h2><div class="rule"></div>
+  <p class="lead rv">Every layer of Deepflix, what it is and what it does inside the app.</p>
+  <div class="grid c4">
+    <div class="card rv"><div class="ico"><i class="fab fa-html5"></i></div><span class="role">Frontend</span><h4>HTML, CSS &amp; JavaScript</h4>
+      <p><b>HTML</b> builds the page structure: login, browse, movie details, ratings and recommendation screens. <b>CSS</b> gives the responsive, premium look. <b>JavaScript</b> adds interactivity such as live search, rating actions and dynamic updates without reloading.</p>
+      <div class="tags"><span class="tag">HTML5</span><span class="tag">CSS3</span><span class="tag">JavaScript</span></div></div>
+    <div class="card rv"><div class="ico"><i class="fab fa-python"></i></div><span class="role">Backend</span><h4>Python &amp; Flask</h4>
+      <p>Python runs all the logic. <b>Flask</b> defines the routes, handles login and sessions, reads and writes data, loads the trained CNN model and returns recommendations to the browser. Gunicorn serves it in production.</p>
+      <div class="tags"><span class="tag">Python</span><span class="tag">Flask</span><span class="tag">Gunicorn</span></div></div>
+    <div class="card rv"><div class="ico"><i class="fas fa-database"></i></div><span class="role">Database</span><h4>MySQL</h4>
+      <p>MySQL stores users, preferences, ratings, viewing progress and the <code>contents</code> table (id, story, genre) that is used to train the model. PyMySQL connects Python to the database.</p>
+      <div class="tags"><span class="tag">MySQL</span><span class="tag">PyMySQL</span></div></div>
+    <div class="card rv"><div class="ico"><i class="fas fa-cloud-arrow-up"></i></div><span class="role">Deployment</span><h4>Render</h4>
+      <p>The app is deployed on Render, which builds it from the GitHub repository, installs <code>requirements.txt</code> and runs it with Gunicorn. Every push can redeploy it, and the live demo gets a public HTTPS link.</p>
+      <div class="tags"><span class="tag">Render</span><span class="tag">GitHub</span><span class="tag">HTTPS</span></div></div>
+  </div>
+
+  <h3 class="sub rv">How the layers work together</h3>
+  <div class="pipe rv">
+    <span class="pn">Browser (HTML/CSS/JS)</span><span class="pa"><i class="fas fa-arrow-right"></i></span>
+    <span class="pn">Flask routes</span><span class="pa"><i class="fas fa-arrow-right"></i></span>
+    <span class="pn">MySQL data</span><span class="pa"><i class="fas fa-arrow-right"></i></span>
+    <span class="pn">CNN + NLP model</span><span class="pa"><i class="fas fa-arrow-right"></i></span>
+    <span class="pn">Hybrid engine</span><span class="pa"><i class="fas fa-arrow-right"></i></span>
+    <span class="pn">Recommendations</span>
+  </div>
+</section>
+
+<!-- ============ PACKAGES ============ -->
+<section class="sec pk" id="packages">
+  <span class="eyebrow">requirements.txt</span>
+  <h2 class="title rv">Packages Used</h2><div class="rule"></div>
+  <p class="lead rv">Each library with its pinned version, what it is, and why Deepflix needs it.</p>
+  <div class="grid">
+    <div class="card rv"><div class="ph"><h4>Flask</h4><span class="ver">2.2.5</span></div><p>Lightweight Python web framework. Handles URL routes, templates, sessions and requests, and forms the core of the application.</p><div class="for">CATEGORY &middot; Web framework</div></div>
+    <div class="card rv"><div class="ph"><h4>Werkzeug</h4><span class="ver">2.2.3</span></div><p>The WSGI toolkit that Flask is built on. It provides routing, request and response objects and security helpers. The version is pinned to stay compatible with Flask 2.2.</p><div class="for">CATEGORY &middot; Web framework</div></div>
+    <div class="card rv"><div class="ph"><h4>gunicorn</h4><span class="ver">21.2.0</span></div><p>A production-grade WSGI server. Render uses it to run the Flask app reliably with multiple workers instead of the development server.</p><div class="for">CATEGORY &middot; Deployment</div></div>
+    <div class="card rv"><div class="ph"><h4>PyMySQL</h4><span class="ver">1.1.2</span></div><p>A pure-Python MySQL driver. It connects the app and the training script to the database and, with <code>DictCursor</code>, returns rows as dictionaries.</p><div class="for">CATEGORY &middot; Database</div></div>
+    <div class="card rv"><div class="ph"><h4>cryptography</h4><span class="ver">46.0.5</span></div><p>Provides the encryption support PyMySQL needs for secure MySQL authentication methods (such as <code>caching_sha2_password</code>) used by modern MySQL servers.</p><div class="for">CATEGORY &middot; Security</div></div>
+    <div class="card rv"><div class="ph"><h4>numpy</h4><span class="ver">1.23.5</span></div><p>Fast numerical arrays. Padded text sequences, labels and model predictions are all NumPy arrays. This version is chosen to work with TensorFlow 2.10.</p><div class="for">CATEGORY &middot; Data &amp; math</div></div>
+    <div class="card rv"><div class="ph"><h4>pandas</h4><span class="ver">2.3.3</span></div><p>DataFrames for tabular data. The training script loads <code>id, story, genre</code> into a DataFrame and cleans it before training.</p><div class="for">CATEGORY &middot; Data &amp; math</div></div>
+    <div class="card rv"><div class="ph"><h4>scipy</h4><span class="ver">1.13.1</span></div><p>Scientific computing toolkit. Provides sparse matrices and distance and similarity functions, and is also a dependency of scikit-learn.</p><div class="for">CATEGORY &middot; Data &amp; math</div></div>
+    <div class="card rv"><div class="ph"><h4>scikit-learn</h4><span class="ver">1.3.0</span></div><p>Classic machine-learning utilities. Deepflix uses <code>MultiLabelBinarizer</code> for genres, <code>train_test_split</code> for the 80/20 split and <code>confusion_matrix</code> for evaluation.</p><div class="for">CATEGORY &middot; Machine learning</div></div>
+    <div class="card rv"><div class="ph"><h4>tensorflow</h4><span class="ver">2.10.0</span></div><p>The deep-learning engine that builds, trains and runs the CNN. It also provides the tokenizer and sequence padding utilities.</p><div class="for">CATEGORY &middot; Deep learning</div></div>
+    <div class="card rv"><div class="ph"><h4>keras</h4><span class="ver">2.10.0</span></div><p>The high-level API for defining layers (<code>Embedding</code>, <code>Conv1D</code>, <code>Dense</code>, <code>Dropout</code>) and compiling and saving models. Version matches TensorFlow 2.10.</p><div class="for">CATEGORY &middot; Deep learning</div></div>
+    <div class="card rv"><div class="ph"><h4>h5py</h4><span class="ver">3.9.0</span></div><p>Reads and writes HDF5 files, the format Keras and TensorFlow use for saving and loading model weights.</p><div class="for">CATEGORY &middot; Deep learning</div></div>
+    <div class="card rv"><div class="ph"><h4>protobuf</h4><span class="ver">3.19.6</span></div><p>Google's data serialisation library used internally by TensorFlow. TensorFlow 2.10 needs a protobuf below 3.20, so the version is pinned to avoid crashes.</p><div class="for">CATEGORY &middot; Deep learning</div></div>
+    <div class="card rv"><div class="ph"><h4>requests</h4><span class="ver">latest</span></div><p>Simple HTTP client for calling external services and APIs from Python, such as fetching movie metadata or posters.</p><div class="for">CATEGORY &middot; Networking</div></div>
+    <div class="card rv"><div class="ph"><h4>textblob</h4><span class="ver">0.19.0</span></div><p>Easy NLP library. It calculates the <b>sentiment polarity</b> of a story, so Deepflix knows whether a movie feels positive, negative or neutral.</p><div class="for">CATEGORY &middot; NLP</div></div>
+    <div class="card rv"><div class="ph"><h4>RapidFuzz</h4><span class="ver">3.13.0</span></div><p>Very fast fuzzy string matching. It helps find the right movie even when the user mistypes a title in search.</p><div class="for">CATEGORY &middot; Search</div></div>
+    <div class="card rv"><div class="ph"><h4>matplotlib</h4><span class="ver">3.9.4</span></div><p>Plotting library used to draw and save the loss and accuracy curves and the confusion matrix image after training.</p><div class="for">CATEGORY &middot; Visualisation</div></div>
+    <div class="card rv"><div class="ph"><h4>Pillow</h4><span class="ver">11.3.0</span></div><p>Python imaging library. It handles image reading and writing and is required by matplotlib and wordcloud for image output.</p><div class="for">CATEGORY &middot; Visualisation</div></div>
+    <div class="card rv"><div class="ph"><h4>wordcloud</h4><span class="ver">1.9.6</span></div><p>Generates word-cloud images that show the most frequent words in a story or genre, a quick visual of what the text is about.</p><div class="for">CATEGORY &middot; Visualisation</div></div>
+  </div>
+  <p class="note rv"><b>Note:</b> <code>train_model.py</code> also imports <code>seaborn</code> to draw the confusion-matrix heatmap. It is not in the list above, so add <code>seaborn</code> to <code>requirements.txt</code> wherever the training script runs, otherwise the import will fail.</p>
+</section>
+
+<!-- ============ CNN TRAINING ============ -->
+<section class="sec" id="training">
+  <span class="eyebrow">train_model.py</span>
+  <h2 class="title rv">How the CNN Model Is Trained</h2><div class="rule"></div>
+  <p class="lead rv">The Flask app calls this script to read stories from MySQL, train a 1D CNN to learn genres from text, and save the model and its helper files.</p>
+
+  <div class="pipe rv">
+    <span class="pn">MySQL <code>contents</code></span><span class="pa"><i class="fas fa-arrow-right"></i></span>
+    <span class="pn">Clean &amp; split genres</span><span class="pa"><i class="fas fa-arrow-right"></i></span>
+    <span class="pn">Tokenize + pad</span><span class="pa"><i class="fas fa-arrow-right"></i></span>
+    <span class="pn">Train CNN</span><span class="pa"><i class="fas fa-arrow-right"></i></span>
+    <span class="pn">Save model</span><span class="pa"><i class="fas fa-arrow-right"></i></span>
+    <span class="pn">Metrics &amp; plots</span>
+  </div>
+
+  <div class="grid">
+    <div class="card rv"><div class="ico"><i class="fas fa-database"></i></div><h4>1. Fetch the data</h4>
+      <p>The script connects to MySQL with PyMySQL (<code>DB_CONFIG</code>) and runs <code>SELECT id, story, genre FROM contents</code>. If the connection fails or the table is empty, training stops safely with a message.</p>
+      <p>Rows are loaded into a pandas DataFrame, missing stories are replaced with empty text, and genre strings such as <code>"Action, Drama"</code> are split into clean lists. Rows with no genre are dropped.</p></div>
+    <div class="card rv"><div class="ico"><i class="fas fa-broom"></i></div><h4>2. Preprocess</h4>
+      <p><b>MultiLabelBinarizer</b> turns each genre list into a 0/1 vector, so one movie can belong to several genres.</p>
+      <p>The <b>Tokenizer</b> keeps the 10,000 most common words (<code>VOCAB_SIZE</code>) and maps unknown words to <code>&lt;unk&gt;</code>. Each story becomes a sequence of numbers, then <b>pad_sequences</b> makes every story exactly 500 tokens long (<code>MAX_SEQUENCE_LENGTH</code>).</p></div>
+    <div class="card rv"><div class="ico"><i class="fas fa-scissors"></i></div><h4>3. Train / validation split</h4>
+      <p><code>train_test_split</code> keeps 80% of stories for training and 20% for validation, with <code>random_state=42</code> so results are repeatable.</p>
+      <p>Validation data is never used to update the model. It shows whether the CNN generalises to stories it has not seen.</p></div>
+  </div>
+
+  <h3 class="sub rv">Model Architecture</h3>
+  <div class="card flat rv" style="padding:1.2rem">
+    <div class="tw"><table>
+      <tr><th>Layer</th><th>Settings</th><th>What it does</th></tr>
+      <tr><td>Embedding</td><td>10000 words &rarr; 128 dims</td><td>Converts each word number into a dense 128-value vector that captures meaning.</td></tr>
+      <tr><td>Conv1D</td><td>128 filters, kernel 5, ReLU</td><td>Slides across the text and detects 5-word phrase patterns that signal a genre or theme.</td></tr>
+      <tr><td>GlobalMaxPooling1D</td><td>-</td><td>Keeps the strongest signal from each filter, producing one fixed-size summary of the whole story.</td></tr>
+      <tr><td>Dense</td><td>64, ReLU</td><td>Combines the detected patterns into higher-level features.</td></tr>
+      <tr><td>Dropout</td><td>0.5</td><td>Randomly switches off half of the neurons while training to reduce overfitting.</td></tr>
+      <tr><td>Dense <code>embedding_layer</code></td><td>32, ReLU</td><td>A compact 32-value story representation. It is named so it can be read out as a feature vector for similarity.</td></tr>
+      <tr><td>Dense (output)</td><td>one unit per genre, Softmax</td><td>Outputs a probability for each genre.</td></tr>
+    </table></div>
+    <p style="margin-top:1rem">The model is compiled with the <b>Adam</b> optimiser and <b>categorical cross-entropy</b> loss, tracking accuracy. It trains for <b>20 epochs</b> with a <b>batch size of 32</b>.</p>
+  </div>
+
+  <h3 class="sub rv">What gets saved</h3>
+  <div class="grid">
+    <div class="card rv"><div class="ico"><i class="fas fa-brain"></i></div><h4>pretrained_model.keras</h4><p>The trained CNN, saved in <code>data/</code> so the Flask app can load it instantly without retraining.</p></div>
+    <div class="card rv"><div class="ico"><i class="fas fa-font"></i></div><h4>tokenizer.pkl &amp; mlb.pkl</h4><p>The fitted tokenizer and genre binarizer. They must be reused at prediction time so new text is encoded exactly like the training text.</p></div>
+    <div class="card rv"><div class="ico"><i class="fas fa-chart-line"></i></div><h4>Metrics &amp; plots</h4><p><code>model_metrics.json</code> stores the confusion matrix, labels, accuracy, validation accuracy, loss and validation loss. <code>confusion_matrix.png</code> is saved in <code>static/img</code> for the dashboard.</p></div>
+  </div>
+
+  <div class="code rv">
+    <div class="bar"><i></i><i></i><i></i><span>train_model.py &middot; core of the model</span></div>
+<pre><span class="k">def</span> create_classification_model(vocab_size, max_len, emb_dim, filters, kernel, drop, num_classes):
+    model = Sequential([
+        Embedding(input_dim=vocab_size, output_dim=emb_dim, input_length=max_len),
+        Conv1D(filters=filters, kernel_size=kernel, activation=<span class="s">'relu'</span>),
+        GlobalMaxPooling1D(),
+        Dense(<span class="k">64</span>, activation=<span class="s">'relu'</span>),
+        Dropout(drop),
+        Dense(<span class="k">32</span>, activation=<span class="s">'relu'</span>, name=<span class="s">'embedding_layer'</span>),
+        Dense(num_classes, activation=<span class="s">'softmax'</span>)
+    ])
+    model.compile(optimizer=<span class="s">'adam'</span>, loss=<span class="s">'categorical_crossentropy'</span>, metrics=[<span class="s">'accuracy'</span>])
+    <span class="k">return</span> model</pre>
+  </div>
+
+  <h3 class="sub rv">Key Parameters</h3>
+  <div class="card flat rv" style="padding:1.2rem"><div class="tw"><table>
+    <tr><th>Parameter</th><th>Value</th><th>Meaning</th></tr>
+    <tr><td>VOCAB_SIZE</td><td>10000</td><td>Number of most frequent words the model knows.</td></tr>
+    <tr><td>MAX_SEQUENCE_LENGTH</td><td>500</td><td>Every story is cut or padded to 500 tokens.</td></tr>
+    <tr><td>EMBEDDING_DIM</td><td>128</td><td>Size of each word vector.</td></tr>
+    <tr><td>FILTERS / KERNEL_SIZE</td><td>128 / 5</td><td>Number of pattern detectors and the phrase width they see.</td></tr>
+    <tr><td>DROPOUT_RATE</td><td>0.5</td><td>Share of neurons dropped during training.</td></tr>
+    <tr><td>EPOCHS / BATCH_SIZE</td><td>20 / 32</td><td>Full passes over the data and samples per update.</td></tr>
+  </table></div></div>
+</section>
+
+<!-- ============ HYBRID ENGINE ============ -->
+<section class="sec" id="hybrid">
+  <span class="eyebrow">hybrid_engine.py</span>
+  <h2 class="title rv">The Hybrid Recommendation Engine</h2><div class="rule"></div>
+  <p class="lead rv">The engine is the final decision-maker. It takes a user and the last story they engaged with and returns the content IDs to show.</p>
+
+  <div class="hy">
+    <div class="card flat rv">
+      <span class="status now"><i class="fas fa-flask"></i> Current version &middot; placeholder</span>
+      <h4>What the code does today</h4>
+      <p><code>HybridEngine.get_hybrid_recommendations(user_id, last_story)</code> is the single entry point the Flask app calls. In its present form it is a simple stand-in that returns the IDs <code>1 to 10</code>, which lets the whole pipeline (route, database lookup and page rendering) be built and tested end to end.</p>
+      <p>The inputs show the intended design: <b>user_id</b> for personal history and <b>last_story</b> for story-based similarity.</p>
+      <div class="code">
+        <div class="bar"><i></i><i></i><i></i><span>hybrid_engine.py</span></div>
+<pre><span class="k">class</span> HybridEngine:
+    <span class="k">def</span> get_hybrid_recommendations(self, user_id, last_story):
+        <span class="c"># Placeholder: returns 10 content IDs for now.</span>
+        <span class="c"># Replace with the real recommendation logic.</span>
+        <span class="k">return</span> list(range(<span class="k">1</span>, <span class="k">11</span>))</pre>
+      </div>
+    </div>
+
+    <div class="card flat rv">
+      <span class="status plan"><i class="fas fa-road"></i> Planned design</span>
+      <h4>What a hybrid engine combines</h4>
+      <p>A hybrid recommender mixes two families of signals so each covers the other's weakness:</p>
+      <ul class="ul">
+        <li><i class="fas fa-file-lines"></i><span><b>Content-based:</b> pass <code>last_story</code> through the CNN to get its 32-value <code>embedding_layer</code> vector, then find titles with the most similar vectors (for example by cosine similarity).</span></li>
+        <li><i class="fas fa-user"></i><span><b>User-based:</b> use ratings, preferences and viewing progress for <code>user_id</code> to boost titles liked by similar users.</span></li>
+        <li><i class="fas fa-face-smile"></i><span><b>Sentiment:</b> nudge scores toward the mood the user usually enjoys.</span></li>
+      </ul>
+      <div class="weights">
+        <div class="wr"><span>Story similarity (CNN)</span><div class="wb"><i style="width:50%"></i></div><span>example</span></div>
+        <div class="wr"><span>User ratings &amp; history</span><div class="wb"><i style="width:35%"></i></div><span>example</span></div>
+        <div class="wr"><span>Sentiment match</span><div class="wb"><i style="width:15%"></i></div><span>example</span></div>
+      </div>
+      <p style="margin-top:.9rem;font-size:.82rem">The weights above only illustrate how the blend could work and are not final values. A new user with no history can rely mostly on story similarity, which is how a hybrid design handles the cold-start problem.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ============ CTA ============ -->
+<section class="sec" id="cta">
+  <div class="card flat cta rv">
+    <h3>Explore Deepflix</h3>
+    <p style="max-width:560px;margin:0 auto">See the source code or try the live app and let Deepflix recommend your next movie.</p>
+    <div class="btns">
+      <a href="https://github.com/nikhildeshmuk98/deepflix.git" class="btn ghost" target="_blank" rel="noopener noreferrer"><i class="fab fa-github"></i> GitHub</a>
+      <a href="https://deepflix-fpd0.onrender.com/" class="btn solid" target="_blank" rel="noopener noreferrer"><i class="fas fa-arrow-up-right-from-square"></i> Live Demo</a>
+      <a href="home.html" class="btn ghost"><i class="fas fa-arrow-left"></i> Back to Portfolio</a>
+    </div>
+  </div>
+</section>
+</main>
+
+<footer><p>&copy; <span id="yr"></span> Nikhil Dandolu. All Rights Reserved. &middot; <a href="home.html">Portfolio</a></p></footer>
+<button class="top" id="top" aria-label="Back to top"><i class="fas fa-chevron-up"></i></button>
+
+<script>
+var $=function(s,r){return(r||document).querySelector(s)},$$=function(s,r){return Array.prototype.slice.call((r||document).querySelectorAll(s))};
+var reduce=matchMedia('(prefers-reduced-motion: reduce)').matches;
+$('#yr').textContent=new Date().getFullYear();
+
+/* theme */
+$('#themeBtn').addEventListener('click',function(){document.body.classList.toggle('light')});
+
+/* scroll */
+var nav=$('#nav'),bar=$('#progress'),topBtn=$('#top'),orbs=$$('.orb'),tick=false;
+function onScroll(){
+  var y=scrollY,m=document.documentElement.scrollHeight-innerHeight;
+  bar.style.transform='scaleX('+(m>0?y/m:0)+')';
+  nav.classList.toggle('sc',y>40);topBtn.classList.toggle('on',y>600);
+  if(!reduce)orbs.forEach(function(o){o.style.transform='translateY('+y*parseFloat(o.dataset.s)+'px)'});
+  tick=false;
+}
+addEventListener('scroll',function(){if(!tick){requestAnimationFrame(onScroll);tick=true}},{passive:true});onScroll();
+topBtn.addEventListener('click',function(){scrollTo({top:0,behavior:'smooth'})});
+
+/* smooth anchor offset */
+document.addEventListener('click',function(e){
+  var a=e.target.closest('a[href^="#"]');
+  if(a){var t=$(a.getAttribute('href'));if(t){e.preventDefault();window.scrollTo({top:t.getBoundingClientRect().top+scrollY-64,behavior:'smooth'})}}
+});
+
+/* reveal */
+var io=new IntersectionObserver(function(en){
+  en.forEach(function(e){
+    if(!e.isIntersecting)return;var el=e.target,sib=$$('.rv',el.parentNode),k=sib.indexOf(el)%3;
+    el.style.transitionDelay=k*110+'ms';el.classList.add('in');
+    setTimeout(function(){el.style.transitionDelay='0ms';el.classList.add('ready')},1100+k*110);
+    io.unobserve(el);
+  });
+},{threshold:.08,rootMargin:'0px 0px -40px 0px'});
+$$('.rv').forEach(function(el){io.observe(el)});
+
+/* card glow + tilt */
+if(!reduce&&matchMedia('(hover: hover)').matches){
+  $$('.card').forEach(function(c){
+    var flat=c.classList.contains('flat');
+    c.addEventListener('mousemove',function(ev){
+      var r=c.getBoundingClientRect(),x=ev.clientX-r.left,y=ev.clientY-r.top;
+      c.style.setProperty('--mx',x+'px');c.style.setProperty('--my',y+'px');
+      if(!flat&&c.classList.contains('ready'))c.style.transform='perspective(900px) rotateX('+((y/r.height-.5)*-4)+'deg) rotateY('+((x/r.width-.5)*4)+'deg) translateY(-6px)';
+    });
+    c.addEventListener('mouseleave',function(){if(!flat&&c.classList.contains('ready'))c.style.transform=''});
+  });
+}
+</script>
+</body>
+</html>

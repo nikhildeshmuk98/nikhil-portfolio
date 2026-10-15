@@ -118,6 +118,18 @@ a{text-decoration:none;color:inherit}
 .btn.solid:hover{transform:translateY(-4px);box-shadow:0 14px 28px rgba(217,188,130,.38)}
 .btn.solid:hover::before{left:140%}
 .btn.solid:hover i{transform:translate(3px,-3px)}
+
+/* View More button: full width under the two buttons */
+.btn.more{grid-column:1 / -1;color:var(--white);font-weight:500;
+  background:linear-gradient(120deg,rgba(46,139,87,.55),rgba(111,207,151,.22));
+  border:1px solid rgba(111,207,151,.55);box-shadow:0 8px 20px rgba(46,139,87,.18)}
+.btn.more::before{content:"";position:absolute;top:0;left:-80%;width:50%;height:100%;
+  background:linear-gradient(100deg,transparent,rgba(255,255,255,.28),transparent);transform:skewX(-20deg);transition:left .8s var(--ease)}
+.btn.more:hover{transform:translateY(-4px);border-color:var(--mint);
+  background:linear-gradient(120deg,var(--emerald),rgba(111,207,151,.55));box-shadow:0 14px 28px rgba(46,139,87,.4)}
+.btn.more:hover::before{left:140%}
+.btn.more:hover i{transform:translateX(5px)}
+
 .btn.off{opacity:.45;pointer-events:none}
 
 footer{position:relative;z-index:1;text-align:center;padding:2rem 1rem 3rem;color:var(--muted);font-size:.85rem;font-weight:300}
@@ -171,16 +183,18 @@ footer{position:relative;z-index:1;text-align:center;padding:2rem 1rem 3rem;colo
    ADD YOUR PROJECTS HERE
    Copy one block, edit it, and the card appears automatically.
    All cards are rendered with identical size and layout.
+   "more" = the details page that opens from the View More button.
    ============================================================ */
 var PROJECTS = [
   {
     title: "RYTHU CONNECT: AI-POWERED AGRICULTURAL MANAGEMENT AND FARMER CONNECTIVITY WEB APPLICATION",
     image: "images/rythu connect profile.jpg",
     badge: "Full Stack",
-    desc: "Rythu Connect is a full-stack agriculture web application developed using python Flask, MySQL, HTML, CSS, and JavaScript to connect farmers with modern agricultural services. It provides features like an AI assistant, weather updates, agricultreal marketplace, farming jobs, government schemes, farmer community, networking, and analytics. The main goal of Rythu Connect is to empower farmers with digital technology, improve access to agricultural information, and help them make smarter farming decisions.",
+    desc: "Rythu Connect is a full-stack agriculture web application developed using Python Flask, MySQL, HTML, CSS, and JavaScript to connect farmers with modern agricultural services. It provides features like an AI assistant, weather updates, agricultural marketplace, farming jobs, government schemes, farmer community, networking, and analytics. The main goal of Rythu Connect is to empower farmers with digital technology, improve access to agricultural information, and help them make smarter farming decisions.",
     tags: ["HTML5", "CSS3", "JavaScript", "Flask", "MySQL"],
     github: "https://github.com/nikhildeshmuk98/rythuconnect.git",
-    demo: "https://rythuconnect.onrender.com/"
+    demo: "https://rythuconnect.onrender.com/",
+    more: "rythuconnect.html"
   },
   {
     title: "DEEPFLIX: AI-POWERED MOVIE AND OTT RECOMMENDATION SYSTEM USING NLP AND CNN",
@@ -189,17 +203,19 @@ var PROJECTS = [
     desc: "DEEPFLIX is an AI-powered movie and OTT recommendation web application developed using Python, Flask, MySQL, NLP, and CNN. It uses script analysis, sentiment analysis, and a hybrid recommendation engine to provide personalized movie suggestions. The platform includes movie browsing, ratings, user preferences, and viewing progress tracking, helping users discover relevant movies through intelligent recommendations.",
     tags: ["HTML5", "CSS3", "JavaScript", "Python", "Flask", "MySQL", "NLP", "CNN", "TensorFlow"],
     github: "https://github.com/nikhildeshmuk98/deepflix.git",
-    demo: "https://deepflix-fpd0.onrender.com/"
-},
-{
+    demo: "https://deepflix-fpd0.onrender.com/",
+    more: "deepflix.html"
+  },
+  {
     title: "NOVA AI - INTELLIGENCE STUDIO",
     image: "images/nova ai.jpg",
     badge: "AI / Full Stack",
     desc: "NOVA AI - Intelligence Studio is an AI-powered intelligent assistant platform developed using Python, Flask, and MySQL. It provides AI-powered chat, voice interaction, document analysis, and image understanding features through an interactive web interface. The platform integrates Generative AI capabilities to help users interact with AI, analyze documents, and understand visual content. The application is deployed on Render for online access.",
     tags: ["HTML5", "CSS3", "JavaScript", "Python", "Flask", "MySQL", "Generative AI", "NLP", "REST API"],
     github: "https://github.com/nikhildeshmuk98/nova-ai",
-    demo: "https://nova-ai-s9ri.onrender.com/"
-},
+    demo: "https://nova-ai-s9ri.onrender.com/",
+    more: "nova_ai.html"
+  },
   {
     title: "Your Next Project",
     image: "",
@@ -207,7 +223,8 @@ var PROJECTS = [
     desc: "A new full stack build is on the way. Replace this card in the PROJECTS list with your next project's title, image, description and links.",
     tags: ["Frontend", "Backend", "Database"],
     github: "",
-    demo: ""
+    demo: "",
+    more: ""
   }
 ];
 
@@ -218,7 +235,6 @@ var PROJECTS = [
   function esc(s){ return String(s).replace(/[&<>"]/g, function(c){ return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]; }); }
 
   PROJECTS.forEach(function(p){
-    var live = p.demo && p.github;
     var thumb = p.image
       ? '<img src="' + esc(p.image) + '" alt="' + esc(p.title) + '" loading="lazy">'
       : '<i class="fas fa-layer-group ph"></i>';
@@ -228,6 +244,9 @@ var PROJECTS = [
     var demoBtn = p.demo
       ? '<a href="' + esc(p.demo) + '" class="btn solid" target="_blank" rel="noopener noreferrer"><i class="fas fa-arrow-up-right-from-square"></i> Live Demo</a>'
       : '<span class="btn solid off"><i class="fas fa-arrow-up-right-from-square"></i> Live Demo</span>';
+    var moreBtn = p.more
+      ? '<a href="' + esc(p.more) + '" class="btn more" aria-label="View more about ' + esc(p.title) + '"><i class="fas fa-arrow-right"></i> View More</a>'
+      : '<span class="btn more off"><i class="fas fa-arrow-right"></i> View More</span>';
     var el = document.createElement('article');
     el.className = 'card';
     el.innerHTML =
@@ -236,7 +255,7 @@ var PROJECTS = [
         '<h3 class="title">' + esc(p.title) + '</h3>' +
         '<p class="desc">' + esc(p.desc) + '</p>' +
         '<div class="tags">' + p.tags.map(function(t){ return '<span class="tag">' + esc(t) + '</span>'; }).join('') + '</div>' +
-        '<div class="actions">' + ghBtn + demoBtn + '</div>' +
+        '<div class="actions">' + ghBtn + demoBtn + moreBtn + '</div>' +
       '</div>';
     grid.appendChild(el);
   });
@@ -291,3 +310,27 @@ var PROJECTS = [
 </script>
 </body>
 </html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
