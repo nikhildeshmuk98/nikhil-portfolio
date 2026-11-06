@@ -1,0 +1,288 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>TRAVEL INDIA | Nikhil Dandolu</title>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600;700&family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{--ink:#06101a;--emerald:#2e8b57;--mint:#6fcf97;--gold:#d9bc82;--gold-deep:#a98a4d;--text:#d9e2de;--muted:#9fb1aa;--white:#fff;--line:rgba(217,188,130,.18);--ease:cubic-bezier(.22,1,.36,1)}
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{font-family:'Poppins',sans-serif;color:var(--text);overflow-x:hidden;background:radial-gradient(1200px 600px at 80% 10%,rgba(46,139,87,.2),transparent 60%),radial-gradient(900px 500px at -10% 60%,rgba(217,188,130,.08),transparent 60%),linear-gradient(160deg,var(--ink),#08201a 55%,var(--ink));background-attachment:fixed}
+a{text-decoration:none;color:inherit}
+:focus-visible{outline:2px solid var(--gold);outline-offset:3px}
+.progress{position:fixed;top:0;left:0;height:3px;width:100%;z-index:1100;transform-origin:0 50%;transform:scaleX(0);background:linear-gradient(90deg,var(--emerald),var(--gold),var(--mint));box-shadow:0 0 12px rgba(217,188,130,.7)}
+.back{position:fixed;top:max(1rem,env(safe-area-inset-top));left:1.2rem;z-index:1000;width:48px;height:48px;border-radius:50%;display:grid;place-items:center;font-size:1.05rem;color:var(--gold);background:rgba(6,16,26,.55);border:1px solid rgba(217,188,130,.4);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);transition:all .4s var(--ease)}
+.back:hover{background:var(--gold);color:var(--ink);transform:translateX(-4px);box-shadow:0 0 24px rgba(217,188,130,.5)}
+.hero{position:relative;height:100vh;height:100svh;min-height:520px;display:grid;place-items:center;text-align:center;overflow:hidden;background:linear-gradient(160deg,#0b2a1f,var(--ink))}
+.hero img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:center}
+.hero::after{content:"";position:absolute;inset:0;pointer-events:none;background:linear-gradient(180deg,rgba(6,16,26,.28) 0%,rgba(6,16,26,.05) 30%,rgba(6,16,26,.55) 68%,rgba(6,16,26,.92) 100%)}
+.hero-in{position:relative;z-index:2;padding:0 1.4rem;max-width:900px;width:100%;margin-top:8vh;margin-left:0;margin-right:auto;text-align:left}
+.hero h1{font-family:'Cormorant Garamond',serif;font-weight:700;font-size:clamp(3.2rem,10vw,7rem);line-height:1;color:var(--white);letter-spacing:.02em;text-shadow:0 4px 30px rgba(0,0,0,.6)}
+.sub{margin-top:.9rem;font-size:clamp(.74rem,1.6vw,.95rem);letter-spacing:.14em;color:var(--gold);font-weight:500;text-shadow:0 2px 12px rgba(0,0,0,.7)}
+.quote{font-family:'Cormorant Garamond',serif;font-style:italic;font-weight:500;font-size:clamp(1.25rem,3vw,1.9rem);line-height:1.5;color:#f4ecd8;margin:1.4rem auto 0;max-width:680px;text-shadow:0 3px 18px rgba(0,0,0,.75)}
+.hero .cta{display:flex;justify-content:flex-start;flex-wrap:wrap;gap:1rem;margin-top:2.2rem}
+.btn{position:relative;overflow:hidden;display:inline-flex;align-items:center;justify-content:center;gap:.6rem;padding:.95rem 2rem;border-radius:50px;font-size:.92rem;font-weight:500;letter-spacing:.03em;transition:all .45s var(--ease)}
+.btn i{transition:transform .45s var(--ease)}
+.btn.solid{color:var(--ink);font-weight:600;background:linear-gradient(120deg,#f1deb0,var(--gold) 50%,var(--gold-deep));box-shadow:0 10px 26px rgba(217,188,130,.3)}
+.btn.solid::before{content:"";position:absolute;top:0;left:-80%;width:50%;height:100%;background:linear-gradient(100deg,transparent,rgba(255,255,255,.6),transparent);transform:skewX(-20deg);transition:left .8s var(--ease)}
+.btn.solid:hover{transform:translateY(-4px);box-shadow:0 16px 32px rgba(217,188,130,.45)}
+.btn.solid:hover::before{left:140%}
+.btn.solid:hover i{transform:translate(3px,-3px)}
+.btn.ghost{color:var(--white);border:1px solid rgba(217,188,130,.55);background:rgba(6,16,26,.45);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px)}
+.btn.ghost:hover{color:var(--gold);border-color:var(--gold);background:rgba(217,188,130,.14);transform:translateY(-4px)}
+.scroll{position:absolute;bottom:1.6rem;left:50%;translate:-50% 0;z-index:2;width:28px;height:46px;border:2px solid rgba(217,188,130,.7);border-radius:20px}
+.scroll::after{content:"";position:absolute;top:8px;left:50%;width:4px;height:9px;margin-left:-2px;border-radius:4px;background:var(--gold);animation:dot 1.8s ease-in-out infinite}
+@keyframes dot{0%{opacity:0;transform:translateY(0)}30%{opacity:1}100%{opacity:0;transform:translateY(16px)}}
+.wrap{position:relative;max-width:1240px;margin:0 auto;padding:0 2rem}
+.sec{padding:6rem 0 1rem}
+.head{text-align:center;margin-bottom:3rem}
+.head h2{font-family:'Cormorant Garamond',serif;font-size:clamp(2.2rem,5vw,3.4rem);font-weight:700;color:var(--white);line-height:1.15}
+.head p{max-width:660px;margin:.9rem auto 0;color:var(--muted);font-weight:300;line-height:1.75}
+.rule{width:110px;height:2px;margin:1.3rem auto 0;background:linear-gradient(90deg,transparent,var(--gold),transparent)}
+.glass{background:linear-gradient(160deg,rgba(16,60,47,.5),rgba(8,26,24,.62));border:1px solid var(--line);border-radius:22px;backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);box-shadow:0 18px 40px rgba(0,0,0,.28);transition:transform .5s var(--ease),border-color .5s,box-shadow .5s}
+.glass:hover{transform:translateY(-6px);border-color:rgba(217,188,130,.5);box-shadow:0 26px 50px rgba(0,0,0,.4),0 0 36px rgba(46,139,87,.18)}
+.ico{width:54px;height:54px;border-radius:16px;display:grid;place-items:center;font-size:1.35rem;color:var(--gold);background:rgba(217,188,130,.08);border:1px solid rgba(217,188,130,.3);margin-bottom:1.1rem}
+.rv{opacity:0;transform:translateY(40px);transition:opacity .9s var(--ease),transform .9s var(--ease)}
+.rv.in{opacity:1;transform:none}
+.steps,.tech{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:1.6rem}
+.step,.tc{padding:2rem 1.7rem}
+.step h3,.tc h3{font-family:'Cormorant Garamond',serif;font-size:1.55rem;color:var(--white);margin-bottom:.6rem}
+.step p,.tc p{font-size:.92rem;line-height:1.8;font-weight:300;color:var(--muted)}
+.pair{display:grid;grid-template-columns:1fr auto 1fr;gap:1.2rem;align-items:stretch;margin-bottom:1.2rem}
+.pb,.sv{padding:1.5rem 1.7rem}
+.pb{border-left:3px solid #c8665a}.sv{border-left:3px solid var(--mint)}
+.pair small{display:block;font-size:.78rem;font-weight:600;margin-bottom:.5rem}
+.pb small{color:#e58f84}.sv small{color:var(--mint)}
+.pair p{font-size:.93rem;line-height:1.75;font-weight:300}
+.pb p{color:var(--muted)}
+.mid{display:grid;place-items:center;color:var(--gold);font-size:1.2rem}
+.pc{display:grid;grid-template-columns:1fr 1fr;gap:1.8rem}
+.pc .glass{padding:2.2rem 2rem}
+.pc h3{font-family:'Cormorant Garamond',serif;font-size:1.9rem;color:var(--white);margin-bottom:1.2rem}
+.pc li{list-style:none;display:flex;gap:.8rem;padding:.65rem 0;font-size:.93rem;line-height:1.65;font-weight:300;border-bottom:1px solid rgba(217,188,130,.1)}
+.pc li:last-child{border:0}
+.pc li i{margin-top:.3rem;font-size:.85rem}
+.pro li i{color:var(--mint)}.con li i{color:#e0a15a}
+.reqs{display:flex;flex-wrap:wrap;justify-content:center;gap:.7rem;margin-bottom:2.6rem}
+.chip{padding:.45rem 1.1rem;border-radius:30px;font-size:.82rem;font-weight:500;color:var(--gold);background:rgba(217,188,130,.07);border:1px solid rgba(217,188,130,.3)}
+.chip i{margin-right:.45rem}
+.pk{display:grid;grid-template-columns:repeat(auto-fill,minmax(340px,1fr));gap:1.3rem}
+.p{padding:1.5rem 1.5rem 1.6rem;border-radius:18px}
+.p:hover{transform:translateY(-4px)}
+.p b{display:block;color:var(--white);font-weight:600;font-size:1.02rem}
+.p b em{font-style:normal;font-weight:500;font-size:.74rem;color:var(--ink);background:linear-gradient(120deg,#f1deb0,var(--gold));padding:.12rem .6rem;border-radius:20px;margin-left:.6rem}
+.p span{display:block;margin-top:.6rem;font-size:.88rem;line-height:1.75;font-weight:300;color:var(--muted)}
+.p code,.fl code,.rt{font-family:Consolas,Menlo,monospace;font-size:.78rem;color:var(--gold)}
+.p .use{margin-top:.7rem;padding-top:.7rem;border-top:1px solid rgba(217,188,130,.12);color:var(--text)}
+/* Translation demo */
+.tr{display:grid;grid-template-columns:1.1fr 1fr;gap:1.8rem;align-items:start}
+.flow{padding:2rem 1.8rem}
+.flow li{list-style:none;display:flex;gap:1rem;padding:.8rem 0;font-size:.92rem;line-height:1.7;font-weight:300;color:var(--muted);border-bottom:1px solid rgba(217,188,130,.1)}
+.flow li:last-child{border:0}
+.flow li b{flex:none;width:32px;height:32px;border-radius:50%;display:grid;place-items:center;font-size:.85rem;font-weight:600;color:var(--ink);background:linear-gradient(120deg,#f1deb0,var(--gold))}
+.flow code{font-family:Consolas,Menlo,monospace;font-size:.78rem;color:var(--gold)}
+.demo{padding:2rem 1.8rem}
+.demo h3{font-family:'Cormorant Garamond',serif;font-size:1.6rem;color:var(--white);margin-bottom:1rem}
+.filters{display:flex;flex-wrap:wrap;gap:.6rem;margin-bottom:1.2rem}
+.f{cursor:pointer;font:500 .84rem 'Poppins',sans-serif;padding:.55rem 1.25rem;border-radius:30px;color:var(--text);background:transparent;border:1px solid rgba(217,188,130,.35);transition:all .35s var(--ease)}
+.f:hover{color:var(--gold);border-color:var(--gold)}
+.f.on{color:var(--ink);font-weight:600;background:linear-gradient(120deg,#f1deb0,var(--gold));border-color:transparent}
+.row{display:flex;justify-content:space-between;gap:1rem;padding:.7rem 0;border-bottom:1px solid rgba(217,188,130,.1);font-size:.95rem}
+.row:last-child{border:0}
+.row span:first-child{font-family:Consolas,Menlo,monospace;font-size:.78rem;color:var(--gold);align-self:center}
+.row span:last-child{color:var(--white);font-weight:500;text-align:right}
+/* app.py walkthrough */
+.fl{display:grid;gap:1.3rem}
+.fl .glass{display:grid;grid-template-columns:auto 1fr;gap:1.4rem;padding:1.7rem 1.8rem}
+.fl .ico{margin:0}
+.fl h3{font-family:'Cormorant Garamond',serif;font-size:1.5rem;color:var(--white);display:flex;flex-wrap:wrap;align-items:baseline;gap:.7rem}
+.fl h3 small{font:500 .7rem 'Poppins',sans-serif;color:var(--gold);border:1px solid rgba(217,188,130,.35);border-radius:20px;padding:.1rem .65rem}
+.fl p{font-size:.9rem;line-height:1.8;font-weight:300;color:var(--muted)}
+.end{text-align:center;padding:6rem 0 4rem}
+.end h2{font-family:'Cormorant Garamond',serif;font-size:clamp(2rem,4.5vw,3rem);color:var(--white)}
+footer{text-align:center;padding:1.5rem 1rem 3rem;color:var(--muted);font-size:.85rem;font-weight:300}
+@media(max-width:900px){.pair,.pc,.tr{grid-template-columns:1fr}.mid{transform:rotate(90deg)}}
+@media(max-width:680px){.hero-in{margin-top:12vh;text-align:center}.hero .cta{justify-content:center}.pk{grid-template-columns:1fr}.fl .glass{grid-template-columns:1fr}}
+@media(prefers-reduced-motion:reduce){*,*::before,*::after{animation:none!important;transition:none!important}.rv{opacity:1!important;transform:none!important}}
+.hero-video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:center;z-index:0}
+.hero::after{z-index:1}
+</style>
+</head>
+<body>
+<div class="progress" id="progress"></div>
+<a class="back" href="home.html" aria-label="Back to home"><i class="fas fa-arrow-left"></i></a>
+
+<header class="hero">
+  <video class="hero-video" id="heroVideo" autoplay muted loop playsinline preload="auto" aria-hidden="true">
+    <source src="{{ url_for('static', filename='images/videos/intro.mp4') }}" type="video/mp4">
+  </video>
+  <div class="hero-in">
+    <h1>TRAVEL INDIA</h1>
+    <p class="sub">SMART TRIP PLANNER &middot; DESTINATIONS, ITINERARY, WEATHER &amp; BOOKINGS</p>
+    <p class="quote">&ldquo;One place to discover India, plan the trip, check the weather and book it all.&rdquo;</p>
+    <div class="cta">
+      <!-- TODO: put your real live demo and GitHub links -->
+      <a class="btn solid" href="https://your-travel-india.onrender.com/" target="_blank" rel="noopener noreferrer"><i class="fas fa-arrow-up-right-from-square"></i> Live Demo</a>
+      <a class="btn ghost" href="https://github.com/your-username/travel-india" target="_blank" rel="noopener noreferrer"><i class="fab fa-github"></i> GitHub</a>
+    </div>
+  </div>
+  <div class="scroll" aria-hidden="true"></div>
+</header>
+
+<main class="wrap">
+  <section class="sec">
+    <div class="head rv"><h2>Why Travel India?</h2><div class="rule"></div><p>Planning a trip means jumping between maps, blogs, weather sites and booking apps. Travel India brings destinations, plans and bookings into one simple web platform.</p></div>
+    <div class="steps" id="steps"></div>
+  </section>
+
+  <section class="sec">
+    <div class="head rv"><h2>Problems We Saw, Problems We Solved</h2><div class="rule"></div><p>Each major feature answers a real difficulty travellers face when planning a trip in India.</p></div>
+    <div id="pairs"></div>
+  </section>
+
+  <section class="sec">
+    <div class="head rv"><h2>Advantages &amp; Limitations</h2><div class="rule"></div><p>A clear look at what Travel India does well and where it can still improve.</p></div>
+    <div class="pc">
+      <div class="glass pro rv"><h3>Advantages</h3><ul id="pros"></ul></div>
+      <div class="glass con rv"><h3>Limitations</h3><ul id="cons"></ul></div>
+    </div>
+  </section>
+
+  <section class="sec">
+    <div class="head rv"><h2>Requirements &amp; Tech Stack</h2><div class="rule"></div><p>What you need to run Travel India, and what each technology does inside the application.</p></div>
+    <div class="reqs rv" id="reqs"></div>
+    <div class="tech" id="tech"></div>
+  </section>
+
+  <section class="sec">
+    <div class="head rv"><h2>Python Packages (requirements.txt)</h2><div class="rule"></div><p>Every library the project depends on, what it is, and exactly how app.py uses it.</p></div>
+    <div class="pk" id="pk"></div>
+  </section>
+
+  <section class="sec">
+    <div class="head rv"><h2>Multi-Language Support (translations.py)</h2><div class="rule"></div><p>The interface can switch between English, Telugu, Hindi and Tamil. translations.py is a Python dictionary: language name &rarr; keys &rarr; translated text.</p></div>
+    <div class="tr">
+      <div class="glass flow rv"><ul id="flow"></ul></div>
+      <div class="glass demo rv"><h3>Try it live</h3><div class="filters" id="langs"></div><div id="rows"></div></div>
+    </div>
+  </section>
+
+  <section class="sec">
+    <div class="head rv"><h2>How app.py Works</h2><div class="rule"></div><p>A top to bottom walkthrough of the Flask backend, in the same order as the code.</p></div>
+    <div class="fl" id="fl"></div>
+  </section>
+
+  <section class="end rv">
+    <h2>See it in action</h2>
+    <div class="cta" style="display:flex;justify-content:center;flex-wrap:wrap;gap:1rem;margin-top:2rem">
+      <a class="btn solid" href="https://your-travel-india.onrender.com/" target="_blank" rel="noopener noreferrer"><i class="fas fa-arrow-up-right-from-square"></i> Live Demo</a>
+      <a class="btn ghost" href="https://github.com/your-username/travel-india" target="_blank" rel="noopener noreferrer"><i class="fab fa-github"></i> GitHub</a>
+      <a class="btn ghost" href="home.html"><i class="fas fa-house"></i> Back to Home</a>
+    </div>
+  </section>
+</main>
+<footer>&copy; <span id="yr"></span> Nikhil Dandolu. Crafted with care.</footer>
+
+{% raw %}
+<script>
+var STEPS=[
+["fa-bullseye","Purpose","Give travellers one workspace to explore Indian destinations, build day by day itineraries, check weather and book trips, with their own language and theme."],
+["fa-user-astronaut","Who It Helps","Students, families, solo backpackers and working professionals who want quick trip ideas and bookings without juggling several apps."],
+["fa-wand-magic-sparkles","How It Works","Register and log in, browse destinations by state or season, save favourites, generate a plan, then book. Every booking and search is saved to your profile."]
+];
+var PAIRS=[
+["Travel information is scattered across blogs, maps and videos.","Destination pages bring places, best season, budget and attractions into one searchable catalogue."],
+["Building a day by day itinerary takes hours.","The trip planner builds a route from the chosen days, budget and interests, and saves it for later."],
+["Weather and season surprises spoil trips.","Live weather and best time to visit are shown on every destination page."],
+["Booking hotels and tours needs many separate sites.","One booking flow stores packages, dates and travellers, with confirmation by email."],
+["Most travel sites are English only and look the same for everyone.","Four interface languages, light and dark mode and saved theme colours."],
+["Admins cannot see which places and packages people like.","Analytics dashboards show popular destinations, daily bookings and peak hours."]
+];
+var PROS=["Destinations, planner, weather and booking in one place","Search and filters by state, season, budget and type","Saved favourites, itineraries and booking history","Interface in English, Telugu, Hindi and Tamil","Personal themes and dark mode settings","Admin dashboard to manage places, packages and users","Email confirmation and contact form built in","Responsive design for mobile travellers"];
+var CONS=["Weather data depends on an external API and its limits","Needs an internet connection","Only popular destinations are covered right now","Payments are a demo flow, not a real gateway","Translations currently cover only the main interface labels","Itineraries are rule based and do not know live crowd or traffic","The free hosting plan can be slow after idle time","Images load slower on weak mobile networks"];
+var REQS=[["fab fa-python","Python 3"],["fas fa-database","MySQL Server"],["fas fa-cloud-sun","Weather API key"],["fas fa-envelope","Gmail app password (SMTP)"],["fas fa-file-shield",".env file for secrets"],["fas fa-globe","Modern web browser"]];
+var TECH=[
+["fa-code","Frontend: HTML, CSS, JavaScript","Jinja2 templates render pages like home, destinations and bookings. JavaScript uses fetch to load results, weather and filters without reloading."],
+["fa-server","Backend: Python Flask","Flask handles routing, login sessions, form handling and all business logic, and connects the database, the weather API and the email service."],
+["fa-database","Database: MySQL","Tables such as users, destinations, packages, bookings, favourites and itineraries store accounts, places and trip history."],
+["fa-map-location-dot","Destination Explorer","Destinations are loaded from MySQL with state, season, budget and category, then searched and filtered with SQL queries."],
+["fa-route","Trip Planner","Days, budget and interests are turned into a day by day plan that can be saved, edited and reopened later."],
+["fa-cloud-sun","Weather","The weather API is called with the destination city and shows temperature, conditions and a short forecast."],
+["fa-ticket","Booking System","Chosen package, dates and travellers are stored in the bookings table and a confirmation email is sent."],
+["fa-language","Languages & Themes","A translation dictionary and saved user settings change the labels, theme colour and dark mode on every page."]
+];
+var PKG=[
+["Flask","Core","Lightweight web framework.","Creates the app, every @app.route page, sessions, flash messages, JSON replies and redirects.","The whole backend is built on it."],
+["pymysql","Database","Pure Python MySQL driver.","get_connection() opens the MySQL connection with DictCursor, so rows come back as dictionaries.","Every query for users, places and bookings."],
+["flask-session","Sessions","Stores session data on the server.","Keeps user_id, username, role and language after login.","Login checks on protected pages."],
+["werkzeug","Security","Core toolkit under Flask.","generate_password_hash and check_password_hash protect passwords. secure_filename makes uploaded names safe.","Register, login and profile uploads."],
+["python-dotenv","Config","Loads a .env file.","load_dotenv() reads SECRET_KEY, mail login, weather key and database settings so secrets stay out of the code.","Configuration at start-up."],
+["requests","Networking","HTTP client.","Calls the weather API with the city name and reads the JSON reply.","Weather on destination pages."],
+["Flask-Mail","Email","Sends emails from Flask.","Mail(app) with Gmail SMTP on port 587 and TLS sends booking confirmations and contact messages.","/book and /contact."],
+["gunicorn","Deployment","Production WSGI server.","Runs the Flask app on Render instead of the development server used by app.run().","Live demo hosting."],
+["Pillow","Images","Python imaging library.","Resizes and checks uploaded destination and profile images.","Image handling."]
+];
+var FLOW=[
+"The user picks a language on the <code>/settings</code> page.",
+"The route saves it in <code>session['language']</code> and in the users table.",
+"The context processor <code>inject_translator()</code> reads the language on every page, loads that dictionary from <code>translations.py</code> and falls back to English.",
+"It exposes a function <code>t(key)</code> to every template, so HTML uses <code>{{ t('destinations') }}</code>.",
+"If a key is missing, <code>t()</code> simply returns the key itself, so the page never breaks."
+];
+var TR={English:["Home","Destinations","Trip Planner","Bookings","Profile","Logout","Language","Save Language"],
+Telugu:["హోమ్","గమ్యస్థానాలు","ట్రిప్ ప్లానర్","బుకింగ్స్","ప్రొఫైల్","లాగౌట్","భాష","భాష సేవ్ చేయి"],
+Hindi:["होम","गंतव्य","ट्रिप प्लानर","बुकिंग","प्रोफ़ाइल","लॉगआउट","भाषा","भाषा सेव करें"],
+Tamil:["முகப்பு","இடங்கள்","பயண திட்டமிடல்","முன்பதிவுகள்","சுயவிவரம்","வெளியேறு","மொழி","மொழியை சேமி"]};
+var KEYS=["home","destinations","trip_planner","bookings","profile","logout","language","save_language"];
+var APP=[
+["fa-box-open","Imports & Setup","start of file","The file imports Flask tools, PyMySQL, Flask-Session, password helpers, Flask-Mail, requests and the translations dictionary. load_dotenv() reads secrets, then Flask(__name__) is created with a secret key and server-side filesystem sessions."],
+["fa-envelope","Mail & Folders","config","Gmail SMTP (port 587, TLS) is configured with credentials from .env. Folders such as static/profile_images and static/destination_images are created if missing."],
+["fa-database","Database & Weather","config","get_connection() builds a PyMySQL connection from environment settings and is reused by every route. The weather API key and URL are prepared for the destination pages."],
+["fa-house","Home Page","/","Counts total destinations, users and bookings from MySQL and sends them to index.html, together with featured places and popular packages."],
+["fa-user-lock","Authentication","/register /login /logout /forgot_password /reset_password","Registration stores a hashed password. Login handles the admin account and normal users and saves user_id, username and role in the session. Forgot password verifies username and email, then lets the user set a new password."],
+["fa-map-location-dot","Destinations","/destinations /destination/<id> /search /filter","Lists places with search by name and filters by state, season, budget and category. The detail page shows attractions, best time, photos and live weather."],
+["fa-route","Trip Planner","/trip_planner /save_plan /my_plans","Takes days, budget and interests, builds a day by day itinerary, saves it to the itineraries table and lets the user reopen or delete it."],
+["fa-heart","Favourites","/favourite /my_favourites","Adds or removes a destination from the user's saved list and shows all favourites on one page."],
+["fa-ticket","Booking","/packages /book /my_bookings /cancel_booking","Shows packages, stores the chosen dates and travellers in bookings, sends a confirmation email and lets the user view or cancel a booking."],
+["fa-id-card","Profile & Settings","/profile /edit_profile /settings","Profile shows details, trips, bookings and favourites. Edit profile updates fields and saves a new picture with a unique uuid name. Settings stores dark mode, theme colour and language."],
+["fa-chart-pie","Analytics","/analytics","Groups bookings by destination and date and calculates totals for charts: popular places, daily activity and peak booking hours."],
+["fa-user-shield","Admin Area","/admin_dashboard /manage_users /manage_destinations /manage_packages","The admin sees totals and recent activity, manages users, and adds, edits or removes destinations and packages with photos."],
+["fa-circle-info","Public Pages & Contact","/about /privacy /terms /support /contact","Serves informational pages. The contact form builds a Flask-Mail message and sends it to the owner. A 404 handler shows a friendly error page."],
+["fa-language","Context Processors","inject_user_settings, inject_translator","Before every page renders, the first loads the user's theme and dark mode, and the second provides the t() translation function, so every template gets themes and languages automatically."],
+["fa-play","Run the App","__main__","app.run(debug=True, host='0.0.0.0', port=5000) starts the development server. In production, Gunicorn starts the same app."]
+];
+
+function $(id){return document.getElementById(id)}
+$('steps').innerHTML=STEPS.map(function(s){return '<div class="glass step rv"><div class="ico"><i class="fas '+s[0]+'"></i></div><h3>'+s[1]+'</h3><p>'+s[2]+'</p></div>'}).join('');
+$('pairs').innerHTML=PAIRS.map(function(p){return '<div class="pair rv"><div class="glass pb"><small><i class="fas fa-triangle-exclamation"></i> Problem</small><p>'+p[0]+'</p></div><div class="mid"><i class="fas fa-arrow-right"></i></div><div class="glass sv"><small><i class="fas fa-circle-check"></i> Solved</small><p>'+p[1]+'</p></div></div>'}).join('');
+$('pros').innerHTML=PROS.map(function(t){return '<li><i class="fas fa-check"></i>'+t+'</li>'}).join('');
+$('cons').innerHTML=CONS.map(function(t){return '<li><i class="fas fa-circle-exclamation"></i>'+t+'</li>'}).join('');
+$('reqs').innerHTML=REQS.map(function(r){return '<span class="chip"><i class="'+r[0]+'"></i>'+r[1]+'</span>'}).join('');
+$('tech').innerHTML=TECH.map(function(t){return '<div class="glass tc rv"><div class="ico"><i class="fas '+t[0]+'"></i></div><h3>'+t[1]+'</h3><p>'+t[2]+'</p></div>'}).join('');
+$('pk').innerHTML=PKG.map(function(p){return '<div class="glass p rv"><b>'+p[0]+'<em>'+p[1]+'</em></b><span>'+p[2]+'</span><span class="use"><strong>In Travel India:</strong> '+p[3]+' <code>'+p[4]+'</code></span></div>'}).join('');
+$('flow').innerHTML=FLOW.map(function(t,i){return '<li><b>'+(i+1)+'</b><div>'+t+'</div></li>'}).join('');
+$('fl').innerHTML=APP.map(function(a){return '<div class="glass rv"><div class="ico"><i class="fas '+a[0]+'"></i></div><div><h3>'+a[1]+'<small>'+a[2].replace(/</g,'&lt;')+'</small></h3><p>'+a[3]+'</p></div></div>'}).join('');
+
+function lang(n){
+  $('rows').innerHTML=KEYS.map(function(k,i){return '<div class="row"><span>t(\''+k+'\')</span><span>'+TR[n][i]+'</span></div>'}).join('');
+  Array.prototype.forEach.call(document.querySelectorAll('.f'),function(b){b.classList.toggle('on',b.dataset.l===n)});
+}
+$('langs').innerHTML=Object.keys(TR).map(function(n){return '<button class="f" data-l="'+n+'">'+n+'</button>'}).join('');
+$('langs').addEventListener('click',function(e){var b=e.target.closest('.f');if(b)lang(b.dataset.l)});
+lang('English');
+
+$('yr').textContent=new Date().getFullYear();
+var bar=$('progress'),tk=false;
+function onScroll(){var m=document.documentElement.scrollHeight-innerHeight;bar.style.transform='scaleX('+(m>0?scrollY/m:0)+')';tk=false}
+addEventListener('scroll',function(){if(!tk){requestAnimationFrame(onScroll);tk=true}},{passive:true});onScroll();
+var io=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target)}})},{threshold:.08,rootMargin:'0px 0px -40px 0px'});
+Array.prototype.forEach.call(document.querySelectorAll('.rv'),function(el,i){el.style.transitionDelay=(i%3)*90+'ms';io.observe(el)});
+var hv=document.getElementById('heroVideo');
+if(hv){hv.muted=true;var pp=hv.play();if(pp&&pp.catch){pp.catch(function(){document.addEventListener('click',function(){hv.play()},{once:true})})}}
+</script>
+{% endraw %}
+</body>
+</html>
